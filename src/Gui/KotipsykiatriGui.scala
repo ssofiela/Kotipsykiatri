@@ -17,7 +17,18 @@ object KotipsykiatriGui extends App {
 
   private def run() = {
     println(games.aloitus)
+    if(vastaus.huutaa()){ //JOS KAIKKI KIRJOTETTU ISOLLA
+    vastaus.huutoon() 
+    }else{                //lisäksi vois olla lopetus myös muualla???
+    
+    println(game.kysymys1())
+    }
+    println(game.kysymys2())
+    println(game.kysymys3())
+    //println(game.kysymys4())
+    
     while (games.loppunut) {
+     // game.kaikki
       println("jatkuu")
       this.printAreaInfo()
       this.playTurn()
@@ -27,20 +38,23 @@ object KotipsykiatriGui extends App {
   }
   private def printAreaInfo() = {
     val area = "vastaa tähän"
-     println("\n\n" + game.kysymys1())
+    // println(game.kysymys1())
     //println("-" * area.name.length)
     //println(area.fullDescription + "\n")
   }
 
   private def playTurn() = {
-    println("JÖÖ")
+   println("command")
     val command = readLine("Message: ")
     val turnReport = games.playTurn(command)
-    println(game.kysymys1())
+    
+   // println(game.kysymys1())
+    //println(game.kysymys2())
+    }
    // if (!turnReport.isEmpty) {
      // println(turnReport)
-   // }
-  }
+   // }//
+ // }
 
 }
 /* 

@@ -7,9 +7,11 @@ import scala.collection.mutable.Buffer
 class muutokset {
 
   def tekijä() = {
-    var vastaukset = Buffer[String]()
+    val inputs2 = readLine("Message: ")
+    val inputs3 = inputs2.split(" ")
+   // var vastaukset = Buffer[String](inputs2)
     var nimet = Buffer[String]()
-    for (kaikkiSanat <- vastaukset) {
+    for (kaikkiSanat <- inputs3) {
       kaikkiSanat.toLowerCase()
       if (kaikkiSanat == "i") {
         nimet += "you"
@@ -17,7 +19,7 @@ class muutokset {
         nimet += "you" // jatka samanlailla kaikki tekijät läpi
       }
     }
-  }
+  }//joo
 
   def omistus() = {
     var vastaukset = Buffer[String]()

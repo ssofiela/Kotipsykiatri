@@ -9,6 +9,10 @@ class Kysymykset {
  // def kaikki() {
   
   def alku(p : alkuja) = p.aloitus
+ /* def ennenEkaa = {
+    val a = new alkuja
+    println(a.haha)
+  }*/
   
   def kysymys1() = {
      val a = new alkuja

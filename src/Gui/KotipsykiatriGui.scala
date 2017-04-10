@@ -20,7 +20,7 @@ object KotipsykiatriGui extends App {
     /*if(vastaus.huutaa()){ //JOS KAIKKI KIRJOTETTU ISOLLA // huutaa takasin ku saadaan toimiin inputit
     vastaus.huutoon() 
     }else{    */            //lisäksi vois olla lopetus myös muualla???
-    
+    //println(game.ennenEkaa) // tää lisäsin tähän lopuks :D
     println(game.kysymys1())
     println("Ensimmäinen kysymys kysytty jee :)")
     println(game.kysymys2())

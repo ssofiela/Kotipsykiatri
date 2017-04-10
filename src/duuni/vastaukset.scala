@@ -14,10 +14,10 @@ class vastaukset {
   //kaikki += inputs
   //println(kaikki)
 
-  def findAnswer(input: Reader) = {
+  /*def findAnswer(input: Reader) = {
     val input = readLine("prompt> ")
-    kaikki
-  }
+    
+  }*/
 
   def bufferKaikki: Buffer[String] = {
     val r = readLine("Message: ")
@@ -38,9 +38,9 @@ class vastaukset {
     vastaukset
   }
 
-  def bufferiSecond = {
-    val inputti = bufferKaikki(1).split(" ")
-    kaikki += inputti(1)
+  def bufferiSecond = { // sit kun kaikki bufferiin saadaan kaikki inputit 0 paikalle ykköset!!!
+    val inputti = bufferKaikki(0).split(" ")
+    kaikki += inputti(0)
     var vastaukset = Buffer[String]()
     for (i <- 0 until inputti.size) {
       vastaukset += inputti(i)

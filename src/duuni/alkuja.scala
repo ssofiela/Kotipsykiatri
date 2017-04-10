@@ -55,12 +55,12 @@ class alkuja {
 
   //tässä kysymysten pohjia:
   // alotukseen vaan hello tai joku
-  // ja seuraavaan name?
+  // ja seut
   def aloitus = "Doctor: Hello, What is your name?"
   
   def eka = "Doctor: Nice to meet you "
   def piste = "."
-  def eka1 = " How are you? "
+  def eka1 = " How are you today? "
   //def eka1 = "?"
 
 

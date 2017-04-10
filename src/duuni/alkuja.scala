@@ -29,13 +29,13 @@ class alkuja {
   def loppunut: Boolean = { // lopetus silloin kuin toinen laittanut sanan bye or thank you or thanks!!!
     val vastaus = new vastaukset
     var uusi = Buffer[String]()
-    for (i <- 0 until vastaus.bufferi.length) {
+    for (i <- 0 until vastaus.bufferiFirst.length) { //mieti millon // ei ainakaan first!!!
 
-      if ((vastaus.bufferi(i) == "bye")) {
+      if ((vastaus.bufferiFirst(i) == "bye")) {
         uusi += "bye"
-      } else if ((vastaus.bufferi(i) == "thank")) {
+      } else if ((vastaus.bufferiFirst(i) == "thank")) {
         uusi += "thank"
-      } else if ((vastaus.bufferi(i) == "thanks")) {
+      } else if ((vastaus.bufferiFirst(i) == "thanks")) {
         uusi += "thanks"
       } else {
         uusi = uusi
@@ -54,9 +54,14 @@ class alkuja {
   def player = "oma"
 
   //tässä kysymysten pohjia:
+  // alotukseen vaan hello tai joku
+  // ja seuraavaan name?
   def aloitus = "Doctor: Hello, What is your name?"
-  def eka = "Doctor: How are you, "
-  def eka1 = "?"
+  
+  def eka = "Doctor: Nice to meet you "
+  def piste = "."
+  def eka1 = " How are you? "
+  //def eka1 = "?"
 
 
 

@@ -13,13 +13,13 @@ class Kysymykset {
   def kysymys1() = {
      val a = new alkuja
      val v = new vastaukset
-    println(a.eka + v.nimi + "?")
+    println(a.eka + v.nimi + "." + a.eka1)
     }
   def kysymys2()= {
     val a = new alkuja
     val v = new vastaukset
     val r = scala.util.Random
-    println(a.toka  + a.tokanJälkeenPiste + a.toka1 + v.howAreYou + "?")
+    println(a.toka  + a.tokanJälkeenPiste + a.toka1 + v.howAreYou + v.nimi + "?")
   }
   def kysymys3() {
     val a = new alkuja

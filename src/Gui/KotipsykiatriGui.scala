@@ -17,17 +17,18 @@ object KotipsykiatriGui extends App {
 
   private def run() = {
     println(games.aloitus)
-    if(vastaus.huutaa()){ //JOS KAIKKI KIRJOTETTU ISOLLA
+    /*if(vastaus.huutaa()){ //JOS KAIKKI KIRJOTETTU ISOLLA // huutaa takasin ku saadaan toimiin inputit
     vastaus.huutoon() 
-    }else{                //lisäksi vois olla lopetus myös muualla???
+    }else{    */            //lisäksi vois olla lopetus myös muualla???
     
     println(game.kysymys1())
-    }
+    println("Ensimmäinen kysymys kysytty jee :)")
     println(game.kysymys2())
     println(game.kysymys3())
     //println(game.kysymys4())
     
     while (games.loppunut) {
+      
      // game.kaikki
       println("jatkuu")
       this.printAreaInfo()

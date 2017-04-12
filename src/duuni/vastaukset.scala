@@ -193,7 +193,7 @@ class vastaukset {
       }
        
     }
-    kokoLause.head
+    kokoLause.toString().drop(1)
   }
 
   /*def vikaKolmoseen = { // eli perjaattees kolmanteen tohtorin kessäriin
@@ -234,11 +234,11 @@ class vastaukset {
     if (buf2.size == 1) { // jos saa toimiin oikein niin vaihda ykköseen
       palauta = buf2(0) // ihan fine mut lisää vaihtoehtoja
     } else if (buf2(1) == "am") {
-      buf2(2)
+      palauta = buf2(2)
     } else if (buf2(3) == "am") {
-      buf2(4)
+      palauta = buf2(4)
     } else if (buf2(2) == "am") {
-      buf2(3)
+      palauta = buf2(3)
     }
     /* var lyhyt = this.bufferKaikki(0).split(" ")
     //for (i <- 0 until bufferiKolmas.length) {

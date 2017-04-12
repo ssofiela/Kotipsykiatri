@@ -20,11 +20,11 @@ class vastaukset {
     
   }*/
 
-  def bufferKaikki = {// tätä pitää jokaisen kysymyksen jölkeen kysyy kerran
+  def bufferKaikki = { // tätä pitää jokaisen kysymyksen jölkeen kysyy kerran
     val r = readLine("Message: ")
     kaikki += r
     println("kaikki: " + kaikki)
-//    kaikki
+    //    kaikki
   }
 
   def bufferiFirst = {
@@ -48,6 +48,13 @@ class vastaukset {
       vastaukset += inputti(i)
     }
     println("Vastaukset: " + vastaukset + " ja  vastaukset.size: " + vastaukset.size + "tää on tokaan")
+    vastaukset
+  }
+
+  def bufferiThird: String = {
+    println("tulin kolmos bufferiin")
+    bufferKaikki
+    var vastaukset = kaikki(2)
     vastaukset
   }
 
@@ -105,9 +112,13 @@ class vastaukset {
     val buf1 = this.bufferiFirst // lisää kaikkiin buf1
 
     if (buf1.size == 1) {
-//    	println("ennen")
-      nimi = kaikki(0) //this.bufferiFirst(0)
-//      println("jälkeen")
+      if (kaikki(0) == "Hello" || kaikki(0) == "Hi" || kaikki(0) == "Hey" || kaikki(0) == "hello") {
+        nimi = "anonyme"
+      } else {
+        //    	println("ennen")
+        nimi = kaikki(0) //this.bufferiFirst(0)
+      }
+      //      println("jälkeen")
       //println("nimiän on tietenkin(?): " + nimi0)
       // kun se on is sanan jälkeen esim my name is "name"... tai it is "name" or it's "name".
     } else if (buf1(2) == "is") {
@@ -137,7 +148,6 @@ class vastaukset {
     }
     nimi
   }
- 
 
   /*def nimiJatko = {
     var nimi = "Noname"
@@ -165,7 +175,28 @@ class vastaukset {
     }
   }*/
 
-  def vikaKolmoseen = { // eli perjaattees kolmanteen tohtorin kessäriin
+  def kolmas = {
+    var bufferi = bufferiThird.split(" ")
+    var kokoLause = Buffer[String]()
+    if (bufferi.isEmpty) {
+      kokoLause += "you did not answer to me"
+    } else {
+      for (kaikkiSanat <- bufferi) {
+        kaikkiSanat.toLowerCase()
+        if (kaikkiSanat == "i") {
+          kokoLause += "you"
+        } else if (kaikkiSanat == "we") {
+          kokoLause += "you" // jatka samanlailla kaikki tekijät läpi
+        } else {
+          kokoLause += kaikkiSanat
+        }
+      }
+       
+    }
+    kokoLause.head
+  }
+
+  /*def vikaKolmoseen = { // eli perjaattees kolmanteen tohtorin kessäriin
     var kokoLause = Buffer[String]()
     if (this.kaikki(1).size == 0) {
       kokoLause += "You should answer longer!"
@@ -184,9 +215,9 @@ class vastaukset {
         kokoLause.tail
       }
     }
-  }
+  }*/
 
-  def howAreYou = {
+  /* def howAreYou = {
     if (bufferiSecond.size == 1) {
       this.bufferiSecond(0)
     } else if (bufferiSecond(1) == "am") {
@@ -194,19 +225,20 @@ class vastaukset {
     } else {
       bufferiSecond(0) //this is NOT wörk reason i dont know
     }
-  }
+  }*/
 
   def feel = { // howareyou ja feel metodi yhdistä
+    val buf2 = bufferiSecond
     var palauta = "nofeel"
     println("olen päässyt feel metodiin")
-    if (this.bufferiSecond.size == 1) { // jos saa toimiin oikein niin vaihda ykköseen
-      palauta = this.bufferiSecond(0) // ihan fine mut lisää vaihtoehtoja
-    } else if (bufferiSecond(1) == "am") {
-      bufferiSecond(2)
-    } else if (bufferiSecond(3) == "am") {
-      bufferiSecond(4)
-    } else if (bufferiSecond(2) == "am") {
-      bufferiSecond(3)
+    if (buf2.size == 1) { // jos saa toimiin oikein niin vaihda ykköseen
+      palauta = buf2(0) // ihan fine mut lisää vaihtoehtoja
+    } else if (buf2(1) == "am") {
+      buf2(2)
+    } else if (buf2(3) == "am") {
+      buf2(4)
+    } else if (buf2(2) == "am") {
+      buf2(3)
     }
     /* var lyhyt = this.bufferKaikki(0).split(" ")
     //for (i <- 0 until bufferiKolmas.length) {
@@ -217,7 +249,7 @@ class vastaukset {
     palauta
   }
 
- /* def huutaa(): Boolean = { // pitäs tehä kaikille noille buffereille ??? miten tää oli
+  /* def huutaa(): Boolean = { // pitäs tehä kaikille noille buffereille ??? miten tää oli
     var jou = this.bufferiFirst
     //var jou2 = this.bufferiKolmas
     println("huutaminen")
@@ -238,8 +270,7 @@ class vastaukset {
   }
 }*/
 
-
-/*val lineReader = new BufferedReader(input)
+  /*val lineReader = new BufferedReader(input)
 
     try {
 
@@ -250,4 +281,4 @@ class vastaukset {
       val headerParts = currentLine.split(" ")
       
 */
-    }
+}

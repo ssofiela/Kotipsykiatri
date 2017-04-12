@@ -41,7 +41,7 @@ class Kysymykset {
   }
   def kysymys3() {
     
-    println(a.kolmas + a.kolmas2) // VÄLIIN LISÄTÄÄN VIKAKOLMOSEEN KUN TOIMII
+    println(a.kolmas + a.kolmas2 + v.kolmas + "?") // VÄLIIN LISÄTÄÄN VIKAKOLMOSEEN KUN TOIMII
   }
   def kysymys4() {
     

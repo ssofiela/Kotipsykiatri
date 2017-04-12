@@ -9,6 +9,7 @@ import java.io.IOException
 import java.io.Reader
 
 class vastaukset {
+  println("uusi vastaukset")
   var kaikki = Buffer[String]()
   //val inputs = readLine("Message: ")
   //kaikki += inputs
@@ -19,17 +20,17 @@ class vastaukset {
     
   }*/
 
-  def bufferKaikki: Buffer[String] = {
+  def bufferKaikki = {// tätä pitää jokaisen kysymyksen jölkeen kysyy kerran
     val r = readLine("Message: ")
     kaikki += r
-    println(kaikki)
-    kaikki
+    println("kaikki: " + kaikki)
+//    kaikki
   }
 
   def bufferiFirst = {
-
-    val inputti = bufferKaikki(0).split(" ")
-    kaikki += inputti(0)
+    bufferKaikki
+    val inputti = kaikki(0).split(" ")
+    //kaikki += inputti(0)    //kypä lisäs
     var vastaukset = Buffer[String]()
     for (i <- 0 until inputti.size) {
       vastaukset += inputti(i)
@@ -39,8 +40,9 @@ class vastaukset {
   }
 
   def bufferiSecond = { // sit kun kaikki bufferiin saadaan kaikki inputit 0 paikalle ykköset!!!
-    val inputti = bufferKaikki(0).split(" ")
-    kaikki += inputti(0)
+    bufferKaikki
+    val inputti = kaikki(1).split(" ")
+    //kaikki += inputti(0)
     var vastaukset = Buffer[String]()
     for (i <- 0 until inputti.size) {
       vastaukset += inputti(i)
@@ -71,7 +73,8 @@ class vastaukset {
     vastaukset
   }*/
   def bufferiKolmas = { //tokalle miten saada toka
-    val inputti = bufferKaikki(2).split(" ")
+    bufferKaikki
+    val inputti = kaikki(2).split(" ")
     var vastaukset = Buffer[String]()
     for (i <- 0 until inputti.size) {
       vastaukset += inputti(i)
@@ -97,34 +100,91 @@ class vastaukset {
 
   def nimi = {
     //val nimi = bufferiFirst(0)
-    println("jee")
+    var nimi = "anonyme"
 
-    val buf1 = this.bufferiFirst
+    val buf1 = this.bufferiFirst // lisää kaikkiin buf1
 
     if (buf1.size == 1) {
-      val nimi0 = kaikki(0) //this.bufferiFirst(0)
-      println("nimiän on tietenkin(?): " + nimi0)
-      nimi0 // kun se on is sanan jälkeen esim my name is "name"... tai it is "name" or it's "name".
+//    	println("ennen")
+      nimi = kaikki(0) //this.bufferiFirst(0)
+//      println("jälkeen")
+      //println("nimiän on tietenkin(?): " + nimi0)
+      // kun se on is sanan jälkeen esim my name is "name"... tai it is "name" or it's "name".
     } else if (buf1(2) == "is") {
-      val nimi1 = buf1(3)
-      nimi1
-    } else if (bufferiFirst(1) == "is") {
-      val nimi2 = bufferiFirst(2)
-      nimi2
-      /*} else if (bufferiEkalle(1) == "am") {
-      val nimi3 = bufferiFirst(2)
-      nimi3
-    } else if (bufferiFirst(0) == "It's") { //TÄÄ EI TOIMI
-      val nimi4 = bufferiFirst(1)
-      nimi4
-    } else if (bufferiFirst(0) == "it's") { //TÄÄ EI TOIMI
-      val nimi5 = bufferiFirst(1)
-      nimi5*/
+      nimi = buf1(3)
+
+    } else if (buf1(1) == "is") {
+      nimi = buf1(2)
+
+    } else if (buf1(3) == "is") {
+      nimi = buf1(4)
+
+    } else if (buf1(4) == "is") {
+      nimi = buf1(5)
+
+    } else if (buf1(1) == "am") {
+      nimi = buf1(2)
+
+      /*} else if (buf1(2) == "am") { //tää ei vielä toimi
+      nimi = buf1(3)*/
+
+      /*} else if (buf1(0) == "Its") { //TÄÄ EI TOIMI
+      nimi = buf1(1)
+      
+    } else if (buf1(0) == "it´s") { //TÄÄ EI TOIMI
+      nimi = buf1(1)*/
 
     }
-
+    nimi
   }
-  //nimi muuttuu aina uuden inputin mukana!! miten saada pysymän tona?
+ 
+
+  /*def nimiJatko = {
+    var nimi = "Noname"
+
+    val buf2 = this.bufferiSecond // lisää kaikkiin buf1
+
+    if (buf2.size == 1) {
+      nimi = kaikki(1) //this.bufferiFirst(0)
+      //println("nimiän on tietenkin(?): " + nimi0)
+      // kun se on is sanan jälkeen esim my name is "name"... tai it is "name" or it's "name".
+    } else if (buf2(2) == "is") {
+      nimi = buf2(3)
+
+    } else if (buf2(1) == "is") {
+      nimi = buf2(2)
+
+    } else if (buf2(3) == "is") {
+      nimi = buf2(4)
+
+    } else if (buf2(4) == "is") {
+      nimi = buf2(5)
+
+    } else if (buf2(1) == "am") {
+      nimi = buf2(2)
+    }
+  }*/
+
+  def vikaKolmoseen = { // eli perjaattees kolmanteen tohtorin kessäriin
+    var kokoLause = Buffer[String]()
+    if (this.kaikki(1).size == 0) {
+      kokoLause += "You should answer longer!"
+    } else {
+
+      var pienemmiksi = this.kaikki(1).split(" ")
+      for (kaikkiSanat <- pienemmiksi) {
+        kaikkiSanat.toLowerCase()
+        if (kaikkiSanat == "i") {
+          kokoLause += "you"
+        } else if (kaikkiSanat == "we") {
+          kokoLause += "you" // jatka samanlailla kaikki tekijät läpi
+        } else {
+          kokoLause += kaikkiSanat
+        }
+        kokoLause.tail
+      }
+    }
+  }
 
   def howAreYou = {
     if (bufferiSecond.size == 1) {
@@ -136,46 +196,34 @@ class vastaukset {
     }
   }
 
-  def kolmoseen = {
-
-    var kokoLause = Buffer[String]()
-    // var vastaukset = Buffer[String](inputs2)
-
-    for (kaikkiSanat <- this.bufferiFirst) {
-      kaikkiSanat.toLowerCase()
-      if (kaikkiSanat == "i") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "we") {
-        kokoLause += "you" // jatka samanlailla kaikki tekijät läpi
-      } else {
-        kokoLause += kaikkiSanat
-      }
-
+  def feel = { // howareyou ja feel metodi yhdistä
+    var palauta = "nofeel"
+    println("olen päässyt feel metodiin")
+    if (this.bufferiSecond.size == 1) { // jos saa toimiin oikein niin vaihda ykköseen
+      palauta = this.bufferiSecond(0) // ihan fine mut lisää vaihtoehtoja
+    } else if (bufferiSecond(1) == "am") {
+      bufferiSecond(2)
+    } else if (bufferiSecond(3) == "am") {
+      bufferiSecond(4)
+    } else if (bufferiSecond(2) == "am") {
+      bufferiSecond(3)
     }
-    for (joo <- kokoLause) {
-      joo
-    }
-
-  }
-
-  def feel = {
-    if (bufferiKolmas.size == 1) {
-      this.bufferiKolmas
-    }
+    /* var lyhyt = this.bufferKaikki(0).split(" ")
     //for (i <- 0 until bufferiKolmas.length) {
-    if (bufferiKolmas(2) == "feel") {
-      bufferiKolmas(3)
-    }
+    if (lyhyt(2)== "feel") {
+      lyhyt(3)*/ //Toinen kysymys feilas tän takii!!!!!
     //}
-
+    //}
+    palauta
   }
 
-  def huutaa(): Boolean = { // pitäs tehä kaikille noille buffereille ??? miten tää oli
-    var jou = this.bufferiKolmas
-    var jou2 = this.bufferiKolmas
-    var jou4 = ""
-    for (jou3 <- 0 until bufferiKolmas.size) {
-      jou4 = bufferiKolmas(jou3).toUpperCase()
+ /* def huutaa(): Boolean = { // pitäs tehä kaikille noille buffereille ??? miten tää oli
+    var jou = this.bufferiFirst
+    //var jou2 = this.bufferiKolmas
+    println("huutaminen")
+    var jou4 = Buffer[String]()
+    for (jou3 <- 0 until bufferiFirst.size) {
+      jou4 += bufferiFirst(jou3).toUpperCase()
     }
     if (jou == jou4) {
       true
@@ -188,7 +236,7 @@ class vastaukset {
   def huutoon() = {
     println("Doctor: Do you feel awfull when you use upper cases?")
   }
-}
+}*/
 
 
 /*val lineReader = new BufferedReader(input)
@@ -201,5 +249,5 @@ class vastaukset {
 
       val headerParts = currentLine.split(" ")
       
-
-    }*/
+*/
+    }

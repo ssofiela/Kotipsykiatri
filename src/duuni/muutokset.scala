@@ -6,7 +6,7 @@ import scala.collection.mutable.Buffer
 
 class muutokset {
 
-  def tekijä() = {
+  def tekijä() = { // tää on vaan avuks mutta tätä luokkaa ei lopulliseen luultavasti tule ollenkaaan
     val inputs2 = readLine("Message: ")
     val inputs3 = inputs2.split(" ")
    // var vastaukset = Buffer[String](inputs2)

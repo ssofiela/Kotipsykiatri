@@ -9,23 +9,32 @@ object KotipsykiatriGui extends App {
   private val vastaus = new vastaukset
   //private val player = game.player
   this.run()
-
- 
+  println("moi")
+ // ja mihin väliin pitäs kysymykset laittaa että saisin vuorotellen doctor, message ...
 
   //private val player = game.player
-  this.playTurn()
+//  this.playTurn()
+  
+  
 
   private def run() = {
     println(games.aloitus)
-    /*if(vastaus.huutaa()){ //JOS KAIKKI KIRJOTETTU ISOLLA // huutaa takasin ku saadaan toimiin inputit
+//    println("joo")
+//    this.playTurn()
+   /* if(vastaus.huutaa()){ //JOS KAIKKI KIRJOTETTU ISOLLA // huutaa takasin ku saadaan toimiin inputit
     vastaus.huutoon() 
-    }else{    */            //lisäksi vois olla lopetus myös muualla???
-    //println(game.ennenEkaa) // tää lisäsin tähän lopuks :D
-    println(game.kysymys1())
-    println("Ensimmäinen kysymys kysytty jee :)")
-    println(game.kysymys2())
+    }else{     */           //lisäksi vois olla lopetus myös muualla???
+    
+    game.kysymys1()
+    game.kysymys2()
+    println("Toinen kysymys kysytty hurraa :D")
+
     println(game.kysymys3())
-    //println(game.kysymys4())
+    
+    println(game.kysymys4())
+    println(game.kysymys5())
+    //println(game.kysymys4())*/
+   // }
     
     while (games.loppunut) {
       
@@ -45,13 +54,19 @@ object KotipsykiatriGui extends App {
   }
 
   private def playTurn() = {
+   println("jee") 
    println("command")
     val command = readLine("Message: ")
+    println("2")
     val turnReport = games.playTurn(command)
     
-   // println(game.kysymys1())
-    //println(game.kysymys2())
+    
+    
+    
     }
+ 
+  
+  
    // if (!turnReport.isEmpty) {
      // println(turnReport)
    // }//

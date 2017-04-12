@@ -2,36 +2,61 @@ package duuni
 import Gui._
 
 class Kysymykset {
-  
- /* def vastauksia = {
+  val a = new alkuja
+    val v = new vastaukset
+
+  /* def vastauksia = {
    private var ok =  Buffer[String]()
   }*/
- // def kaikki() {
-  
-  def alku(p : alkuja) = p.aloitus
- /* def ennenEkaa = {
+  // def kaikki() {
+
+  def alku(p: alkuja) = p.aloitus
+  /* def ennenEkaa = {
     val a = new alkuja
     println(a.haha)
   }*/
-  
+
   def kysymys1() = {
-     val a = new alkuja
-     val v = new vastaukset
+        //jos teet tolla tavalla laita alkuun val nimi= v.nimi...s
+    //if(v.nimi.isEmpty()) {
+     //println("Could you tell me your name again?")
+    //} else {
     println(a.eka + v.nimi + "." + a.eka1)
-    }
-  def kysymys2()= {
-    val a = new alkuja
-    val v = new vastaukset
+//    println("ekakysymys kysymykset luokasta")
+   //}
+  }
+  def kysymys1Jatko() = {
+   
+    println(a.eka + v.nimi + "." + a.eka1)
+    
+  }
+  def kysymys2() = {
+    
     val r = scala.util.Random
-    println(a.toka  + a.tokanJälkeenPiste + a.toka1 + v.howAreYou + v.nimi + "?")
+    /*if(v.feel.isEmpty()){
+      println("Doctor: Could you tell me your feel beter?")
+    } else {*/
+    println(a.toka + a.tokanJälkeenPiste + a.toka1 + v.feel + "?")
+    //}
   }
   def kysymys3() {
-    val a = new alkuja
-     val v = new vastaukset
-   println(a.kolmas + v.kolmoseen + a.kolmas2)
+    
+    println(a.kolmas + a.kolmas2) // VÄLIIN LISÄTÄÄN VIKAKOLMOSEEN KUN TOIMII
   }
-  def kysymys4(){
-    println("neljäs")
+  def kysymys4() {
+    
+    println(a.neljäs)
   }
-  //}
+  def kysymys5() {// alkuun joku val feel = v.feel
+     //tähän ifit
+    if (v.feel == "fine" || v.feel == "good" || v.feel == "great" || v.feel == "awesome") { //... jatka kaikkia mahdollisia ilosia
+      println(a.viidesHappy + v.feel + ".")
+    } else if (v.feel == "bad" || v.feel == "awfull") { // jatka kaikki mahdolliset huonot
+      println(a.viidenUnhappy + v.feel + ".")
+    } else {
+      println(a.viidesElse + v.feel + ".")
+    }
+  }
 }
+
+//ja siitä jos laittaa ? niin vastaa et mä oon se joka kysyy kysykset... ja uudestaan

@@ -21,13 +21,13 @@ class Kysymykset {
     //if(v.nimi.isEmpty()) {
      //println("Could you tell me your name again?")
     //} else {
-    println(a.eka + v.nimi + "." + a.eka1)
+    println(a.eka + v.name + "." + a.eka1)
 //    println("ekakysymys kysymykset luokasta")
    //}
   }
   def kysymys1Jatko() = {
    
-    println(a.eka + v.nimi + "." + a.eka1)
+    println(a.eka + v.name + "." + a.eka1)
     
   }
   def kysymys2() = {

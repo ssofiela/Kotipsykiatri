@@ -68,16 +68,17 @@ class alkuja {
   def toka = "Doctor: I understand that"
   def tokanJälkeenPiste = "."
   def toka1 = " What makes that you are "// tähän tokan kohan pelkkä ilmasu!!
-  def kolmas2 = "?"
+
 
   //"I see your problem, "
   /*def toka2 = "what do you feel about "
   def toka3 = "?"*/
   
 
-  def kolmas = "Doctor: Okey, what are you thinking that  " //koko vastaus HUOM! muutokset
+  def kolmas = "Doctor: Okey, what are you thinking that " //koko vastaus HUOM! muutokset
   
-  def neljäs = "Doctor: I see. Tell me more that " //sama kuin edelliseen
+  def neljäs = "Doctor: I see "
+  def neljäs2 = "Tell me more that " //sama kuin edelliseen
   
   def viidesHappy = "Doctor: I am happy to hear that " //koko vastaus muutoksineen
   def viidenUnhappy = "Doctor: I hope you have beter day tomorrow that you are not " //kaikista tokan pelkkä ilmasu

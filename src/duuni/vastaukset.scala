@@ -11,6 +11,7 @@ import java.io.Reader
 class vastaukset {
   println("uusi vastaukset")
   var kaikki = Buffer[String]()
+  var nimiBuffer = Buffer[String]()
   //val inputs = readLine("Message: ")
   //kaikki += inputs
   //println(kaikki)
@@ -23,7 +24,7 @@ class vastaukset {
   def bufferKaikki = { // tätä pitää jokaisen kysymyksen jölkeen kysyy kerran
     val r = readLine("Message: ")
     kaikki += r
-    println("kaikki: " + kaikki)
+    println("kaikki: " + kaikki)         
     //    kaikki
   }
 
@@ -47,12 +48,12 @@ class vastaukset {
     for (i <- 0 until inputti.size) {
       vastaukset += inputti(i)
     }
-    println("Vastaukset: " + vastaukset + " ja  vastaukset.size: " + vastaukset.size + "tää on tokaan")
+    println("Vastaukset: " + vastaukset + " ja  vastaukset.size: " + vastaukset.size + "tää on tokaan")  
     vastaukset
   }
 
   def bufferiThird: String = {
-    println("tulin kolmos bufferiin")
+   // println("tulin kolmos bufferiin")
     bufferKaikki
     var vastaukset = kaikki(2)
     vastaukset
@@ -86,7 +87,7 @@ class vastaukset {
     for (i <- 0 until inputti.size) {
       vastaukset += inputti(i)
     }
-    println(vastaukset, "toka")
+    //println(vastaukset, "toka")
     vastaukset
   }
 
@@ -130,11 +131,13 @@ class vastaukset {
     } else if (buf1(3) == "is") {
       nimi = buf1(4)
 
-    } else if (buf1(4) == "is") {
-      nimi = buf1(5)
+    /*} else if (buf1(4) == "is") {
+      nimi = buf1(5)*/
 
     } else if (buf1(1) == "am") {
       nimi = buf1(2)
+       } else if (buf1(2) == "am") {
+      nimi = buf1(3)
 
       /*} else if (buf1(2) == "am") { //tää ei vielä toimi
       nimi = buf1(3)*/
@@ -146,6 +149,7 @@ class vastaukset {
       nimi = buf1(1)*/
 
     }
+    nimiBuffer += nimi
     nimi
   }
 
@@ -187,13 +191,15 @@ class vastaukset {
           kokoLause += "you"
         } else if (kaikkiSanat == "we") {
           kokoLause += "you" // jatka samanlailla kaikki tekijät läpi
+        } else if (kaikkiSanat == "am") {
+          kokoLause += "are"
         } else {
           kokoLause += kaikkiSanat
         }
       }
        
     }
-    kokoLause.toString().drop(1)
+    kokoLause.mkString(" ")
   }
 
   /*def vikaKolmoseen = { // eli perjaattees kolmanteen tohtorin kessäriin
@@ -226,28 +232,62 @@ class vastaukset {
       bufferiSecond(0) //this is NOT wörk reason i dont know
     }
   }*/
+  
+  def vitonen = {
+    var buf2 = bufferiSecond
+    var vitone = ""
+    for(i <- 0 until buf2.size){
+      if(buf2(i) =="fine") {
+        vitone = buf2(i)
+      }
+    }
+    vitone
+  }
+  
+  def feeling = {
+    var buf2 = bufferiSecond //tähän kans muutokset i -> you...
+    var lopullinen = "heey"
+    if(buf2.size == 1){
+      lopullinen = "you are " + kaikki(1)
+    } else {
+    lopullinen = kaikki(1)
+    }
+    //println("lopullinen:" + lopullinen)  !!!!!!!!!!!!!!!!!!!!
+    lopullinen
+  }
 
-  def feel = { // howareyou ja feel metodi yhdistä
-    val buf2 = bufferiSecond
+  def feel = {   // tähän lissä i am feeling well... i am fine... now i am fine... yms.
+    val buf2 = bufferiSecond // ekana kaikista lyhyimmät ja ehdoks pituuksii ettei tuu erroreita
     var palauta = "nofeel"
-    println("olen päässyt feel metodiin")
-    if (buf2.size == 1) { // jos saa toimiin oikein niin vaihda ykköseen
+    //println("olen päässyt feel metodiin")
+    if (buf2.size == 1) { 
       palauta = buf2(0) // ihan fine mut lisää vaihtoehtoja
-    } else if (buf2(1) == "am") {
-      palauta = buf2(2)
-    } else if (buf2(3) == "am") {
+    } else if (buf2(1) == "am" && buf2(2) == "feeling") {
+      palauta = buf2(3)
+    } else if (buf2(3) == "am" && buf2(4) == "feeling") {
       palauta = buf2(4)
+       } else if (buf2(1) == "am") {
+      palauta = buf2(2)
     } else if (buf2(2) == "am") {
       palauta = buf2(3)
     }
-    /* var lyhyt = this.bufferKaikki(0).split(" ")
-    //for (i <- 0 until bufferiKolmas.length) {
-    if (lyhyt(2)== "feel") {
-      lyhyt(3)*/ //Toinen kysymys feilas tän takii!!!!!
-    //}
-    //}
+    
     palauta
   }
+  
+ 
+ /* def josKysymys: Boolean = { // mieti milloin kysymysmerkki
+    var kysymys = kaikki
+    for(i <- 0 until kysymys.size){
+      if(kysymys(i) == "?"){
+        true
+      } else {
+        false
+      }
+    }
+  }*/
+  
+  
 
   /* def huutaa(): Boolean = { // pitäs tehä kaikille noille buffereille ??? miten tää oli
     var jou = this.bufferiFirst

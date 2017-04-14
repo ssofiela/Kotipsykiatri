@@ -41,21 +41,24 @@ class Kysymykset {
   }
   def kysymys3() {
     
-    println(a.kolmas + a.kolmas2 + v.kolmas + "?") // VÄLIIN LISÄTÄÄN VIKAKOLMOSEEN KUN TOIMII
+    println(a.kolmas + v.kolmas + "?") // VÄLIIN LISÄTÄÄN VIKAKOLMOSEEN KUN TOIMII
   }
-  def kysymys4() {
+  def kysymys4() {  //nimeä voi käyttää nimiBufferin avulla!
     
-    println(a.neljäs)
+    println(a.neljäs + v.nimiBuffer(0) + ". " + a.neljäs2 + v.feeling)
   }
   def kysymys5() {// alkuun joku val feel = v.feel
+    println(a.viidesHappy + v.vitonen)
      //tähän ifit
-    if (v.feel == "fine" || v.feel == "good" || v.feel == "great" || v.feel == "awesome") { //... jatka kaikkia mahdollisia ilosia
+   /* var feel = v.vitonen
+    if (feel == "fine" || feel == "good" || feel == "great" || feel == "awesome") { //... jatka kaikkia mahdollisia ilosia
       println(a.viidesHappy + v.feel + ".")
-    } else if (v.feel == "bad" || v.feel == "awfull") { // jatka kaikki mahdolliset huonot
+    } else if (feel == "bad" || feel == "awfull") { // jatka kaikki mahdolliset huonot
       println(a.viidenUnhappy + v.feel + ".")
     } else {
       println(a.viidesElse + v.feel + ".")
     }
+  }*/
   }
 }
 

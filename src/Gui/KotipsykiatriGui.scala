@@ -9,7 +9,7 @@ object KotipsykiatriGui extends App {
   private val vastaus = new vastaukset
   //private val player = game.player
   this.run()
-  println("moi")
+  //println("moi")
  // ja mihin väliin pitäs kysymykset laittaa että saisin vuorotellen doctor, message ...
 
   //private val player = game.player
@@ -27,12 +27,12 @@ object KotipsykiatriGui extends App {
     
     game.kysymys1()
     game.kysymys2()
-    println("Toinen kysymys kysytty hurraa :D")
+    //println("Toinen kysymys kysytty hurraa :D")
 
-    println(game.kysymys3())
+    game.kysymys3()
     
-    println(game.kysymys4())
-    println(game.kysymys5())
+    game.kysymys4()
+    game.kysymys5()
     //println(game.kysymys4())*/
    // }
     

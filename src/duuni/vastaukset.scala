@@ -89,46 +89,62 @@ class vastaukset {
   def name = {
     var nameIs = "anonyme"
     val buf1 = this.bufferiFirst 
+    var line = Buffer[String]()
+    
+    if(buf1(buf1.length-1).contains(".")) {
+      val pituus = buf1(buf1.length-1).length
+      for(u <- 0 until buf1.size -1) {
+        line += buf1(u) 
+      }
+      line += buf1(buf1.size-1).substring(0, pituus -1) 
+       println(line)
+    } else {
+     for(i <- 0 until buf1.size){
+       line += buf1(i)
+     }
+    }
+    
+    
 
-    if (buf1.size == 1) {  
+    if (line.size == 1) {  
       if (all(0) == "Hello" || all(0) == "Hi" || all(0) == "Hey" || all(0) == "hello") {  
         // tämä katsoo, että jos on vaan tervehdys, niin sitä ei katsota nimeksi
         nameIs = "anonyme"
       } else {
         nameIs = all(0)  //muuten vain yksi sana mielletään nimeksi
       }
-    } else if (buf1.size == 2) {
-      if (buf1(0) == "it´s") {
-        nameIs = buf1(1)
-      } else if (buf1(0) == "It´s") {
-        nameIs = buf1(1)
+    } else if (line.size == 2) {
+      if (line(0) == "it´s") {
+        nameIs = line(1)
+      } else if (line(0) == "It´s") {
+        nameIs = line(1)
       }
       
-    } else if (buf1.size == 3) {
-      if (buf1(1) == "it´s") {
-        nameIs = buf1(2)
-      } else if (buf1(1) == "is") {
-        nameIs = buf1(2)
-      } else if (buf1(1) == "am") {
-        nameIs = buf1(2)
-      } else if (buf1(1) == "i'm") {
-        nameIs = buf1(2)
-      } else if (buf1(1) == "I'm") { //kysy iskältä kumpi '
-        nameIs = buf1(2)
-      } else if (buf1(1) == "i'm") {
-        nameIs = buf1(2)
+    } else if (line.size == 3) {
+      if (line(1) == "it´s") {
+        nameIs = line(2)
+      } else if (line(1) == "is") {
+        nameIs = line(2)
+      } else if (line(1) == "am") {
+        nameIs = line(2)
+      } else if (line(1) == "i'm") {
+        nameIs = line(2)
+      } else if (line(1) == "I'm") { //kysy iskältä kumpi '
+        nameIs = line(2)
+      } else if (line(1) == "i'm") {
+        nameIs = line(2)
       }
       
-    } else if (buf1.size == 4) {
-      if (buf1(2) == "is") {
-        nameIs = buf1(3)
-      } else if (buf1(2) == "am") {
-        nameIs = buf1(3)
+    } else if (line.size == 4) {
+      if (line(2) == "is") {
+        nameIs = line(3)
+      } else if (line(2) == "am") {
+        nameIs = line(3)
       }
       
-    } else if (buf1.size == 5) {
-      if (buf1(3) == "is") {
-        nameIs = buf1(4)
+    } else if (line.size == 5) {
+      if (line(3) == "is") {
+        nameIs = line(4)
       }
     } else {
       nameIs = "anonyme"
@@ -143,11 +159,23 @@ class vastaukset {
 
   def kolmas = {
     var bufferi = bufferiThird.split(" ")
-    var kokoLause = Buffer[String]()
-    if (bufferi.isEmpty) {
-      kokoLause += "you did not answer to me"
+    var sana = Buffer[String]()   // tähän sana ilman pistettä
+
+    if(bufferi(bufferi.length-1).contains(".")) {
+      val pituus = bufferi(bufferi.length-1).length
+      for(u <- 0 until bufferi.size -1) {
+        sana += bufferi(u) 
+      }
+      sana += bufferi(bufferi.size-1).substring(0, pituus -1) 
+       println(sana)
     } else {
-      for (kaikkiSanat <- bufferi) {
+     for(i <- 0 until bufferi.size){
+       sana += bufferi(i)
+     }
+    }
+  
+    var kokoLause = Buffer[String]()
+      for (kaikkiSanat <- sana) {
         kaikkiSanat.toLowerCase()
         if (kaikkiSanat == "i") {
           kokoLause += "you"
@@ -155,13 +183,21 @@ class vastaukset {
           kokoLause += "you" // jatka samanlailla kaikki tekijät läpi
         } else if (kaikkiSanat == "am") {
           kokoLause += "are"
+          } else if (kaikkiSanat == "my") {
+          kokoLause += "your"
+          } else if (kaikkiSanat == "mine") {
+          kokoLause += "yours"
+          } else if (kaikkiSanat == "was") {
+          kokoLause += "were"
         } else {
           kokoLause += kaikkiSanat
         }
+      
       }
-
-    }
+    
+    
     kokoLause.mkString(" ")
+    
   }
 
   /*def vikaKolmoseen = { // eli perjaattees kolmanteen tohtorin kessäriin
@@ -208,13 +244,16 @@ class vastaukset {
 
   def feeling = {
     var buf2 = bufferiSecond //tähän kans muutokset i -> you...
-    var lopullinen = "heey"
-    if (buf2.size == 1) {
+    var lopullinen = ""
+    if (buf2(1).isEmpty() && !buf2(0).isEmpty()) {
       lopullinen = "you are " + all(1)
-    } else {
+    } else if(buf2.size > 1){
       lopullinen = all(1)
+    } else {
+      lopullinen = "I can help you beter if you answer that are you fine?"
     }
-    //println("lopullinen:" + lopullinen)  !!!!!!!!!!!!!!!!!!!!
+    
+    println("lopullinen:" + lopullinen) 
     lopullinen
   }
 

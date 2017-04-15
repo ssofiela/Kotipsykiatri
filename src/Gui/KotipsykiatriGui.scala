@@ -10,41 +10,39 @@ object KotipsykiatriGui extends App {
   //private val player = game.player
   this.run()
   //println("moi")
- // ja mihin väliin pitäs kysymykset laittaa että saisin vuorotellen doctor, message ...
+  // ja mihin väliin pitäs kysymykset laittaa että saisin vuorotellen doctor, message ...
 
   //private val player = game.player
-//  this.playTurn()
-  
-  
+  //  this.playTurn()
 
   private def run() = {
-    println(games.aloitus)
-//    println("joo")
-//    this.playTurn()
-   /* if(vastaus.huutaa()){ //JOS KAIKKI KIRJOTETTU ISOLLA // huutaa takasin ku saadaan toimiin inputit
+    println(game.alku())
+    //    println("joo")
+    //    this.playTurn()
+    /* if(vastaus.huutaa()){ //JOS KAIKKI KIRJOTETTU ISOLLA // huutaa takasin ku saadaan toimiin inputit
     vastaus.huutoon() 
-    }else{     */           //lisäksi vois olla lopetus myös muualla???
-    
+    }else{     */ //lisäksi vois olla lopetus myös muualla???
+
     game.kysymys1()
     game.kysymys2()
     //println("Toinen kysymys kysytty hurraa :D")
 
     game.kysymys3()
-    
+
     game.kysymys4()
-    game.kysymys5()
+   // game.kysymys5()
     //println(game.kysymys4())*/
-   // }
-    
+    // }
+
     while (games.loppunut) {
-      
-     // game.kaikki
+
+      // game.kaikki
       println("jatkuu")
       this.printAreaInfo()
       this.playTurn()
-    
+
     }
-    println(games.lopetus1)//(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
+    //println(games.lopetus1)//(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
   }
   private def printAreaInfo() = {
     val area = "vastaa tähän"
@@ -54,23 +52,18 @@ object KotipsykiatriGui extends App {
   }
 
   private def playTurn() = {
-   println("jee") 
-   println("command")
+    println("jee")
+    println("command")
     val command = readLine("Message: ")
     println("2")
     val turnReport = games.playTurn(command)
-    
-    
-    
-    
-    }
- 
-  
-  
-   // if (!turnReport.isEmpty) {
-     // println(turnReport)
-   // }//
- // }
+
+  }
+
+  // if (!turnReport.isEmpty) {
+  // println(turnReport)
+  // }//
+  // }
 
 }
 /* 

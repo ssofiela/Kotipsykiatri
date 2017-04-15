@@ -56,7 +56,7 @@ class alkuja {
   //tässä kysymysten pohjia:
   // alotukseen vaan hello tai joku
   // ja seut
-  def aloitus = "Doctor: Hello, What is your name?"
+/*  def aloitus = "Doctor: Hello, What is your name?"
   
   def eka = "Doctor: Nice to meet you "
   def piste = "."
@@ -87,5 +87,11 @@ class alkuja {
 
   def lopetus1 = "I hope only the best for you, Bye"
   def lopetus2 = "bye"
+  */
+  
+  
+  
+  
+  
 
 }

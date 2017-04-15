@@ -1,0 +1,17 @@
+Doctor: Hello, What is your name
+Doctor: Nice to meet you 
+ How are you today
+Doctor: I understand that
+What makes that you are 
+what do you feel about 
+Doctor: Okey, what are you thinking that 
+Doctor: I see 
+Tell me more that 
+Doctor: I am happy to hear that 
+Doctor: I hope you have beter day tomorrow that you are not 
+anymore
+Doctor: jotain
+
+I hope only the best for you, Bye"
+  def lopetus2 = "bye"
+

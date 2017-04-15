@@ -1,17 +1,20 @@
-Doctor: Hello, What is your name
+Doctor: Hello, What is your name?
 Doctor: Nice to meet you 
- How are you today
+ How are you feeling today
 Doctor: I understand that
-What makes that you are 
-what do you feel about 
+ What makes that you are 
 Doctor: Okey, what are you thinking that 
 Doctor: I see 
 Tell me more that 
+Doctor: What do you feel about 
 Doctor: I am happy to hear that 
 Doctor: I hope you have beter day tomorrow that you are not 
 anymore
 Doctor: jotain
-
-I hope only the best for you, Bye"
-  def lopetus2 = "bye"
-
+I hope only the best for you, Bye
+bye
+Doctor: Tell me something! How are you feeling today?
+Doctor: Could you tell me your feel better?
+Doctor: I am asking questions for you :P
+you are not answering to me?
+Doctor: I am just a doctor for you but nice to meet you 

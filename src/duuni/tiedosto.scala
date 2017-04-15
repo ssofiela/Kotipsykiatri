@@ -19,7 +19,7 @@ class tiedosto {
     for (line <- Source.fromFile(fileName).getLines()) {
       //println(line)   NÄÄ VOI MYÖHEMMIN AUTTAA
       kysymykset += line
-      //println(kysymykset)    NÄÄ VOI MYÖHEMMIN AUTTAA
+     // println(kysymykset)   
     }
  /* } catch {
     case ex: Exception => println("öööö")*/

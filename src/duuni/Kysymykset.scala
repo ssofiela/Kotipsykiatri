@@ -19,9 +19,10 @@ class Kysymykset {
 
   def kysymys1() = {
     var name = v.name
-    //jos teet tolla tavalla laita alkuun val nimi= v.nimi...s
-    if (name.isEmpty()) {
-      println("Tell me something!" + t.kysymykset(2))
+    if(!v.WhatIsYourName.isEmpty()) {
+      println(v.WhatIsYourName + name + "." + t.kysymykset(2) + "?")
+    } else if (name.isEmpty()) {
+      println(t.kysymykset(15))
     } else {
       println(t.kysymykset(1) + name + "." + t.kysymykset(2) + "?")
       //    println("ekakysymys kysymykset luokasta")
@@ -32,7 +33,11 @@ class Kysymykset {
 var feel = v.feel
     val r = scala.util.Random
     if(feel.isEmpty()){
-      println("Doctor: Could you tell me your feel beter?")
+      println(t.kysymykset(16))
+    } else if(feel == t.kysymykset(17) + t.kysymykset(2)){
+      println(t.kysymykset(17) + t.kysymykset(2) +"?")
+    } else if(feel.isEmpty()){
+      println(t.kysymykset(16))
     } else {
     println(t.kysymykset(3) + "." + t.kysymykset(4) + feel + "?")
     }
@@ -40,7 +45,7 @@ var feel = v.feel
   def kysymys3() {
     var kolmas = v.kolmas
     if (kolmas.isEmpty()) {
-      println("I understand that you don´t feel anything. But tell me why?")
+      println(t.kysymykset(5) + t.kysymykset(18))
     } else {
       println(t.kysymykset(5) + kolmas + "?") // VÄLIIN LISÄTÄÄN VIKAKOLMOSEEN KUN TOIMII
     }
@@ -49,7 +54,7 @@ var feel = v.feel
   def kysymys4() { //nimeä voi käyttää nimiBufferin avulla!
     var feeling = v.feeling
     if (feeling.isEmpty()) {
-      println(t.kysymykset(6) + v.nameBuffer(0) + ". " + feeling)
+      println(t.kysymykset(6) + v.nameBuffer(0) + ". " + v.neloseen)
     } else {
       println(t.kysymykset(6) + v.nameBuffer(0) + ". " + t.kysymykset(7) + feeling)
     }

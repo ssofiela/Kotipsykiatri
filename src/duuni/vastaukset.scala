@@ -77,20 +77,6 @@ class vastaukset {
     vastaukset
   }
 
-  /*var vastaukse = Buffer[String](input)
-    vastaukse = vastaukse.splitAt()// tähän bufferiin tulisi vastaus kokonaan!!
-    var vastaukset = Buffer[String]()
-  for(i <- 0 until vastaukse.size){
-    vastaukset += vastaukse(i)
-    
-  }
-    vastaukset*/
-
-  /*for (i <- vastaukse) {
-      vastaukset += i
-    }
-    vastaukset
-  }*/
 
   def WhatIsYourName: String = {
     var myName = ""
@@ -272,36 +258,6 @@ class vastaukset {
 
   }
 
-  /*def vikaKolmoseen = { // eli perjaattees kolmanteen tohtorin kessäriin
-    var kokoLause = Buffer[String]()
-    if (this.kaikki(1).size == 0) {
-      kokoLause += "You should answer longer!"
-    } else {
-
-      var pienemmiksi = this.kaikki(1).split(" ")
-      for (kaikkiSanat <- pienemmiksi) {
-        kaikkiSanat.toLowerCase()
-        if (kaikkiSanat == "i") {
-          kokoLause += "you"
-        } else if (kaikkiSanat == "we") {
-          kokoLause += "you" // jatka samanlailla kaikki tekijät läpi
-        } else {
-          kokoLause += kaikkiSanat
-        }
-        kokoLause.tail
-      }
-    }
-  }*/
-
-  /* def howAreYou = {
-    if (bufferiSecond.size == 1) {
-      this.bufferiSecond(0)
-    } else if (bufferiSecond(1) == "am") {
-      bufferiSecond(2)
-    } else {
-      bufferiSecond(0) //this is NOT wörk reason i dont know
-    }
-  }*/
 
   def vitonen = {
     var buf2 = bufferiSecond

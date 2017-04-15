@@ -60,19 +60,34 @@ var feel = v.feel
     }
   }
   
-  /*def kysymys5() { // alkuun joku val feel = v.feel
-    println(a.viidesHappy + v.vitonen)
+  def kysymys5() { // alkuun joku val feel = v.feel
+  
     //tähän ifit
-    /* var feel = v.vitonen
+     var feel = v.vitonen
     if (feel == "fine" || feel == "good" || feel == "great" || feel == "awesome") { //... jatka kaikkia mahdollisia ilosia
-      println(a.viidesHappy + v.feel + ".")
+      println(t.kysymykset(9) + v.feel + ".")
     } else if (feel == "bad" || feel == "awfull") { // jatka kaikki mahdolliset huonot
-      println(a.viidenUnhappy + v.feel + ".")
+      println(t.kysymykset(10) + v.feel + ".")
     } else {
-      println(a.viidesElse + v.feel + ".")
+      println(t.kysymykset(11) + v.feel + ".")
     }
-  }*/
-  }*/
+  }
+  
+  def lopetus = {    // miks tulostaa myös jonkun kysymykset????
+    println("goodbye")
+  }
+  
+  
+   def loppunut(): Boolean = { // lopetus silloin kuin toinen laittanut sanan bye or thank you or thanks!!!
+   
+      if(v.all.contains("bye") ||v.all.contains("goodbye")){
+        return true
+      }
+    
+    false
+    
+  }
+  
 }
 
 //ja siitä jos laittaa ? niin vastaa et mä oon se joka kysyy kysykset... ja uudestaan

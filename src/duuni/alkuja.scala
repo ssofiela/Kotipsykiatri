@@ -26,8 +26,18 @@ class alkuja {
    */
 
   //Boolean joka kattoo millon voi laittaa lopetus lauseen
-  def loppunut: Boolean = { // lopetus silloin kuin toinen laittanut sanan bye or thank you or thanks!!!
-    val vastaus = new vastaukset
+  /*def loppunut(): Boolean = { // lopetus silloin kuin toinen laittanut sanan bye or thank you or thanks!!!
+    var v 
+    val splitted = v.all.split(" ")
+    for(i <- splitted){
+      if(i =="bye" || i == "goodbye"){
+        return false
+      }
+    }
+    true
+    
+  }*/
+    /*val vastaus = new vastaukset
     var uusi = Buffer[String]()
     for (i <- 0 until vastaus.bufferiFirst.length) { //mieti millon // ei ainakaan first!!!
 
@@ -47,7 +57,7 @@ class alkuja {
       true
     }
 
-  }
+  }*/
   
   
 

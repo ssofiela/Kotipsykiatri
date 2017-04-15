@@ -1,7 +1,8 @@
 package Gui
 
-//import scala.swing._
-//import scala.swing.event._
+import scala.swing._
+import scala.swing.event._
+import duuni._
 
 
 /** The singleton object `RandomTextApp` represents the Random Text application.
@@ -16,11 +17,9 @@ package Gui
   *
   * '''NOTE TO STUDENTS: This class is discussed in further detail in Chapter 11.2
   * of the course materials.''' */
-object frame {
-  println("moi")
-  }
-/*extends SimpleSwingApplication {
+object frame extends SimpleSwingApplication {
 
+ private val game = new Kysymykset
   // Components: 
   
   val prompt = new Label("Message:")
@@ -29,9 +28,10 @@ object frame {
   
   val outputArea = new TextArea
 
-  //val outputArea = new TextArea("Random stuff will appear here.", 30, 85)
-  //outputArea.editable = false
-  //outputArea.lineWrap = true
+//  val outputArea = new TextArea("Random stuff will appear here.", 30, 85)
+  outputArea.editable = false
+  outputArea.lineWrap = true
+  
 
   
   // Layout: 
@@ -46,17 +46,18 @@ object frame {
   //wholeLayout.contents += outputArea
   
   val window = new MainFrame
-  window.title = "Random Text Generator"
+  window.title = "Kotipsykiatri"
   window.resizable = false
   window.contents = wholeLayout
   
   def top = this.window
   
-  val random = new RandomTextGenerator(9)
+  //val random = new RandomTextGenerator(9)
   
   this.listenTo(randomizeButton)
   this.reactions += {
   case clickEvent: ButtonClicked =>
+    
    
     //outputArea.text = random.randomize(sourceField.text)
     //outputArea.wordWrap = true
@@ -64,4 +65,4 @@ object frame {
   
 }
 
-*/
+

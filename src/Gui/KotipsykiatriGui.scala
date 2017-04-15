@@ -17,24 +17,32 @@ object KotipsykiatriGui extends App {
 
   private def run() = {
     println(game.alku())
-    //    println("joo")
-    //    this.playTurn()
-    /* if(vastaus.huutaa()){ //JOS KAIKKI KIRJOTETTU ISOLLA // huutaa takasin ku saadaan toimiin inputit
-    vastaus.huutoon() 
-    }else{     */ //lisäksi vois olla lopetus myös muualla???
-
-    game.kysymys1()
-    game.kysymys2()
-    //println("Toinen kysymys kysytty hurraa :D")
-
-    game.kysymys3()
-
-    game.kysymys4()
-   // game.kysymys5()
+    if (game.loppunut()) {
+      game.lopetus
+    } else {
+      game.kysymys1()
+    }
+    if (game.loppunut()) {
+      game.lopetus
+    } else {
+      game.kysymys2()
+      //println("Toinen kysymys kysytty hurraa :D")
+    }
+    if (game.loppunut()) {
+      game.lopetus
+    } else {
+      game.kysymys3()
+    }
+    if (game.loppunut()) {
+      game.lopetus
+    } else {
+      game.kysymys4()
+    }
+    // game.kysymys5()
     //println(game.kysymys4())*/
     // }
 
-    while (games.loppunut) {
+    while (game.loppunut) {
 
       // game.kaikki
       println("jatkuu")
@@ -64,38 +72,4 @@ object KotipsykiatriGui extends App {
   // println(turnReport)
   // }//
   // }
-
 }
-/* 
-  private val game = new Adventure
-  private val player = game.player
-  this.run()
-
-  
-  /** Runs the game. First, a welcome message is printed, then the player gets the chance to 
-    * play any number of turns until the game is over, and finally a goodbye message is printed. */
-  private def run() = {
-    println(this.game.welcomeMessage)
-    while (!this.game.isOver) {
-      this.printAreaInfo()
-      this.playTurn()
-    } 
-    println("\n" + this.game.goodbyeMessage)
-  }
-  /** Prints out a description of the player character's current location, as seen by the character. */
-  private def printAreaInfo() = {
-    val area = this.player.location
-    println("\n\n" + area.name)
-    println("-" * area.name.length)
-    println(area.fullDescription + "\n")
-  }
-  /** Requests a command from the player, plays a game turn accordingly, and prints out a report of what happened.  */
-  private def playTurn() = {
-    println()
-    val command = readLine("Command: ")
-    val turnReport = this.game.playTurn(command)
-    if (!turnReport.isEmpty) {
-      println(turnReport) 
-    }
-  }
-*/

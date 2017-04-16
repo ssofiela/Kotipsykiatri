@@ -4,9 +4,9 @@ import duuni._
 
 object KotipsykiatriGui extends App {
 
-  private val game = new Kysymykset
-  private val games = new alkuja
-  private val vastaus = new vastaukset
+  private val K = new Kysymykset
+  private val A = new alkuja
+  private val V = new vastaukset
   //private val player = game.player
   this.run()
   //println("moi")
@@ -16,60 +16,58 @@ object KotipsykiatriGui extends App {
   //  this.playTurn()
 
   private def run() = {
-    println(game.alku())
-    if (game.loppunut()) {
-      game.lopetus
+    println(K.alku())
+    if (K.Ending()) {
+      K.End
     } else {
-      game.kysymys1()
+      K.question1()
     }
-    if (game.loppunut()) {
-      game.lopetus
+    if (K.Ending()) {
+      K.End
     } else {
-      game.kysymys2()
+      K.question2()
       //println("Toinen kysymys kysytty hurraa :D")
     }
-    if (game.loppunut()) {
-      game.lopetus
+    if (K.Ending()) {
+      K.End
     } else {
-      game.kysymys3()
+      K.question3()
     }
-    if (game.loppunut()) {
-      game.lopetus
+    if (K.Ending()) {
+      K.End
     } else {
-      game.kysymys4()
+      K.question4()
     }
-    // game.kysymys5()
+    if (K.Ending()) {
+      K.End
+    } else {
+    K.question5()
+    if (K.Ending()) {
+      K.End              //end ei toimi vielä niin kuin pitäisi
+    } else {
+    K.question6()
+    }
     //println(game.kysymys4())*/
     // }
 
-    while (game.loppunut) {
+   // while (K.Ending) {
 
       // game.kaikki
-      println("jatkuu")
-      this.printAreaInfo()
-      this.playTurn()
+     // println("jatkuu")
+      //this.printAreaInfo()
+     // this.playTurn()
 
-    }
+   // }
     //println(games.lopetus1)//(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
   }
-  private def printAreaInfo() = {
-    val area = "vastaa tähän"
-    // println(game.kysymys1())
-    //println("-" * area.name.length)
-    //println(area.fullDescription + "\n")
-  }
+ 
 
-  private def playTurn() = {
+ /* private def playTurn() = {
     println("jee")
     println("command")
     val command = readLine("Message: ")
     println("2")
-    val turnReport = games.playTurn(command)
+    val turnReport = A.playTurn(command)*/
 
   }
-
-  // if (!turnReport.isEmpty) {
-  // println(turnReport)
-  // }//
-  // }
 }

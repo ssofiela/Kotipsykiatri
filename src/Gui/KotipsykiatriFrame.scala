@@ -104,18 +104,18 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
     def run() = {
       println("tuli runniin")
       println(game.alku())
-      if (game.loppunut()) {
-        game.lopetus
+      if (game.Ending()) {
+        game.End
       } else {
-        game.kysymys1()
+        game.question1()
       }
-      if (game.loppunut()) {
-        game.lopetus
+      if (game.Ending()) {
+        game.End
       } else {
-        game.kysymys2()
+        game.question2()
         //println("Toinen kysymys kysytty hurraa :D")
       }
-      if (game.loppunut()) {
+    /*  if (game.loppunut()) {
         game.lopetus
       } else {
         game.kysymys3()
@@ -125,12 +125,12 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
       } else {
         game.kysymys4()
       }
-
+*/
     }
 
     def updateInfo() = {
       println("updateInfo")
-      if (!this.game.loppunut()) {
+     /* if (!this.game.loppunut()) {
         if (game.loppunut()) {
           game.lopetus
         } else {
@@ -151,12 +151,12 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
           game.lopetus
         } else {
           game.kysymys4()
-        }
+        }*/
 
         //this.turnOutput.text = info
-      } else {
+     // } else {
         println("tää loppuu nyt tän mukaan")
-      }
+     // }
       //this.turnOutput.text = info + "\n\n" + this.game.goodbyeMessage
       //}
       //this.locationInfo.text = this.player.location.fullDescription

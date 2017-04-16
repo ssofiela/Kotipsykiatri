@@ -67,20 +67,18 @@ class vastaukset {
     vastaukset
   }
   def bufferiFive: String = {
-    // println("tulin kolmos bufferiin")
     bufferKaikki
     var vastaukset = all(4)
     vastaukset
   }
   
-  def bufferiSix: String = {
-    // println("tulin kolmos bufferiin")
+  def bufferiSix: String = {  
     bufferKaikki
     var vastaukset = all(4)
     vastaukset
   }
 
-  def bufferiKolmas = { //tokalle miten saada toka
+  /*def bufferiKolmas = { //tokalle miten saada toka
     bufferKaikki
     val inputti = all(2).split(" ")
     var vastaukset = Buffer[String]()
@@ -89,7 +87,7 @@ class vastaukset {
     }
     //println(vastaukset, "toka")
     vastaukset
-  }
+  }*/
 
   def WhatIsYourName: String = {
     var myName = ""
@@ -326,18 +324,39 @@ class vastaukset {
   }
  
   def kutonen = {
-    var kutone = ""
-    var buf6 = bufferiSix
-    if(buf6.size == 1){
-      if(buf6 == "no" || buf6 == "No") {
-        println("jotain lopettamista")
-      } else if(buf6 == "yes" || buf6 == "Yes" || buf6 == "sure" || buf6 == "Sure" || buf6 == "maybe" || buf6 == "Maybe"){
-        kutone = t.kysymykset(21) + nameBuffer + "?"
+    println("pääsin kutoseen kuitenkin")
+    
+     var buf6 = bufferiSix.split(" ")
+    	
+    var line = Buffer[String]()
+
+    if (buf6(buf6.length - 1).contains(".")) {
+      val pituus = buf6(buf6.length - 1).length
+      for (u <- 0 until buf6.size - 1) {
+        line += buf6(u)
       }
+      line += buf6(buf6.size - 1).substring(0, pituus - 1)
+      //println(line)
     } else {
-      kutone = t.kysymykset(21) + nameBuffer + "?"
+      for (i <- 0 until buf6.size) {
+        line += buf6(i)
+      }
+    }
+
+    var kutone = ""
+    if(line.size == 1){
+      if(line.contains("no") || line.contains("No")) {
+        println("jotain lopettamista")
+      } else if(line.contains("yes") || line.contains("Yes") || line.contains("sure") || line.contains("Sure") || line.contains("maybe") || line.contains("Maybe")){
+        kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
+      } else {
+        kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
+      } 
+    } else {
+      kutone = t.kysymykset(21) + " " +nameBuffer(0) + "?"
     }
     kutone
+    //println("kutose metodu:" + kutone)
   }
 
   def feeling = {
@@ -409,14 +428,14 @@ class vastaukset {
         palauta = line(2) + " " + line(3)
       } else if (line(1) == "feel" && (line(2) == "very" || line(2) == "really" || line(2) == "so")) {
         palauta = line(2) + " " + line(3)
+      } else if (line(1) == "am" && line(2) == "feeling") {
+    	  palauta = line(2) + " " + line(3)
       } else if (line(1) == "am") {
         palauta = line(2)
       } else if (line(2) == "am") {
         palauta = line(3)
       } else if(line(1) == "feel"){
         palauta = line(2)
-      } else if (line(1) == "am" && line(2) == "feeling") {
-        palauta = line(2) + " " + line(3)
       }
     }
     if (line.size == 5) {
@@ -461,6 +480,7 @@ class vastaukset {
       palauta = t.kysymykset(17) + t.kysymykset(2)
     }
     feelBuffer += palauta
+    //println(palauta + "on palauta")
     palauta
   }
 

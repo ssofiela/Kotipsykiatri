@@ -45,7 +45,7 @@ class Kysymykset {
   }
   
 /*
- * this use just input what user wrote and use "kolmas" -mothod wicth just make sentence better.
+ * this use just input what user wrote and use "kolmas" -mothod wicth just make a sentence better.
  */
   def question3() = {
     var kolmas = v.kolmas
@@ -78,33 +78,43 @@ class Kysymykset {
    */
 
   def question5() = {   
-    var feelBuffer = v.feel
+    var vitonen = v.vitonen
 
-   var palauta = t.kysymykset(12)
+   var palauta = t.kysymykset(23) + " "+ v.nameBuffer(0) + ". " + t.kysymykset(26) + vitonen + "."
 
-    for (i <- feelBuffer.split(" ")) {
-      if (i == "fine" || i == "good" || i == "well" || i == "graet" || i == "awesome") {
-        palauta = (t.kysymykset(9) + " " + feelBuffer + ".")
+    for (i <- v.feelBuffer(0).split(" ")) {
+      if (i == "fine" || i == "good" || i == "well" || i == "graet" || i == "awesome" || i =="grateful" ||
+          i == "happy" || i == "proud") {
+        palauta = (t.kysymykset(9) + " " + v.feelBuffer(0) + ". " + t.kysymykset(26) + vitonen + ".")
 
-      } else if (i == "bad" || i == "okey") {
-        palauta = (" " + t.kysymykset(10) + feelBuffer + " " + t.kysymykset(11) + ".")
+      } else if (i == "bad" || i == "okey" || i == "angry" || i == "shy" || i == "mad" || i == "disapponted") {
+        palauta = (" " + t.kysymykset(10) + v.feelBuffer(0) + " " + t.kysymykset(11) + ". " + t.kysymykset(26) + vitonen + ".")
 
       }
     }
     println(palauta)
   }
+  def question6() = {
+    var kutonen = v.kutonen
+    println(t.kysymykset(12))
+  }
 
     
 
-  /*def question6() = {
+  def question7() = {
     var kutonen = v.kutonen
-    if (this.question5() == println(t.kysymykset(9) + " " + v.feelBuffer + ".") || question5() == println(" " + t.kysymykset(10) + v.feelBuffer + " " + t.kysymykset(11) + ".")) {
-      println(t.kysymykset(12))
-    }
+    
     println(kutonen)
-  }*/
+  }
+  
+  def question8() ={
+    var kasi = v.kasi
+    //println("pääsenkö ees tänne")
+   // println(kasi)
+    println(t.kysymykset(24) + kasi + ". "+t.kysymykset(25)) //+ kasi + t.kysymykset(27))
+  }
 
-  def End = { // miks tulostaa myös jonkun kysymykset????   EI TOIMI
+  def End = { // miks tulostaa myös jonkun kysymykset???? 
     println("goodbye")
   }
 

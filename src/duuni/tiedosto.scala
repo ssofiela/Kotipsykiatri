@@ -17,12 +17,11 @@ class tiedosto {
   try {
 
     for (line <- Source.fromFile(fileName).getLines()) {
-      //println(line)   NÄÄ VOI MYÖHEMMIN AUTTAA
       kysymykset += line
-     // println(kysymykset)   
+  
     }
- /* } catch {
-    case ex: Exception => println("öööö")*/
+  } catch {
+    case ex: Exception => println("FileNotFound")
 
   }
 

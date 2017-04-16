@@ -45,8 +45,10 @@ object KotipsykiatriGui extends App {
     if (K.Ending()) {
       K.End              //end ei toimi vielä niin kuin pitäisi
     } else {
-   // K.question6()
+    K.question6()
     }
+    K.question7()
+    K.question8()
     //println(game.kysymys4())*/
     // }
 

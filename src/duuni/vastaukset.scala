@@ -14,6 +14,7 @@ class vastaukset {
   var nameBuffer = Buffer[String]()
   var feelBuffer = Buffer[String]()
   var t = new tiedosto
+  var m = new muutokset
   //val inputs = readLine("Message: ")
   //kaikki += inputs
   //println(kaikki)
@@ -71,10 +72,15 @@ class vastaukset {
     var vastaukset = all(4)
     vastaukset
   }
-  
-  def bufferiSix: String = {  
+
+  def bufferiSix: String = {
     bufferKaikki
-    var vastaukset = all(4)
+    var vastaukset = all(5)
+    vastaukset
+  }
+  def bufferiEight: String = {
+    bufferKaikki
+    var vastaukset = all(7)
     vastaukset
   }
 
@@ -98,30 +104,25 @@ class vastaukset {
     myName
   }
 
+  /*
+ * this long method is taking the name off the line.
+ * the first thig what this do, take of the end point if the line have point.
+ * then it check that "hello"... is not the name
+ * then its check what is size of the line just in case and take the name off.
+ * the name method take just the first name if there is more names.
+ */
   def name = {
     var nameIs = "anonyme"
     val buf1 = this.bufferiFirst
     var line = Buffer[String]()
+    line =  m.piste(buf1)
+   
 
-    if (buf1(buf1.length - 1).contains(".")) { //poistetaan loppupiste
-      val pituus = buf1(buf1.length - 1).length
-      for (u <- 0 until buf1.size - 1) {
-        line += buf1(u)
-      }
-      line += buf1(buf1.size - 1).substring(0, pituus - 1)
-      //println(line)
-    } else {
-      for (i <- 0 until buf1.size) {
-        line += buf1(i)
-      }
-    }
-
-    if (line.size == 1) {
+    if ( line.size == 1) {
       if (all(0) == "Hello" || all(0) == "Hi" || all(0) == "Hey" || all(0) == "hello") {
-        // tämä katsoo, että jos on vaan tervehdys, niin sitä ei katsota nimeksi
         nameIs = "anonyme"
       } else {
-        nameIs = all(0) //muuten vain yksi sana mielletään nimeksi
+        nameIs = all(0)
       }
     } else if (line.size == 2) {
       if (line(0) == "it´s") {
@@ -191,21 +192,10 @@ class vastaukset {
   }
 
   def kolmas = {
-    var bufferi = bufferiThird.split(" ")
+    var bufferi = bufferiThird.split(" ").toBuffer
     var sana = Buffer[String]() // tähän sana ilman pistettä
 
-    if (bufferi(bufferi.length - 1).contains(".")) {
-      val pituus = bufferi(bufferi.length - 1).length
-      for (u <- 0 until bufferi.size - 1) {
-        sana += bufferi(u)
-      }
-      sana += bufferi(bufferi.size - 1).substring(0, pituus - 1)
-      println(sana)
-    } else {
-      for (i <- 0 until bufferi.size) {
-        sana += bufferi(i)
-      }
-    }
+   sana =  m.piste(bufferi)
 
     if (sana.size == 4) {
       if (sana(3) == "thanks") {
@@ -260,21 +250,10 @@ class vastaukset {
   }
 
   def neloseen = { //kolmosen vastaus
-    var bufferi = bufferiFour.split(" ")
+    var bufferi = bufferiFour.split(" ").toBuffer
     var sana = Buffer[String]() // tähän sana ilman pistettä
 
-    if (bufferi(bufferi.length - 1).contains(".")) {
-      val pituus = bufferi(bufferi.length - 1).length
-      for (u <- 0 until bufferi.size - 1) {
-        sana += bufferi(u)
-      }
-      sana += bufferi(bufferi.size - 1).substring(0, pituus - 1)
-      println(sana)
-    } else {
-      for (i <- 0 until bufferi.size) {
-        sana += bufferi(i)
-      }
-    }
+   sana =  m.piste(bufferi)
 
     var kokoLause = ""
     for (kaikkiSanat <- sana) {
@@ -312,69 +291,127 @@ class vastaukset {
   }
 
   def vitonen = { //tää on ihan väärin
-    bufferKaikki
-    var buf5 = bufferiFive
-    var vitone = "jou"
-    for (i <- 0 until buf5.size) {
-      if (buf5(i) == "fine") {
-        vitone += buf5(i)
-      }
-    }
-    vitone
-  }
- 
-  def kutonen = {
-    println("pääsin kutoseen kuitenkin")
-    
-     var buf6 = bufferiSix.split(" ")
-    	
+    var buf5 = bufferiFive.split(" ").toBuffer
     var line = Buffer[String]()
 
-    if (buf6(buf6.length - 1).contains(".")) {
-      val pituus = buf6(buf6.length - 1).length
-      for (u <- 0 until buf6.size - 1) {
-        line += buf6(u)
+    line =  m.piste(buf5)
+    
+    
+    var kokoLause = Buffer[String]()
+    for (kaikkiSanat <- line) {
+      kaikkiSanat.toLowerCase()
+      if (kaikkiSanat == "i") {
+        kokoLause += "you"
+      } else if (kaikkiSanat == "I") {
+        kokoLause += "you"
+      } else if (kaikkiSanat == "we") {
+        kokoLause += "you"
+      } else if (kaikkiSanat == "We") {
+        kokoLause += "you"
+      } else if (kaikkiSanat == "am") {
+        kokoLause += "are"
+      } else if (kaikkiSanat == "my") {
+        kokoLause += "your"
+      } else if (kaikkiSanat == "My") {
+        kokoLause += "your"
+      } else if (kaikkiSanat == "mine") {
+        kokoLause += "yours"
+      } else if (kaikkiSanat == "was") {
+        kokoLause += "were"
+      } else if (kaikkiSanat == "a") {
+        kokoLause += "the"
+      } else if (kaikkiSanat == "here") {
+        kokoLause += "there"
+      } else {
+        kokoLause += kaikkiSanat
       }
-      line += buf6(buf6.size - 1).substring(0, pituus - 1)
-      //println(line)
-    } else {
-      for (i <- 0 until buf6.size) {
-        line += buf6(i)
-      }
-    }
 
+    }
+    println("kokoLause:" + kokoLause)
+    kokoLause.mkString(" ")
+    //kokoLause.mkString(" ")
+
+  }
+
+  def kutonen = {
+    println("pääsin kutoseen kuitenkin")   // !!!!!!!!!!!!!!!!!TÄÄÄ EI TOIMIIIIIIIIIIII
+
+    var buf6 = bufferiSix.split(" ").toBuffer
+
+    var line = Buffer[String]()
+
+    line =  m.piste(buf6)
     var kutone = ""
-    if(line.size == 1){
-      if(line.contains("no") || line.contains("No")) {
+    if (line.size == 1) {
+      if ((line =="no") || (line == "No") || (line =="not") ||( line =="Not")) {
         println("jotain lopettamista")
-      } else if(line.contains("yes") || line.contains("Yes") || line.contains("sure") || line.contains("Sure") || line.contains("maybe") || line.contains("Maybe")){
+      } else if (line.contains("yes") || line.contains("Yes") || line.contains("sure") || line.contains("Sure") || line.contains("maybe") || line.contains("Maybe")) {
         kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
       } else {
         kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
-      } 
+      }
+    } else if (line.size > 1) {
+      if (line.contains("no") || line.contains("No") || line.contains("not") || line.contains("Not")) {
+        println("jotain lopettamista")
+      } else if (line.contains("yes") || line.contains("Yes") || line.contains("sure") || line.contains("Sure") || line.contains("maybe") || line.contains("Maybe")) {
+        kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
+      } else {
+        kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
+      }
     } else {
-      kutone = t.kysymykset(21) + " " +nameBuffer(0) + "?"
+      kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
     }
     kutone
     //println("kutose metodu:" + kutone)
+  }
+
+  def kasi = {
+    var buf8 = bufferiEight.split(" ").toBuffer
+    var line = Buffer[String]()
+
+    line =  m.piste(buf8)
+    
+    var kokoLause = Buffer[String]()
+    for (kaikkiSanat <- line) {
+      kaikkiSanat.toLowerCase()
+      if (kaikkiSanat == "i") {
+        kokoLause += "you"
+      } else if (kaikkiSanat == "I") {
+        kokoLause += "you"
+      } else if (kaikkiSanat == "we") {
+        kokoLause += "you"
+      } else if (kaikkiSanat == "We") {
+        kokoLause += "you"
+      } else if (kaikkiSanat == "am") {
+        kokoLause += "are"
+      } else if (kaikkiSanat == "my") {
+        kokoLause += "your"
+      } else if (kaikkiSanat == "My") {
+        kokoLause += "your"
+      } else if (kaikkiSanat == "mine") {
+        kokoLause += "yours"
+      } else if (kaikkiSanat == "was") {
+        kokoLause += "were"
+      } else if (kaikkiSanat == "a") {
+        kokoLause += "the"
+      } else if (kaikkiSanat == "here") {
+        kokoLause += "there"
+      } else {
+        kokoLause += kaikkiSanat
+      }
+
+    }
+    println(kokoLause)
+    kokoLause.mkString(" ")
+    //kokoLause.mkString(" ")
+
   }
 
   def feeling = {
     var buf2 = bufferiSecond //tähän kans muutokset i -> you...
     var line = Buffer[String]()
 
-    if (buf2(buf2.length - 1).contains(".")) {
-      val pituus = buf2(buf2.length - 1).length
-      for (u <- 0 until buf2.size - 1) {
-        line += buf2(u)
-      }
-      line += buf2(buf2.size - 1).substring(0, pituus - 1)
-      //println(line)
-    } else {
-      for (i <- 0 until buf2.size) {
-        line += buf2(i)
-      }
-    }
+   line =  m.piste(buf2)
 
     var lopullinen = ""
     if (line.size == 1) { //toimii
@@ -389,59 +426,58 @@ class vastaukset {
     lopullinen
   }
 
-  def feel = { // tähän lissä i am feeling well... i am fine... now i am fine... yms.
-    val buf2 = bufferiSecond // ekana kaikista lyhyimmät ja ehdoks pituuksii ettei tuu erroreita
+  /*
+   * this take the feel from the line.
+   * check size of the line just in case.
+   * and return "feeling"-verb, and the whole feeling 
+   * what is reason that this is so long!
+   */
+  def feel = {
+    val buf2 = bufferiSecond
     var line = Buffer[String]()
 
-    if (buf2(buf2.length - 1).contains(".")) { //poistaa loppupisteen jos sellainen on
-      val pituus = buf2(buf2.length - 1).length
-      for (u <- 0 until buf2.size - 1) {
-        line += buf2(u)
-      }
-      line += buf2(buf2.size - 1).substring(0, pituus - 1)
-      // println(line)
-    } else {
-      for (i <- 0 until buf2.size) {
-        line += buf2(i)
-      }
-    }
+    line =  m.piste(buf2)
 
     var palauta = ""
-    //println("olen päässyt feel metodiin")
     if (line.size == 1) {
-      palauta = line(0) // ihan fine mut lisää vaihtoehtoja
+      palauta = line(0)
     }
     if (line.size == 2) {
-      if (line(0) == "very"|| line(0) == "really" || line(0) == "so") {
+      if (line(0) == "very" || line(0) == "really" || line(0) == "so" ||
+        line(0) == "pretty" || line(0) == "little") {
         palauta = line(0) + " " + line(1)
       }
     }
     if (line.size == 3) {
       if (line(1) == "am") {
         palauta = line(2)
-      } else if(line(1) == "feel"){
+      } else if (line(1) == "feel") {
         palauta = line(2)
       }
     }
     if (line.size == 4) {
-      if (line(1) == "am" && (line(2) == "very" || line(2) == "really" || line(2) == "so")) {
+      if (line(1) == "am" && (line(2) == "very" || line(2) == "really" || line(2) == "so") ||
+        line(2) == "pretty" || line(2) == "little") {
         palauta = line(2) + " " + line(3)
-      } else if (line(1) == "feel" && (line(2) == "very" || line(2) == "really" || line(2) == "so")) {
+      } else if (line(1) == "feel" && (line(2) == "very" || line(2) == "really" ||
+        line(2) == "so" || line(0) == "pretty" || line(0) == "little")) {
         palauta = line(2) + " " + line(3)
       } else if (line(1) == "am" && line(2) == "feeling") {
-    	  palauta = line(2) + " " + line(3)
+        palauta = line(2) + " " + line(3)
       } else if (line(1) == "am") {
         palauta = line(2)
       } else if (line(2) == "am") {
         palauta = line(3)
-      } else if(line(1) == "feel"){
+      } else if (line(1) == "feel") {
         palauta = line(2)
       }
     }
     if (line.size == 5) {
-      if (line(1) == "am" && line(2) == "very") {
+      if (line(1) == "am" && (line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
+        line(2) == "really" | line(2) == "so")) {
         palauta = line(2) + " " + line(3)
-      } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" || line(3) == "really" || line(3) == "so")) {
+      } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" ||
+        line(3) == "really" || line(3) == "so" || line(3) == "pretty" || line(3) == "little")) {
         palauta = line(2) + " " + line(3) + " " + line(4)
       } else if (line(1) == "am" && line(2) == "feeling") {
         palauta = line(2) + " " + line(3)
@@ -456,7 +492,8 @@ class vastaukset {
     if (line.size == 6) {
       if (line(1) == "am" && line(2) == "very") {
         palauta = line(2) + " " + line(3)
-      } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" || line(2) == "really" || line(2) == "so")) {
+      } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" || line(3) == "really" ||
+        line(3) == "so")) {
         palauta = line(2) + " " + line(3) + " " + line(4)
       } else if (line(1) == "am" && line(2) == "feeling") {
         palauta = line(2) + " " + line(3)
@@ -467,7 +504,8 @@ class vastaukset {
     if (line.size == 7) {
       if (line(1) == "am" && line(2) == "very") {
         palauta = line(2) + " " + line(3)
-      } else if (line(1) == "am" && line(2) == "feeling" && ( line(3) == "very" || line(3) == "really" || line(3) == "so")) {
+      } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" || line(3) == "really" ||
+        line(3) == "so")) {
         palauta = line(2) + " " + line(3) + " " + line(4)
       } else if (line(1) == "am" && line(2) == "feeling") {
         palauta = line(2) + " " + line(3)
@@ -477,7 +515,7 @@ class vastaukset {
     }
 
     if (buf2(buf2.length - 1).contains("?")) {
-      palauta = t.kysymykset(17) + t.kysymykset(2)
+      palauta = t.kysymykset(18) //+ t.kysymykset(2)
     }
     feelBuffer += palauta
     //println(palauta + "on palauta")

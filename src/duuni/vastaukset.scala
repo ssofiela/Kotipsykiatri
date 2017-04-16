@@ -213,40 +213,9 @@ class vastaukset {
         sana = sana.take(4)
       }
     }
-    var kokoLause = Buffer[String]()
+    m.muutokset(sana).mkString(" ")
 
-    for (kaikkiSanat <- sana) {
-      kaikkiSanat.toLowerCase()
-      if (kaikkiSanat == "i") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "I") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "we") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "We") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "am") {
-        kokoLause += "are"
-      } else if (kaikkiSanat == "my") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "My") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "mine") {
-        kokoLause += "yours"
-      } else if (kaikkiSanat == "was") {
-        kokoLause += "were"
-      } else if (kaikkiSanat == "a") {
-        kokoLause += "the"
-      } else if (kaikkiSanat == "here") {
-        kokoLause += "there"
-      } else {
-        kokoLause += kaikkiSanat
-      }
-
-    }
-
-    kokoLause.mkString(" ")
-
+   
   }
 
   def neloseen = { //kolmosen vastaus
@@ -255,39 +224,9 @@ class vastaukset {
 
    sana =  m.piste(bufferi)
 
-    var kokoLause = ""
-    for (kaikkiSanat <- sana) {
-      kaikkiSanat.toLowerCase()
-      if (kaikkiSanat == "i") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "I") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "we") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "We") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "am") {
-        kokoLause += "are"
-      } else if (kaikkiSanat == "my") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "My") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "mine") {
-        kokoLause += "yours"
-      } else if (kaikkiSanat == "was") {
-        kokoLause += "were"
-      } else if (kaikkiSanat == "a") {
-        kokoLause += "the"
-      } else if (kaikkiSanat == "here") {
-        kokoLause += "there"
-      } else {
-        kokoLause += kaikkiSanat
-      }
-
-    }
-    kokoLause
+    var joo = m.muutokset(sana)
     //kokoLause.mkString(" ")
-
+joo
   }
 
   def vitonen = { //tää on ihan väärin
@@ -295,41 +234,7 @@ class vastaukset {
     var line = Buffer[String]()
 
     line =  m.piste(buf5)
-    
-    
-    var kokoLause = Buffer[String]()
-    for (kaikkiSanat <- line) {
-      kaikkiSanat.toLowerCase()
-      if (kaikkiSanat == "i") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "I") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "we") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "We") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "am") {
-        kokoLause += "are"
-      } else if (kaikkiSanat == "my") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "My") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "mine") {
-        kokoLause += "yours"
-      } else if (kaikkiSanat == "was") {
-        kokoLause += "were"
-      } else if (kaikkiSanat == "a") {
-        kokoLause += "the"
-      } else if (kaikkiSanat == "here") {
-        kokoLause += "there"
-      } else {
-        kokoLause += kaikkiSanat
-      }
-
-    }
-    println("kokoLause:" + kokoLause)
-    kokoLause.mkString(" ")
-    //kokoLause.mkString(" ")
+    m.muutokset(line).mkString(" ")
 
   }
 
@@ -371,40 +276,9 @@ class vastaukset {
 
     line =  m.piste(buf8)
     
-    var kokoLause = Buffer[String]()
-    for (kaikkiSanat <- line) {
-      kaikkiSanat.toLowerCase()
-      if (kaikkiSanat == "i") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "I") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "we") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "We") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "am") {
-        kokoLause += "are"
-      } else if (kaikkiSanat == "my") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "My") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "mine") {
-        kokoLause += "yours"
-      } else if (kaikkiSanat == "was") {
-        kokoLause += "were"
-      } else if (kaikkiSanat == "a") {
-        kokoLause += "the"
-      } else if (kaikkiSanat == "here") {
-        kokoLause += "there"
-      } else {
-        kokoLause += kaikkiSanat
-      }
+    m.muutokset(line).mkString(" ")
 
-    }
-    println(kokoLause)
-    kokoLause.mkString(" ")
-    //kokoLause.mkString(" ")
-
+   
   }
 
   def feeling = {
@@ -554,15 +428,5 @@ class vastaukset {
   }
 }*/
 
-  /*val lineReader = new BufferedReader(input)
-
-    try {
-
-      // Read the file header and the save date from the first line.
-      // You can use this variable for reading all the section headers.
-      var currentLine = lineReader.readLine()
-
-      val headerParts = currentLine.split(" ")
-      
-*/
+  
 }

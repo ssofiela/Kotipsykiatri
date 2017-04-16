@@ -49,7 +49,7 @@ class Kysymykset {
  */
   def question3() = {
     var kolmas = v.kolmas
-    if (kolmas.isEmpty()) {
+    if (kolmas.isEmpty) {
       println(t.kysymykset(5) + t.kysymykset(18))
     } else {
       println(t.kysymykset(5) + kolmas + "?")
@@ -63,7 +63,7 @@ class Kysymykset {
   def question4() = { 
     var neloseen = v.neloseen
     if (v.feelBuffer.isEmpty) {
-      if (neloseen.isEmpty()) {
+      if (neloseen.isEmpty) {
         println(t.kysymykset(21))
       } else {
         println(t.kysymykset(6) + v.nameBuffer(0) + ". " + neloseen)

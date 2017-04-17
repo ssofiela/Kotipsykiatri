@@ -47,8 +47,14 @@ class alkuja {
       t.kysymykset(8) + " " + v.vitonen + "?"
 
     } else if (turnCount > 6) { // mieti tarkasti Vaik randomilla edellisen input tai nykynen
-      
+     // while(kysy < 12){
+     
+      if(kysy == 12){
+        kysy = 1
+      } else {
       kysy += 1
+      }
+      
       println(kysy)
       b += 1
       println("b" + b)

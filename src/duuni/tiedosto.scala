@@ -20,13 +20,7 @@ class tiedosto {
 
     for (line <- Source.fromFile(fileName).getLines()) {
       kysymykset += line
-      /*kysy
-  
-      def kysy = {
-       var joo = v.bufferKaikki
-       println("moi onpa mukava päivä")
-        println(line + m.muutokset(m.piste(joo)))
-      }*/
+      
     }
   } catch {
     case ex: Exception => println("FileNotFound")

@@ -78,14 +78,6 @@ class muutokset {
     kokoLause.mkString(" ")
   }
 
-  /* def playTurn(command: String) = {
-    val action = new Action(command)
-    val outcomeReport = action.execute(this.player)
-    if (outcomeReport.isDefined) { 
-      this.turnCount += 1 
-    }
-    outcomeReport.getOrElse("Unknown command: \"" + command + "\".")
-  }
-  */
+  
 
 }

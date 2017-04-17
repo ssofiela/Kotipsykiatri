@@ -43,7 +43,7 @@ class muutokset {
     line
   }
   
-  def muutokset(b: Buffer[String]): Buffer[String] = {
+  def muutokset(b: Buffer[String]) = {
   var kokoLause = Buffer[String]()
     for (kaikkiSanat <- b) {
       kaikkiSanat.toLowerCase()
@@ -73,8 +73,9 @@ class muutokset {
         kokoLause += kaikkiSanat
       }
 
+     
     }
-  kokoLause
+    kokoLause.mkString(" ")
   }
 
   /* def playTurn(command: String) = {

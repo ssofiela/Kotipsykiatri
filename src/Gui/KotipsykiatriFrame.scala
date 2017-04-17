@@ -102,7 +102,7 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
     //this.input.requestFocusInWindow()
 
     def run() = {
-      println("tuli runniin")
+    /*  println("tuli runniin")
       println(game.alku())
       if (game.Ending()) {
         game.End
@@ -111,10 +111,10 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
       }
       if (game.Ending()) {
         game.End
-      } else {
-        game.question2()
+      } else {*/
+      //  game.question2()
         //println("Toinen kysymys kysytty hurraa :D")
-      }
+    //  }
     /*  if (game.loppunut()) {
         game.lopetus
       } else {

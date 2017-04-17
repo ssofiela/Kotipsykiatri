@@ -1,27 +1,37 @@
 Doctor: Hello, What is your name?
 Doctor: Nice to meet you 
- How are you feeling today
 Doctor: I understand that
- What makes that you are 
 Doctor: Okey, what are you thinking that 
 Doctor: I see 
-Tell me more that you are
 Doctor: What do you feel about 
+Doctor: Would you like to discuss more?
+Doctor: Could you tell me your feel better?
+Doctor: Are you sure that
+Doctor: You are not only one with 
+Doctor: I know what are you feeling,
+Doctor: What do will do that 
+Doctor: How does it make you feel that
+vaihtoehto:
 Doctor: I am happy to hear that you are
 Doctor: I hope you have better day tomorrow and you are not 
 anymore
-Doctor: Would you like to discuss more?
 I hope only the best for you, Bye
 bye
 Doctor: Tell me something! How are you feeling today?
-Doctor: Could you tell me your feel better?
  I am asking the questions for you, not the other way around :D 
 you are not answering to me?
 Doctor: I am just a doctor for you but nice to meet you 
 
 Doctor: What is on your mind
 Doctor: jooooo
-Doctor: I know what are you feeling,
-Doctor: You are not only one with 
-I hope that this help you even a little. Come soon back. See ya!
-And 
+
+
+I hope this help you even a little.
+And
+Next_ask:
+
+
+
+How are you feeling today
+ What makes that you are 
+Tell me more that

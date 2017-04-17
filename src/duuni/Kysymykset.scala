@@ -3,7 +3,7 @@ import Gui._
 
 class Kysymykset {
 
-  val a = new alkuja
+ // val a = new alkuja
   val v = new vastaukset
   val t = new tiedosto
   
@@ -16,7 +16,7 @@ class Kysymykset {
    * this use the name method and ask a feeling.
    * if user ask doctor´s name, this answer and ask the feeling also.
    */
-  def question1() = {
+ /* def question1() = {
     var name = v.name
     if (!v.WhatIsYourName.isEmpty()) {
       println(v.WhatIsYourName + name + "." + t.kysymykset(2) + "?")
@@ -111,8 +111,13 @@ class Kysymykset {
     var kasi = v.kasi
     //println("pääsenkö ees tänne")
    // println(kasi)
-    println(t.kysymykset(24) + kasi + ". "+t.kysymykset(25)) //+ kasi + t.kysymykset(27))
+    println(t.kysymykset(24) + kasi + ". "+ t.kysymykset(25)) //+ kasi + t.kysymykset(27))
   }
+  
+  def question9() = {
+    var ysi = v.ysi
+    println(t.kysymykset(28) + ysi)
+  }*/
 
   def End = { // miks tulostaa myös jonkun kysymykset???? 
     println("goodbye")

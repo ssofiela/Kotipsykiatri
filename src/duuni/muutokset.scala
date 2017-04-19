@@ -6,11 +6,10 @@ import scala.collection.mutable.Buffer
 
 class muutokset {
 
-  
   def piste(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
-  
-    if(b(b.length - 1).contains(".")) {
+
+    if (b(b.length - 1).contains(".")) {
       val pituus = b(b.length - 1).length
       for (u <- 0 until b.size - 1) {
         line += b(u)
@@ -21,14 +20,14 @@ class muutokset {
       for (i <- 0 until b.size) {
         line += b(i)
       }
-  }
+    }
     line
   }
-  
-   def !(b: Buffer[String]): Buffer[String] = {
+
+  def !(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
-  
-    if(b(b.length - 1).contains("!")) {
+
+    if (b(b.length - 1).contains("!")) {
       val pituus = b(b.length - 1).length
       for (u <- 0 until b.size - 1) {
         line += b(u)
@@ -39,17 +38,19 @@ class muutokset {
       for (i <- 0 until b.size) {
         line += b(i)
       }
-  }
+    }
     line
   }
-  
+
   def muutokset(b: Buffer[String]) = {
-  var kokoLause = Buffer[String]()
+    var kokoLause = Buffer[String]()
     for (kaikkiSanat <- b) {
       kaikkiSanat.toLowerCase()
       if (kaikkiSanat == "i") {
         kokoLause += "you"
       } else if (kaikkiSanat == "I") {
+        kokoLause += "you"
+      } else if (kaikkiSanat == "me") {
         kokoLause += "you"
       } else if (kaikkiSanat == "we") {
         kokoLause += "you"
@@ -73,11 +74,41 @@ class muutokset {
         kokoLause += kaikkiSanat
       }
 
-     
     }
     kokoLause.mkString(" ")
   }
 
-  
+  def yes(b: Buffer[String]): String = {
+    var vastaus = Buffer[String]()
+    for (i <- b) {
+      i.toLowerCase()
+      if (i == "yes") { //  if(i == "yes" || i == "sure" || i == "yep" || i == "yeah") {
+        vastaus += "Doctor: Good to know!"
+      } else if (i == "no") { // } else if(i == "no" || i == "nope" || i == "not"){
+        vastaus += "Doctor: I get it wrong then! "
+      }
+    }
+    vastaus.mkString(" ")
+  }
 
+  def yess(b: Buffer[String]): Boolean = {
+    var joo = true
+    //var vastaus = Buffer[String]()
+    for (i <- b) {
+      i.toLowerCase()
+      if (i == "yes" || i == "sure" || i == "yep" || i == "yeah") {
+       joo = true
+        // vastaus += "Good to know!"
+      } else if (i == "no" || i == "nope" || i == "not") {
+       joo = true
+        //vastaus += "I get it wrong then! "
+      } else {
+        joo =false
+      }
+    }
+   joo
+  }
+
+  
+  
 }

@@ -9,7 +9,7 @@ object KotipsykiatriGui extends App {
   private val A = new alkuja
   private val V = new vastaukset
  
- 
+
    var currentCommand = ""
    var bufferiin = Buffer[String]()      // nyt tääl on kaikki
   
@@ -20,16 +20,18 @@ object KotipsykiatriGui extends App {
     while (loppunut(currentCommand)) {
       val newCommand = readLine("Message: ")
       currentCommand = newCommand
-      bufferiin += newCommand
       println("bufferiin:" + bufferiin)
       //Tarkasta, että käyttäjä kirjoitti jotain
       if (currentCommand.length > 0){
+    	  bufferiin += newCommand      //tässä koska silloin tyhjiä ei lisätä bufferiin
 
         val turnReport = A.playTurn(currentCommand)
         println(turnReport)
       }
       else{
+        
         println("Pls say something!")
+        
       }   
     }
     println("End")//(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus

@@ -10,7 +10,7 @@ import java.io.Reader
 import Gui._
 
 class vastaukset {
-   println("uusi vastaukset")
+ //  println("uusi vastaukset")
   var all = Buffer[String]() //tänne kerätään kaikki inputit
   var nameBuffer = Buffer[String]()
   var feelBuffer = Buffer[String]()
@@ -45,7 +45,7 @@ class vastaukset {
     for (i <- 0 until part.size) {
       vastaukset += part(i)
     }
-      println("Vastaukset: " + vastaukset + " ja  vastaukset.size: " + vastaukset.size)
+     // println("Vastaukset: " + vastaukset + " ja  vastaukset.size: " + vastaukset.size)
     vastaukset
     //part
   }
@@ -228,7 +228,7 @@ class vastaukset {
       }
     }
    var jee =  m.muutokset(sana)
-println(jee)
+//println(jee)
    jee
   }
 
@@ -302,24 +302,24 @@ joo
    
   }*/
 
-  def feeling = {
-    var buf2 = bufferiSecond //tähän kans muutokset i -> you...
-    var line = Buffer[String]()
-
-   line =  m.piste(buf2)
-
-    var lopullinen = ""
-    if (line.size == 1) { //toimii
-      lopullinen = "you are " +  KotipsykiatriGui.bufferiin(1)
-    } else if (line.size > 1) {
-      lopullinen =  KotipsykiatriGui.bufferiin(1)
-    } else {
-      lopullinen = "I can help you better if you answer that are you fine?"
+  def feeling(s : Buffer[String]): String = {  
+    println("s")
+    var line = Buffer[String]("you are")
+    if(s.size <3){
+      for(i <- s){
+        line += i
+      }
     }
-
-    // println("lopullinen:" + lopullinen)
-    lopullinen
+    if(s.size >= 3){
+      for(i <- 0 until s.size){
+        if(s(i) == "am" || s(i) == "is")
+          line += s(i+1)
+      }
+    }
+    line.mkString(" ")
+    
   }
+   
 
   /*
    * this take the feel from the line.

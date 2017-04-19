@@ -1,16 +1,16 @@
-Doctor: Hello, What is your name?
-Doctor: Nice to meet you 
-Doctor: I understand that
-Doctor: Okey, what are you thinking that 
-Doctor: I see 
-Doctor: What do you feel about 
-Doctor: Would you like to discuss more?
-Doctor: Could you tell me your feel better?
-Doctor: Are you sure that
-Doctor: You are not only one with 
-Doctor: I know what are you feeling,
-Doctor: What do will do that 
-Doctor: How does it make you feel that
+ Hello, What is your name?
+ Nice to meet you 
+ I understand that
+ Okey, what are you thinking that 
+ I see 
+ What do you feel about 
+ Would you like to discuss more?
+ Could you tell me your feel better?
+ Are you sure that
+ You are not only one with 
+ I know what are you feeling, what do you think that
+ What do will do that 
+ How does it make you feel that
 vaihtoehto:
 Doctor: I am happy to hear that you are
 Doctor: I hope you have better day tomorrow and you are not 

@@ -304,7 +304,7 @@ joo
 
   def feeling(s : Buffer[String]): String = {  
     println("s")
-    var line = Buffer[String]("you are")
+    var line = Buffer[String]()
     if(s.size <3){
       for(i <- s){
         line += i
@@ -312,14 +312,17 @@ joo
     }
     if(s.size >= 3){
       for(i <- 0 until s.size){
-        if(s(i) == "am" || s(i) == "is")
-          line += s(i+1)
+        if(s(i) == "am" || s(i) == "is"){
+          line += "you are " + s(i+1)
+        } else {
+          line += s(i)
+        }
       }
     }
     line.mkString(" ")
     
   }
-   
+  
 
   /*
    * this take the feel from the line.

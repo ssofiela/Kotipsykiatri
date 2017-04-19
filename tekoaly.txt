@@ -4,8 +4,8 @@
  Okey, what are you thinking that 
  I see 
  What do you feel about 
- Would you like to discuss more?
- Could you tell me your feel better?
+ Would you like to discuss more about
+ Could you tell me your feel better about
  Are you sure that
  You are not only one with 
  I know what are you feeling, what do you think that
@@ -15,16 +15,17 @@ vaihtoehto:
 Doctor: I am happy to hear that you are
 Doctor: I hope you have better day tomorrow and you are not 
 anymore
-I hope only the best for you, Bye
+I hope only the best for you, 
 bye
-Doctor: Tell me something! How are you feeling today?
+Come back soon,
  I am asking the questions for you, not the other way around :D 
 you are not answering to me?
+
 Doctor: I am just a doctor for you but nice to meet you 
 
 Doctor: What is on your mind
 Doctor: jooooo
-
+Could you tell me your feel better
 
 I hope this help you even a little.
 And

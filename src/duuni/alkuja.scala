@@ -9,7 +9,7 @@ class alkuja {
   private val v = new vastaukset
   //private val kysymys = new Kysymykset
   private var turnCount = 0
-  var b = 5
+  var b = 6
   var kysy = 8
 
   def playTurn(command: String): String = {
@@ -18,10 +18,10 @@ class alkuja {
       "Doctor:" + t.kysymykset(1) + v.name + "! " + t.kysymykset(34) + "?"
 
     } else if (turnCount == 2) {
-     "Doctor:" + t.kysymykset(2) + "." + t.kysymykset(35) + v.feel + "?"
+      "Doctor:" + t.kysymykset(2) + "." + t.kysymykset(35) + v.feel + "?"
 
     } else if (turnCount == 3) {
-     "Doctor:" + t.kysymykset(5) + v.kolmas + "?"
+      "Doctor:" + t.kysymykset(5) + v.kolmas + "?"
 
     } else if (turnCount == 4) {
       "Doctor:" + t.kysymykset(4) + v.name + "!" + " " + t.kysymykset(36) + " " + v.neloseen + "."
@@ -29,7 +29,7 @@ class alkuja {
     } else if (turnCount == 5) {
       var vitonen = v.vitonen
 
-      var palauta = "Doctor:" + t.kysymykset(9) + " " + vitonen + ", " + v.name + ". " + t.kysymykset(26) 
+      var palauta = "Doctor:" + t.kysymykset(9) + " " + vitonen + ", " + v.name + ". " + t.kysymykset(26)
 
       for (i <- v.feel.split(" ")) {
         if (i == "fine" || i == "good" || i == "well" || i == "graet" || i == "awesome" || i == "grateful" ||
@@ -37,7 +37,7 @@ class alkuja {
           palauta = ("Doctor:" + t.kysymykset(14) + " " + v.feel + t.kysymykset(26) + ".")
 
         } else if (i == "bad" || i == "okey" || i == "angry" || i == "shy" || i == "mad" || i == "disapponted") {
-          palauta = ("Doctor:" + " " + t.kysymykset(15) + v.feel + " " + ". " + t.kysymykset(16) )
+          palauta = (t.kysymykset(15) + v.feel + " " + t.kysymykset(16) + ".")
 
         }
       }
@@ -54,35 +54,30 @@ class alkuja {
       } else {
         kysy += 1
       }
-     
-    //  println(b)
-    //  println("turnCount:" + turnCount)
-      if (m.yess(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {  //kun tulee yes tai no
-        b = turnCount - 1
-      //  println("tää menee yes ja b:" + b)
-      }
-      if (b % 5 == 0) {
-        b = turnCount - 1
 
-      } else if (b % 2 == 0) {
-        b -= 2
-      //  println("jaollinen kahella, b:" + b)
-      } else if (b % 7 == 0) {
-        b += 3
-      } else if (b % 9 == 0) {
-        b -= 3
-      } else if (b % 5 == 0) {
-        b += 1
-      } else {
-        b += 2
-       // println("elseen b:" + b)
+      //  println(b)
+      //  println("turnCount:" + turnCount)
+      if (m.yess(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) { //kun tulee yes tai no
+        b = turnCount - 1
+        //  println("tää menee yes ja b:" + b)
       }
-     // b+= 1
+       val r = scala.util.Random        //vielä ehkä vähemmän hajontaa????
+        var num = r.nextInt(8)
+        if(num == 1 || num == 5 || num == 6 || num == 4){
+          b += 1
+        } else if(num == 2){
+          b += 2
+        } else if(num == 3 || num == 7 || num == 8){
+          b -= 1
+       
+        }
+      // b+= 1
 
       //  println(kysy)
       if (b > turnCount - 1) {
         b = turnCount - 1
       }
+      
 
       /* if(b %2 == 0){    //tekee ettei aina valitse edellisen vastausta!
        b -= 2           
@@ -93,29 +88,41 @@ class alkuja {
       // var buffer = KotipsykiatriGui.bufferiin(b).split(" ").toBuffer
       //println( t.kysymykset(kysy) , m.muutokset(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer))
       if (m.yess(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
-        m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.kysymykset(kysy).drop(7) + m.muutokset(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "?"
-      } else if(turnCount %4 == 0){
-    	//  println("nyt pitäs tulla feeling")
-        "Doctor:" + t.kysymykset(b) + v.feeling(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)
-      } else {
-       "Doctor:" + t.kysymykset(kysy) + m.muutokset(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "?"
+        if(b < 12){
+          b = turnCount -1
+        } else {
+        val r = scala.util.Random
+        var num = r.nextInt(10)
+        b = num + 2
+       // println(b)
       }
-      //var kysy = 9
-      //var b = KotipsykiatriGui.bufferiin(6)
+      
+        m.yes(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + t.kysymykset(kysy) + " you said " + m.muutokset(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "?"
 
-      /* var joo = t.kysymykset.size
-      var juu = KotipsykiatriGui.bufferiin
-      var jee = ""
-      for (i <- 8 until joo) {
-        println(i)
-        for(u <- 3 until KotipsykiatriGui.bufferiin.size) { // 5 ja 4?  toka on 3
-      println(u)
-    	 
-      var jee = t.kysymykset(i) + juu(u)
-        }
+      } else if (m.??(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
+         if(b < 12){
+          b = turnCount -1
+        } else {
+        val r = scala.util.Random
+        var num = r.nextInt(10)
+        b = num + 2
+        //println(b)
       }
-      println(jee)
-      jee*/
+       
+        "Doctor:" + "I don't know but " + "what do you think about " + m.muutoksetReverse(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
+        
+      } else if(m.!!(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)){
+        "Doctor: "+ m.!(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)
+        
+      } else if (turnCount % 4 == 0) {
+        //  println("nyt pitäs tulla feeling")
+        "Doctor:" + t.kysymykset(b) + v.feeling(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)
+      } else if(turnCount % 5 == 0){
+        "Doctor:" + v.name + ", " + t.kysymykset(kysy) + " " + m.muutokset(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
+      } else {
+        "Doctor:" + t.kysymykset(kysy) + " " + m.muutokset(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
+      }
+      
 
     } else {
       "Doctor: I didn't understand you" // lisää komentoja

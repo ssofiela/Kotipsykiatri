@@ -20,26 +20,26 @@ class alkuja {
       "Doctor:" + t.kysymykset(1) + v.name + "! " + t.kysymykset(34) + "?"
 
     } else if (turnCount == 2) {
-      "Doctor:" + t.kysymykset(2) + "." + t.kysymykset(35) + v.feel + "?"
+      "Doctor:" + t.kysymykset(2) + "." + t.kysymykset(35) + v.feel(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + "?"
 
     } else if (turnCount == 3) {
       "Doctor:" + t.kysymykset(5) + v.kolmas + "?"
 
     } else if (turnCount == 4) {
-      "Doctor:" + t.kysymykset(4) + v.name + "!" + " " + t.kysymykset(36) + " you are" + v.feel + "."
+      "Doctor:" + t.kysymykset(4) + v.name + "!" + " " + t.kysymykset(36) + " you are " + v.feel(KotipsykiatriGui.bufferiin(1).split(" ").toBuffer) + "."
 
-    } else if (turnCount == 5) {    //meniköhän oikein?
+    } else if (turnCount == 5) { //meniköhän oikein?
       var vitonen = v.vitonen
 
-      var palauta = "Doctor:" + t.kysymykset(9) + " " + vitonen + ", " + v.name + ". "
+      var palauta = "Doctor:" + t.kysymykset(9) + vitonen + ", " + v.name + ". "
 
-      for (i <- v.feel.split(" ")) {
-        if (i == "fine" || i == "good" || i == "well" || i == "graet" || i == "awesome" || i == "grateful" ||
+      for (i <- v.feel(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
+        if (i == "fine" || i == "good" || i == "well" || i == "great" || i == "awesome" || i == "grateful" ||
           i == "happy" || i == "proud") {
-          palauta = ("Doctor:" + t.kysymykset(14) + " " + v.feel + ".")
+          palauta = ("Doctor:" + t.kysymykset(14) + " " + v.feel(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + ".")
 
         } else if (i == "bad" || i == "okey" || i == "angry" || i == "shy" || i == "mad" || i == "disapponted") {
-          palauta = "Dpctor: " + (t.kysymykset(15) + v.feel + " " + t.kysymykset(16) + ".")
+          palauta = "Dpctor: " + (t.kysymykset(15) + v.feel(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + " " + t.kysymykset(16) + ".")
 
         }
       }
@@ -49,21 +49,22 @@ class alkuja {
       "Doctor:" + t.kysymykset(8) + " " + v.vitonen + "?"
 
     } else if (turnCount > 6) { // mieti tarkasti Vaik randomilla edellisen input tai nykynen
-      // while(kysy < 12){
 
+      /*katsoo että kysymysten alut ovat tekstissä indekseissä välillä 2-12
+ * jos 12 niin silloin hyppää kakkoseen ja muuten randomilla valitaan alku
+ */
       if (kysy == 12) {
         kysy = 2
       } else {
-        kysy += 1
+        var r = scala.util.Random
+        var random = r.nextInt(11)
+        kysy = random + 2
       }
 
-      //  println(b)
-      //  println("turnCount:" + turnCount)
-      if (m.yess(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) { //kun tulee yes tai no
-        b = turnCount - 1
-        //  println("tää menee yes ja b:" + b)
-      }
-      val r = scala.util.Random //vielä ehkä vähemmän hajontaa????
+      /*
+       * valitaan randomilla mistä inputista tohtori keskustelee seuraavaksi
+       */
+      val r = scala.util.Random
       var num = r.nextInt(10)
       if (num == 1 || num == 5 || num == 6 || num == 4) {
         b += 1
@@ -75,28 +76,26 @@ class alkuja {
         b = b
 
       }
+      /*
+       * tällä karkoitetaan ettei kysymyksistä tulisi outoja, että skippaa inputit missä vaan yes tai no
+       */
+      println("yesOrNot:" + yesOrNo + "IsName:" + IsName)
       if (b == yesOrNo) {
         b = yesOrNo + 1
       }
       if (b == IsName) {
         b = IsName + 1
       }
-      // b+= 1
 
-      //  println(kysy)
       if (b > turnCount - 1) {
         b = turnCount - 1
       }
 
-      /* if(b %2 == 0){    //tekee ettei aina valitse edellisen vastausta!
-       b -= 2           
-      } else {
-         b += 2*/
       println("b" + b)
-      // }
-      // var buffer = KotipsykiatriGui.bufferiin(b).split(" ").toBuffer
-      //println( t.kysymykset(kysy) , m.muutokset(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer))
 
+      /*
+       * kun vastauksena yes tai no, niin silloin vastaus valitaan randomilla parista, että mikä vastaus tulee.
+       */
       if (m.yess(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
         if (b < 12) {
           b = turnCount - 1
@@ -107,21 +106,30 @@ class alkuja {
           println("yesOrNo:" + yesOrNo)
         }
         yesOrNo = b
-       // println("olen YEs metodissa")
         var s = r.nextInt(5)
         if (s == 1 || s == 3 || s == 5) {
           m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)
         } else if (s == 2) {
-         "Doctor: " + t.kysymykset(4) + v.name + "."
+          "Doctor: " + t.kysymykset(4) + v.name + "."
         } else {
-          "Doctor: " + t.kysymykset(8) + " " + m.muutokset(KotipsykiatriGui.bufferiin(turnCount -1).split(" ").toBuffer) + "?"
+          "Doctor: " + t.kysymykset(8) + " " + m.muutokset(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + "?"
         }
+
+        
+        /*
+         * 
+         * 
+         */
       } else if (v.IsItName(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
         IsName = b
-        //	println("your name???")
-
+      
         v.WhatIsYourName(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)
-
+        
+        
+        /*
+         * 
+         * 
+         */
       } else if (m.??(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
         if (b < 12) {
           b = turnCount - 1
@@ -136,14 +144,20 @@ class alkuja {
 
       } else if (m.!!(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
         "Doctor: " + m.!(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)
-        
-      } else if(v.doingB(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)){
+
+      } else if (v.doingB(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
         println("doing metodi")
         "Doctor: " + t.kysymykset(9) + v.doing(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)
 
-      } else if (turnCount % 4 == 0) {
+      } else if (turnCount % 6 == 0) {
+        if (kysy == 2 || kysy == 4) {
+          "Doctor:" + t.kysymykset(kysy) + " " + v.feel(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "."
+        } else {
+          "Doctor:" + t.kysymykset(kysy) + " " + v.feel(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "?"
+        }
+      } else if (turnCount % 4 == 0) { //LISÄÄ PISTE JA KYSYMYSMERKKI
         //  println("nyt pitäs tulla feeling")
-        "Doctor:" + t.kysymykset(b) + v.feeling(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)
+        "Doctor:" + t.kysymykset(kysy) + v.feeling(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)
 
       } else if (turnCount % 5 == 0) {
         "Doctor:" + v.name + ", " + t.kysymykset(kysy) + " " + m.muutokset(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"

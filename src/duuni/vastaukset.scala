@@ -18,26 +18,6 @@ class vastaukset {
   var m = new muutokset
   var t = new tiedosto
 
-  //val inputs = readLine("Message: ")
-  //kaikki += inputs
-  //println(kaikki)
-
-  /*def findAnswer(input: Reader) = {
-    val input = readLine("prompt> ")
-    
-  }*/
-
-  /* def bufferKaikki = { // tätä pitää jokaisen kysymyksen jölkeen kysyy kerran
-    //bufferkaikki lukee inputin, lisää inputin ja lisää inputin sen all bufferiin
-    var buffer = Buffer[String]()
-    val input = readLine("Message: ")
-    all += input
-    //println("kaikki: " + all)
-    for(i <- input.split(" ")){
-      buffer += i
-    }
-    buffer 
-  }*/
 
   def bufferiFirst: Buffer[String] = { //
     // bufferKaikki
@@ -63,50 +43,7 @@ class vastaukset {
     vastaukset
   }
 
-  /* def bufferiThird: String = {
-    // println("tulin kolmos bufferiin")
-    bufferKaikki
-    var vastaukset = all(2)
-    vastaukset
-  }
-  def bufferiFour: String = {
-    // println("tulin kolmos bufferiin")
-    bufferKaikki
-    var vastaukset = all(3)
-    vastaukset
-  }
-  def bufferiFive: String = {
-    bufferKaikki
-    var vastaukset = all(4)
-    vastaukset
-  }
-
-  def bufferiSix: String = {
-    bufferKaikki
-    var vastaukset = all(5)
-    vastaukset
-  }
-  def bufferiEight: String = {
-    bufferKaikki
-    var vastaukset = all(7)
-    vastaukset
-  }
-  def bufferiNine: String = {
-    bufferKaikki
-    var vastaukset = all(8)
-    vastaukset
-  }
-
-  def bufferiKolmas = { //tokalle miten saada toka
-    bufferKaikki
-    val inputti = all(2).split(" ")
-    var vastaukset = Buffer[String]()
-    for (i <- 0 until inputti.size) {
-      vastaukset += inputti(i)
-    }
-    //println(vastaukset, "toka")
-    vastaukset
-  }*/
+ 
 
   def IsItName(all: Buffer[String]): Boolean = {
     var kumpi = true
@@ -274,38 +211,7 @@ class vastaukset {
 def vitonen = {
   m.muutokset(m.piste(KotipsykiatriGui.bufferiin(4).split(" ").toBuffer))
 }
-  /* def kutonen = {
-    println("pääsin kutoseen kuitenkin")   // !!!!!!!!!!!!!!!!!TÄÄÄ EI TOIMIIIIIIIIIIII
-
-    var buf6 = bufferiSix.split(" ").toBuffer
-
-    var line = Buffer[String]()
-
-    line =  m.piste(buf6)
-    var kutone = ""
-    if (line.size == 1) {
-      if ((line =="no") || (line == "No") || (line =="not") ||( line =="Not")) {
-        println("jotain lopettamista")
-      } else if (line.contains("yes") || line.contains("Yes") || line.contains("sure") || line.contains("Sure") || line.contains("maybe") || line.contains("Maybe")) {
-        kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
-      } else {
-        kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
-      }
-    } else if (line.size > 1) {
-      if (line.contains("no") || line.contains("No") || line.contains("not") || line.contains("Not")) {
-        println("jotain lopettamista")
-      } else if (line.contains("yes") || line.contains("Yes") || line.contains("sure") || line.contains("Sure") || line.contains("maybe") || line.contains("Maybe")) {
-        kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
-      } else {
-        kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
-      }
-    } else {
-      kutone = t.kysymykset(21) + " " + nameBuffer(0) + "?"
-    }
-    kutone
-    //println("kutose metodu:" + kutone)
-  }*/
-
+ 
   
   def feeling(s: Buffer[String]): String = {
     println("s")
@@ -334,30 +240,31 @@ def vitonen = {
    * and return "feeling"-verb, and the whole feeling 
    * what is reason that this is so long!
    */
-  def feel = {
-    val buf2 = bufferiSecond
+  def feel(b: Buffer[String]): String = {
+   
     var line = Buffer[String]()
 
-    line = m.piste(buf2)
+    line = m.piste(b)
 
     var palauta = ""
     if (line.size == 1) {
       palauta = line(0)
-    }
-    if (line.size == 2) {
+    } else if (line.size == 2) {
       if (line(0) == "very" || line(0) == "really" || line(0) == "so" ||
         line(0) == "pretty" || line(0) == "little") {
         palauta = line(0) + " " + line(1)
+      } else {
+          palauta = line.mkString(" ")
       }
-    }
-    if (line.size == 3) {
+    } else if (line.size == 3) {
       if (line(1) == "am") {
         palauta = line(2)
       } else if (line(1) == "feel") {
         palauta = line(2)
+      } else {
+        palauta = line.mkString(" ")
       }
-    }
-    if (line.size == 4) {
+    } else if (line.size == 4) {
       if (line(1) == "am" && (line(2) == "very" || line(2) == "really" || line(2) == "so") ||
         line(2) == "pretty" || line(2) == "little") {
         palauta = line(2) + " " + line(3)
@@ -372,9 +279,10 @@ def vitonen = {
         palauta = line(3)
       } else if (line(1) == "feel") {
         palauta = line(2)
+      } else {
+        palauta = line.mkString(" ")
       }
-    }
-    if (line.size == 5) {
+    } else if (line.size == 5) {
       if (line(1) == "am" && (line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
         line(2) == "really" | line(2) == "so")) {
         palauta = line(2) + " " + line(3)
@@ -389,9 +297,10 @@ def vitonen = {
         palauta = line(3)
       } else if (line(2) == "am" && line(3) == "feeling") {
         palauta = line(3) + " " + line(4)
+      } else {
+        palauta = line.mkString(" ")
       }
-    }
-    if (line.size == 6) {
+    }else if (line.size == 6) {
       if (line(1) == "am" && line(2) == "very") {
         palauta = line(2) + " " + line(3)
       } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" || line(3) == "really" ||
@@ -401,9 +310,10 @@ def vitonen = {
         palauta = line(2) + " " + line(3)
       } else if (line(1) == "am") {
         palauta = line(2)
+      } else {
+        palauta = line.mkString(" ")
       }
-    }
-    if (line.size == 7) {
+    } else if (line.size == 7) {
       if (line(1) == "am" && line(2) == "very") {
         palauta = line(2) + " " + line(3)
       } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" || line(3) == "really" ||
@@ -413,10 +323,15 @@ def vitonen = {
         palauta = line(2) + " " + line(3)
       } else if (line(1) == "am") {
         palauta = line(2)
+      } else {
+        palauta = line.mkString(" ")
       }
+    } else {
+      palauta = line.mkString(" ")
     }
     palauta
   }
+ 
 
   /*  if (buf2(buf2.length - 1).contains("?")) {
       palauta = t.kysymykset(18) //+ t.kysymykset(2)

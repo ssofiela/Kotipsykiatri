@@ -112,7 +112,11 @@ class muutokset {
       if (kaikkiSanat == "you") {
         kokoLause += "i"
       } else if (kaikkiSanat == "You") {
-        kokoLause += "i"
+         if (kokoLause.contains("i") || kokoLause.last == "you") {
+          kokoLause += "me"
+        } else {
+          kokoLause += "i"
+        }
       } else if (kaikkiSanat == "i") {
         kokoLause += "you"
       } else if (kaikkiSanat == "I") {
@@ -151,11 +155,13 @@ class muutokset {
 
   def yes(b: Buffer[String]): String = { //jos vastaa vain yes tai no!
     var vastaus = Buffer[String]()
-    for (i <- b) {
-      i.toLowerCase()
-      if (i == "yes") { //  if(i == "yes" || i == "sure" || i == "yep" || i == "yeah") {
+    var t = this.piste(b)
+    t = this.huutari(t)
+    for (i <- 0 until t.size) {
+      var s=t(i).toLowerCase()
+      if (s == "yes" || s == "sure"  || s == "yep" || s == "yeah"|| s == "ofc") { //  if(i == "yes" || i == "sure" || i == "yep" || i == "yeah") {
         vastaus += "Doctor: Good to know!"
-      } else if (i == "no") { // } else if(i == "no" || i == "nope" || i == "not"){
+      } else if (s == "no" || s == "No" || s == "nope" || s == "Nope") { // } else if(i == "no" || i == "nope" || i == "not"){
         vastaus += "Doctor: I get it wrong then! "
       }
     }
@@ -164,14 +170,18 @@ class muutokset {
 
   def yess(b: Buffer[String]): Boolean = {
     var joo = true
+   var t = this.piste(b)
+   t = this.huutari(t)
+   println("t:" +t)
     //var vastaus = Buffer[String]()
-    for (i <- b) {
-      i.toLowerCase()
-      if (i == "yes" || i == "sure" || i == "yep" || i == "yeah") {
-        joo = true
+    for (i <- 0 until t.size) {
+    var s = t(i).toLowerCase()
+    println("s:" +s)
+      if (s == "yes" || s == "Yes"|| s == "sure" || s == "Sure" || s == "Yep" || s == "Yeah" || s == "yep" || s == "yeah" || s == "ofc" || s == "Ofc") {
+        return joo
         // vastaus += "Good to know!"
-      } else if (i == "no" || i == "nope" || i == "not") {
-        joo = true
+      } else if (s == "no" || s == "No" || s == "nope" || s == "Nope") {
+        return joo
         //vastaus += "I get it wrong then! "
       } else {
         joo = false

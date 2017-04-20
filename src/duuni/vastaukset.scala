@@ -10,13 +10,14 @@ import java.io.Reader
 import Gui._
 
 class vastaukset {
- //  println("uusi vastaukset")
+  //  println("uusi vastaukset")
   var all = Buffer[String]() //tänne kerätään kaikki inputit
   var nameBuffer = Buffer[String]()
   var feelBuffer = Buffer[String]()
- // var t = new tiedosto
+  // var t = new tiedosto
   var m = new muutokset
- 
+  var t = new tiedosto
+
   //val inputs = readLine("Message: ")
   //kaikki += inputs
   //println(kaikki)
@@ -26,7 +27,7 @@ class vastaukset {
     
   }*/
 
- /* def bufferKaikki = { // tätä pitää jokaisen kysymyksen jölkeen kysyy kerran
+  /* def bufferKaikki = { // tätä pitää jokaisen kysymyksen jölkeen kysyy kerran
     //bufferkaikki lukee inputin, lisää inputin ja lisää inputin sen all bufferiin
     var buffer = Buffer[String]()
     val input = readLine("Message: ")
@@ -39,13 +40,13 @@ class vastaukset {
   }*/
 
   def bufferiFirst: Buffer[String] = { //
-   // bufferKaikki
+    // bufferKaikki
     val part = KotipsykiatriGui.bufferiin(0).split(" ")
     var vastaukset = Buffer[String]()
     for (i <- 0 until part.size) {
       vastaukset += part(i)
     }
-     // println("Vastaukset: " + vastaukset + " ja  vastaukset.size: " + vastaukset.size)
+    // println("Vastaukset: " + vastaukset + " ja  vastaukset.size: " + vastaukset.size)
     vastaukset
     //part
   }
@@ -62,7 +63,7 @@ class vastaukset {
     vastaukset
   }
 
- /* def bufferiThird: String = {
+  /* def bufferiThird: String = {
     // println("tulin kolmos bufferiin")
     bufferKaikki
     var vastaukset = all(2)
@@ -96,7 +97,7 @@ class vastaukset {
     vastaukset
   }
 
-  /*def bufferiKolmas = { //tokalle miten saada toka
+  def bufferiKolmas = { //tokalle miten saada toka
     bufferKaikki
     val inputti = all(2).split(" ")
     var vastaukset = Buffer[String]()
@@ -107,15 +108,30 @@ class vastaukset {
     vastaukset
   }*/
 
-  /*def WhatIsYourName: String = {
-    var myName = ""
-    if (all(0).contains("What is your name?") || all(0).contains("what is your name?") || all(0).contains("Who are you?") || all(0).contains("who are you?") ||
-      all(0).contains("and you?") || all(0).contains("what about you?")) {
-      myName = t.kysymykset(19)
+  def IsItName(all: Buffer[String]): Boolean = {
+    var kumpi = true
+    var string = all.mkString(" ")
+    println("all:" + all)
+    if (string.contains("What is your name?") || string.contains("what is your name?") || string.contains("Who are you?") || string.contains("who are you?")) {
+      kumpi
+    } else {
+      kumpi = false
     }
-    myName*/
+    println(kumpi)
+    kumpi
   }
-*/
+
+  def WhatIsYourName(all: Buffer[String]): String = {
+    var myName = ""
+    var string = all.mkString(" ")
+    println("all:" + all)
+    if (string.contains("What is your name?") || string.contains("what is your name?") || string.contains("Who are you?") || string.contains("who are you?")) {
+
+      myName = t.kysymykset(23) + ":)"
+    }
+    myName
+  }
+
   /*
  * this long method is taking the name off the line.
  * the first thig what this do, take of the end point if the line have point.
@@ -128,12 +144,11 @@ class vastaukset {
     var nameIs = "anonyme"
     val buf1 = this.bufferiFirst
     var line = Buffer[String]()
-    line =  m.piste(buf1)
-   
+    line = m.piste(buf1)
 
-    if ( line.size == 1) {
-      if ( KotipsykiatriGui.bufferiin(0) == "Hello" ||  KotipsykiatriGui.bufferiin(0) == "Hi" || 
-          KotipsykiatriGui.bufferiin(0) == "Hey" ||  KotipsykiatriGui.bufferiin(0) == "hello") {
+    if (line.size == 1) {
+      if (KotipsykiatriGui.bufferiin(0) == "Hello" || KotipsykiatriGui.bufferiin(0) == "Hi" ||
+        KotipsykiatriGui.bufferiin(0) == "Hey" || KotipsykiatriGui.bufferiin(0) == "hello") {
         nameIs = "anonyme"
       } else {
         nameIs = KotipsykiatriGui.bufferiin(0)
@@ -209,7 +224,7 @@ class vastaukset {
     var bufferi = KotipsykiatriGui.bufferiin(2).split(" ").toBuffer
     var sana = Buffer[String]() // tähän sana ilman pistettä
 
-   sana =  m.piste(bufferi)
+    sana = m.piste(bufferi)
 
     if (sana.size == 4) {
       if (sana(3) == "thanks") {
@@ -227,39 +242,39 @@ class vastaukset {
         sana = sana.take(4)
       }
     }
-   var jee =  m.muutokset(sana)
-//println(jee)
-   jee
+    var jee = m.muutokset(sana)
+    //println(jee)
+    jee
   }
 
-  def neloseen = { //kolmosen vastaus
-    var bufferi = KotipsykiatriGui.bufferiin(3).split(" ").toBuffer
-    var sana = Buffer[String]() // tähän sana ilman pistettä
+  def doingB(b: Buffer[String]): Boolean = {
+    var totta = true
 
-   sana =  m.piste(bufferi)
-
-    var joo = m.muutokset(sana)
-    //kokoLause.mkString(" ")
-joo
+    for (i <- 0 until b.size) {
+      if (b(i) == "doing" || b(i) == "going") {
+        totta
+      } else {
+        totta = false
+      }
+    }
+    totta
   }
 
-  def vitonen = { //tää on ihan väärin
-    var buf5 =KotipsykiatriGui.bufferiin(4).split(" ").toBuffer
-    var line = Buffer[String]()
-
-    line =  m.piste(buf5)
-    var joo = m.muutokset(line)
-    joo
-
-  }/*
-  def ysi = {
-
-    var joo = m.muutokset(m.piste(bufferiNine.split(" ").toBuffer)).mkString(" ")
-    println(joo)
-    joo
+  def doing(b: Buffer[String]): String = {
+    var loppu = Buffer[String]()
+    for (i <- 0 until b.size) {
+      if (b(i) == "doing" || b(i) == "going") {
+        if (!b(i + 2).isEmpty()) {
+          loppu += b(i + 2)
+        }
+      }
+    }
+    loppu.mkString(" ")
   }
-
- /* def kutonen = {
+def vitonen = {
+  m.muutokset(m.piste(KotipsykiatriGui.bufferiin(4).split(" ").toBuffer))
+}
+  /* def kutonen = {
     println("pääsin kutoseen kuitenkin")   // !!!!!!!!!!!!!!!!!TÄÄÄ EI TOIMIIIIIIIIIIII
 
     var buf6 = bufferiSix.split(" ").toBuffer
@@ -291,38 +306,27 @@ joo
     //println("kutose metodu:" + kutone)
   }*/
 
-  def kasi = {
-    var buf8 = bufferiEight.split(" ").toBuffer
-    var line = Buffer[String]()
-
-    line =  m.piste(buf8)
-    
-    m.muutokset(line).mkString(" ")
-
-   
-  }*/
-
-  def feeling(s : Buffer[String]): String = {  
+  
+  def feeling(s: Buffer[String]): String = {
     println("s")
     var line = Buffer[String]()
-    if(s.size <3){
-      for(i <- s){
+    if (s.size < 3) {
+      for (i <- s) {
         line += i
       }
     }
-    if(s.size >= 3){
-      for(i <- 0 until s.size){
-        if(s(i) == "am" || s(i) == "is"){
-          line += "you are " + s(i+1)
+    if (s.size >= 3) {
+      for (i <- 0 until s.size) {
+        if (s(i) == "am" || s(i) == "is") {
+          line += "you are " + s(i + 1)
         } else {
           line += s(i)
         }
       }
     }
     line.mkString(" ")
-    
+
   }
-  
 
   /*
    * this take the feel from the line.
@@ -334,7 +338,7 @@ joo
     val buf2 = bufferiSecond
     var line = Buffer[String]()
 
-    line =  m.piste(buf2)
+    line = m.piste(buf2)
 
     var palauta = ""
     if (line.size == 1) {
@@ -454,5 +458,4 @@ joo
   }
 }*/
 
-  
 }

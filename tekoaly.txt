@@ -12,8 +12,8 @@
  What do will do that 
  How does it make you feel that
 vaihtoehto:
-Doctor: I am happy to hear that you are
-Doctor: I hope you have better day tomorrow and you are not 
+I am happy to hear that you are
+I hope you have better day tomorrow and you are not 
 anymore
 I hope only the best for you, 
 bye
@@ -21,16 +21,15 @@ Come back soon,
  I am asking the questions for you, not the other way around :D 
 you are not answering to me?
 
-Doctor: I am just a doctor for you but nice to meet you 
+Doctor: I am just a doctor for you 
 
 Doctor: What is on your mind
-Doctor: jooooo
+
 Could you tell me your feel better
 
 I hope this help you even a little.
 And
 Next_ask:
-
 
 
 How are you feeling today

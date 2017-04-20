@@ -24,7 +24,7 @@ class muutokset {
     line
   }
 
-   def kyssari(b: Buffer[String]): Buffer[String] = {
+  def kyssari(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
 
     if (b(b.length - 1).contains("?")) {
@@ -41,7 +41,7 @@ class muutokset {
     }
     line
   }
-   def huutari(b: Buffer[String]): Buffer[String] = {
+  def huutari(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
 
     if (b(b.length - 1).contains("!")) {
@@ -59,7 +59,6 @@ class muutokset {
     line
   }
 
-
   def muutokset(b: Buffer[String]) = {
     var kokoLause = Buffer[String]()
     for (kaikkiSanat <- b) {
@@ -76,6 +75,8 @@ class muutokset {
         kokoLause += "you"
       } else if (kaikkiSanat == "am") {
         kokoLause += "are"
+      } else if (kaikkiSanat == "are") {
+        kokoLause += "am"
       } else if (kaikkiSanat == "my") {
         kokoLause += "your"
       } else if (kaikkiSanat == "My") {
@@ -88,18 +89,23 @@ class muutokset {
         kokoLause += "the"
       } else if (kaikkiSanat == "here") {
         kokoLause += "there"
+      } else if (kaikkiSanat == "you") {
+        if (kokoLause.contains("i")) {
+          kokoLause += "me"
+        } else {
+          kokoLause += "i"
+        }
       } else {
         kokoLause += kaikkiSanat
       }
-
     }
+
     kokoLause.mkString(" ")
   }
-  
-  
+
   def muutoksetReverse(b: Buffer[String]) = {
-	  var sanat = this.kyssari(b)
-			  println("sanat:" + sanat)
+    var sanat = this.kyssari(b)
+    println("sanat:" + sanat)
     var kokoLause = Buffer[String]()
     for (kaikkiSanat <- sanat) {
       kaikkiSanat.toLowerCase()
@@ -107,37 +113,33 @@ class muutokset {
         kokoLause += "i"
       } else if (kaikkiSanat == "You") {
         kokoLause += "i"
-         } else if (kaikkiSanat == "i") {
+      } else if (kaikkiSanat == "i") {
         kokoLause += "you"
-         } else if (kaikkiSanat == "I") {
+      } else if (kaikkiSanat == "I") {
         kokoLause += "you"
-        } else if (kaikkiSanat == "we") {
+      } else if (kaikkiSanat == "we") {
         kokoLause += "you"
       } else if (kaikkiSanat == "are") {
-        kokoLause += "am" 
-        } else if (kaikkiSanat == "am") {
+        kokoLause += "am"
+      } else if (kaikkiSanat == "am") {
         kokoLause += "are"
       } else if (kaikkiSanat == "your") {
-        kokoLause += "mine"
-         } else if (kaikkiSanat == "mine") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "Your") {
         kokoLause += "my"
-         } else if (kaikkiSanat == "my") {
+      } else if (kaikkiSanat == "my") {
         kokoLause += "your"
-      } else if (kaikkiSanat == "yours") {
+      } else if (kaikkiSanat == "Yours") {
         kokoLause += "mine"
-         } else if (kaikkiSanat == "mine") {
+      } else if (kaikkiSanat == "mine") {
         kokoLause += "yours"
       } else if (kaikkiSanat == "were") {
         kokoLause += "was"
-         } else if (kaikkiSanat == "were") {
+      } else if (kaikkiSanat == "were") {
         kokoLause += "was"
       } else if (kaikkiSanat == "a") {
         kokoLause += "the"
       } else if (kaikkiSanat == "here") {
         kokoLause += "there"
-         } else if (kaikkiSanat == "there") {
+      } else if (kaikkiSanat == "there") {
         kokoLause += "here"
       } else {
         kokoLause += kaikkiSanat
@@ -147,7 +149,7 @@ class muutokset {
     kokoLause.mkString(" ")
   }
 
-  def yes(b: Buffer[String]): String = {    //jos vastaa vain yes tai no!
+  def yes(b: Buffer[String]): String = { //jos vastaa vain yes tai no!
     var vastaus = Buffer[String]()
     for (i <- b) {
       i.toLowerCase()
@@ -196,34 +198,31 @@ class muutokset {
     if (b(b.length - 1).contains("?")) {
       joo = true
     } else {
-     joo = false
+      joo = false
     }
     joo
   }
-  
+
   def !!(b: Buffer[String]): Boolean = {
     var joo = true
 
     if (b(b.length - 1).contains("!")) {
       joo = true
     } else {
-     joo = false
+      joo = false
     }
     joo
   }
-  
+
   def !(b: Buffer[String]): String = {
     var vastaus = Buffer[String]()
     var oja = this.huutari(b)
-    
-        vastaus += "Do you have reason that you use exclamation mark?"
 
-  
+    vastaus += "Do you have reason that you use exclamation mark?"
+
     vastaus.mkString(" ")
   }
-  
- 
-  
+
   //var vastaus = Buffer[String]()
   /*for (i <- b) {
       i.toLowerCase()
@@ -236,6 +235,5 @@ class muutokset {
     }
    joo
   }*/
-  
 
 }

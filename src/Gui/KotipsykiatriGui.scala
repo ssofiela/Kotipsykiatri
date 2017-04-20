@@ -36,9 +36,9 @@ object KotipsykiatriGui extends App {
     val r = scala.util.Random
     r.nextInt(2)
     if (r == 1) {
-      println("Doctor:" + T.kysymykset(17) + V.name + " " + T.kysymykset(18)) //(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
+      println("Doctor:" + T.kysymykset(24) + V.name + " " + T.kysymykset(25)) //(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
     } else {
-    println("Doctor: " + T.kysymykset(19) + V.name + " " + T.kysymykset(18))
+    println("Doctor: " + T.kysymykset(26) + V.name + " " + T.kysymykset(25))
     }
   }
 

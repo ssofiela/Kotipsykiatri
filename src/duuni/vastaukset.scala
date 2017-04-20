@@ -62,13 +62,56 @@ class vastaukset {
     var myName = ""
     var string = all.mkString(" ")
     println("all:" + all)
-    if (string.contains("What is your name?") || string.contains("what is your name?") || string.contains("Who are you?") || string.contains("who are you?")) {
+    if (string.contains("What is your name?") || string.contains("What´s your name?") ||string.contains("what is your name?") || string.contains("Who are you?") || string.contains("who are you?")) {
 
-      myName = t.kysymykset(23) + ":)"
+      myName = t.kysymykset(36) + ":)"
     }
     myName
   }
+  
+  def idkB(s: Buffer[String]): Boolean = {
+    var kumpi = true
+    var t = m.piste(s)
+    if(t(0) == "i" && t(1) == "don't" && t(2) == "know"){
+      kumpi
+    } else {
+      kumpi = false
+    }
+    println("idk: " + kumpi)
+    kumpi
+  }
 
+  def commonB(b: String): Boolean= {
+    var totta = true
+     var line = Buffer[String]()
+   var splitattu =  b.split(", ")
+   if(splitattu.size == 2){
+     totta
+       
+     } else {
+       totta = false
+   }
+     totta
+  }
+  
+  def common(b: String): String = {
+     var line = Buffer[String]()
+   var splitattu =  b.split(", ")
+   if(splitattu.size == 2){
+     if(splitattu(0).size > splitattu(1).size){
+       line += splitattu(0)
+     } else {
+       line += splitattu(1)
+     }
+     }
+     println("common line: " + line)
+     var line2 = m.muutokset(line)
+     line2.mkString(" ")
+  }
+  
+  
+  
+ 
   /*
  * this long method is taking the name off the line.
  * the first thig what this do, take of the end point if the line have point.
@@ -208,6 +251,34 @@ class vastaukset {
     }
     loppu.mkString(" ")
   }
+  
+  def ollaB(b: Buffer[String]): Boolean ={
+    var totta = false
+    for(i <- 0 until b.size){
+      if(b(i) == "a" || b(i) == "the"){
+       totta = true
+      
+      }
+    }
+    println("totta on: " + totta)
+    totta
+  }
+  
+  
+  def olla(s: Buffer[String]): String ={
+    var sana = ""
+   var b = m.piste(s)
+    b = m.huutari(b)
+    for(i <- 0 until b.size){
+      if(b(i) == "a" || b(i) == "the"){
+        sana = b(i +1)
+      }
+    }
+    println("sana on:" + sana)
+    sana
+  }
+  
+  
 def vitonen = {
   m.muutokset(m.piste(KotipsykiatriGui.bufferiin(4).split(" ").toBuffer))
 }

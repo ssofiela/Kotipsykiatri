@@ -19,7 +19,7 @@ import duuni._
   * of the course materials.''' */
 object frame extends SimpleSwingApplication {
 
- private val game = new Kysymykset
+ //private val game = new Kysymykset
   // Components: 
   
   val prompt = new Label("Message:")

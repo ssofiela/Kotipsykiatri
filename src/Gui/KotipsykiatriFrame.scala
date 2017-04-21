@@ -31,7 +31,7 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
 
     // Access to the internal logic of the application: 
 
-    private val game = new Kysymykset
+   // private val game = new Kysymykset
     private val games = new alkuja
     private val vastaus = new vastaukset
     var gameOn = true

@@ -1,21 +1,20 @@
-
-
 package duuni
+
 import Gui._
 import scala.collection.mutable.Buffer
 
 class muutokset {
 
-  def piste(b: Buffer[String]): Buffer[String] = {
+  def point(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
 
     if (b(b.length - 1).contains(".")) {
-      val pituus = b(b.length - 1).length
+      val length2 = b(b.length - 1).length
       for (u <- 0 until b.size - 1) {
         line += b(u)
       }
-      line += b(b.size - 1).substring(0, pituus - 1)
-      //println(line)
+      line += b(b.size - 1).substring(0, length2 - 1)
+      
     } else {
       for (i <- 0 until b.size) {
         line += b(i)
@@ -24,15 +23,15 @@ class muutokset {
     line
   }
 
-  def kyssari(b: Buffer[String]): Buffer[String] = {
+  def question(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
 
     if (b(b.length - 1).contains("?")) {
-      val pituus = b(b.length - 1).length
+      val length2 = b(b.length - 1).length
       for (u <- 0 until b.size - 1) {
         line += b(u)
       }
-      line += b(b.size - 1).substring(0, pituus - 1)
+      line += b(b.size - 1).substring(0, length2 - 1)
       //println(line)
     } else {
       for (i <- 0 until b.size) {
@@ -41,15 +40,15 @@ class muutokset {
     }
     line
   }
-  def huutari(b: Buffer[String]): Buffer[String] = {
+  def exclamation(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
 
     if (b(b.length - 1).contains("!")) {
-      val pituus = b(b.length - 1).length
+      val length2 = b(b.length - 1).length
       for (u <- 0 until b.size - 1) {
         line += b(u)
       }
-      line += b(b.size - 1).substring(0, pituus - 1)
+      line += b(b.size - 1).substring(0, length2 - 1)
       //println(line)
     } else {
       for (i <- 0 until b.size) {
@@ -59,7 +58,7 @@ class muutokset {
     line
   }
 
-  def muutokset(b: Buffer[String]) = {
+  def change(b: Buffer[String]) = {
     var kokoLause = Buffer[String]()
     for (kaikkiSanat <- b) {
       kaikkiSanat.toLowerCase()
@@ -103,8 +102,8 @@ class muutokset {
     kokoLause.mkString(" ")
   }
 
-  def muutoksetReverse(b: Buffer[String]) = {
-    var sanat = this.kyssari(b)
+  def changeReverse(b: Buffer[String]) = {
+    var sanat = this.question(b)
     println("sanat:" + sanat)
     var kokoLause = Buffer[String]()
     for (kaikkiSanat <- sanat) {
@@ -155,8 +154,8 @@ class muutokset {
 
   def yes(b: Buffer[String]): String = { //jos vastaa vain yes tai no!
     var vastaus = Buffer[String]()
-    var t = this.piste(b)
-    t = this.huutari(t)
+    var t = this.point(b)
+    t = this.exclamation(t)
     for (i <- 0 until t.size) {
       var s=t(i).toLowerCase()
       if (s == "yes" || s == "sure"  || s == "yep" || s == "yeah"|| s == "ofc") { //  if(i == "yes" || i == "sure" || i == "yep" || i == "yeah") {
@@ -170,8 +169,8 @@ class muutokset {
 
   def yess(b: Buffer[String]): Boolean = {
     var joo = true
-   var t = this.piste(b)
-   t = this.huutari(t)
+   var t = this.point(b)
+   t = this.exclamation(t)
    println("t:" +t)
     //var vastaus = Buffer[String]()
     for (i <- 0 until t.size) {
@@ -226,7 +225,7 @@ class muutokset {
 
   def !(b: Buffer[String]): String = {
     var vastaus = Buffer[String]()
-    var oja = this.huutari(b)
+    var oja = this.exclamation(b)
 
     vastaus += "Do you have reason that you use exclamation mark?"
 

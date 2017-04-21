@@ -18,38 +18,38 @@ class alkuja {
   def playTurn(command: String): String = {
     this.turnCount += 1
     if (turnCount == 1) {
-      "Doctor:" + t.kysymykset(2) + v.name + "! " + t.kysymykset(31) + "?"
+      "Doctor:" + t.ask(2) + v.name + "! " + t.ask(31) + "?"
 
     } else if (turnCount == 2) {
-      "Doctor:" + t.kysymykset(5) + "." + t.kysymykset(32) + v.feel(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + "?"
+      "Doctor:" + t.ask(5) + "." + t.ask(32) + v.feel(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + "?"
 
     } else if (turnCount == 3) {
-      "Doctor:" + t.kysymykset(8) + v.kolmas + "?"
+      "Doctor:" + t.ask(8) + v.three + "?"
 
     } else if (turnCount == 4) {
-      "Doctor:" + t.kysymykset(7) + v.name + "!" + " " + t.kysymykset(33) + " you are " + v.feel(KotipsykiatriGui.bufferiin(1).split(" ").toBuffer) + "."
+      "Doctor:" + t.ask(7) + v.name + "!" + " " + t.ask(33) + " you are " + v.feel(KotipsykiatriGui.bufferiin(1).split(" ").toBuffer) + "."
 
     } else if (turnCount == 5) { //meniköhän oikein?
       var vitonen = v.vitonen
 
-      var palauta = "Doctor:" + t.kysymykset(9) + " " + vitonen + ", " + v.name + ". "
+      var palauta = "Doctor:" + t.ask(9) + " " + vitonen + ", " + v.name + ". "
       println(v.feel(KotipsykiatriGui.bufferiin(1).split(" ").toBuffer) + "<-")
       for (i <- v.feel(KotipsykiatriGui.bufferiin(1).split(" ").toBuffer).split(" ")) {
         println("tädää")
         if (i == "fine" || i == "good" || i == "well" || i == "great" || i == "awesome" || i == "grateful" ||
           i == "happy" || i == "proud") {
           println("jeeee")
-          palauta = ("Doctor:" + t.kysymykset(19) + " " + v.feel(KotipsykiatriGui.bufferiin(1).split(" ").toBuffer) + ".")
+          palauta = ("Doctor:" + t.ask(19) + " " + v.feel(KotipsykiatriGui.bufferiin(1).split(" ").toBuffer) + ".")
 
         } else if (i == "bad" || i == "okey" || i == "angry" || i == "shy" || i == "mad" || i == "disapponted") {
-          palauta = "Dpctor: " + (t.kysymykset(20) + v.feel(KotipsykiatriGui.bufferiin(1).split(" ").toBuffer) + " " + t.kysymykset(21) + ".")
+          palauta = "Dpctor: " + (t.ask(20) + v.feel(KotipsykiatriGui.bufferiin(1).split(" ").toBuffer) + " " + t.ask(21) + ".")
 
         }
       }
       palauta
 
     } else if (turnCount == 6) {
-      "Doctor:" + t.kysymykset(11) + " " + v.vitonen + "?"
+      "Doctor:" + t.ask(11) + " " + v.vitonen + "?"
 
     } else if (turnCount > 6) { // mieti tarkasti Vaik randomilla edellisen input tai nykynen
 
@@ -93,7 +93,7 @@ class alkuja {
           b = (i + 1)
         }
       }
-      
+
       for (i <- 0 until ei.size) {
         if (b == ei(i)) {
           b = (i + 1)
@@ -125,11 +125,11 @@ class alkuja {
         yesOrNo += turnCount - 1
         var s = r.nextInt(5)
         if (s == 1 || s == 3 || s == 5) {
-          m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.kysymykset(kysy) + " " + m.muutokset(KotipsykiatriGui.bufferiin(b - 2).split(" ").toBuffer) + "?"
+          m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.ask(kysy) + " " + m.change(KotipsykiatriGui.bufferiin(b - 2).split(" ").toBuffer) + "?"
         } else if (s == 2) {
-          "Doctor: " + t.kysymykset(7) + v.name + "."
+          "Doctor: " + t.ask(7) + v.name + "."
         } else {
-          "Doctor: " + t.kysymykset(11) + " " + m.muutokset(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + "?"
+          "Doctor: " + t.ask(11) + " " + m.change(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + "?"
         }
 
         /*
@@ -155,67 +155,111 @@ class alkuja {
           //println(b)
         }
 
-        "Doctor:" + "I don't know but " + "what do you think about " + m.muutoksetReverse(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
+        "Doctor:" + "I don't know but " + "what do you think about " + m.changeReverse(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
 
       } else if (m.!!(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
         "Doctor: " + m.!(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)
-        
-      } else if(v.commonB(KotipsykiatriGui.bufferiin(turnCount - 1))){
-         if (kysy == 2 || kysy == 4) {
-    	  "Doctor:" + t.kysymykset(kysy) + " " + v.common(KotipsykiatriGui.bufferiin(turnCount - 1)) +"."
-         } else {
-            "Doctor:" + t.kysymykset(kysy) + " " + v.common(KotipsykiatriGui.bufferiin(turnCount - 1)) +"?"
-         }
-    	  
-      } else if(v.idkB(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)){
-        ei+= turnCount -1
-      "Doctor: " + v.name + ", " + t.kysymykset(5) + " you don't know." +  t.kysymykset(kysy) + " " + m.muutokset(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
 
-      } else if (v.doingB(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
+      } else if (v.idkB(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
+        if (v.commonB(KotipsykiatriGui.bufferiin(turnCount - 1))) {
+          if (kysy == 5 || kysy == 7) {
+            "Doctor:" + t.ask(kysy) + " " + m.point(v.common(KotipsykiatriGui.bufferiin(turnCount - 1))) + "."
+          } else {
+            "Doctor:" + t.ask(kysy) + " " + m.point(v.common(KotipsykiatriGui.bufferiin(turnCount - 1))) + "?"
+          }
+        }
+        ei += turnCount - 1
+        "Doctor: " + v.name + ", " + t.ask(5) + " you don't know." + t.ask(kysy) + " " + m.change(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
+
+      /*} else if (v.doingB(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
         println("doing metodi")
-        "Doctor: " + t.kysymykset(12) + " " + v.doing(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)
+        "Doctor: " + t.kysymykset(12) + " " + v.doing(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)*/
 
       } else if (turnCount % 6 == 0) {
-        if (kysy == 2 || kysy == 4) {
-          "Doctor:" + t.kysymykset(kysy) + " " + v.feel(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "."
+
+        println("tään on turnCount%6 == 0 ")
+        if (v.commonB(KotipsykiatriGui.bufferiin(turnCount - 1))) {
+           println("tään on turnCount%6 == 0 ja löytyy pilkku ")
+          if (kysy == 5 || kysy == 7) {
+            "Doctor:" + t.ask(kysy) + " " + v.feel(v.common(KotipsykiatriGui.bufferiin(turnCount - 1))) + "."
+          } else {
+            "Doctor:" + t.ask(kysy) + " " + v.feel(v.common(KotipsykiatriGui.bufferiin(turnCount - 1))) + "?"
+          }
+
+        } else if (kysy == 5 || kysy == 7) {
+           println("tään on turnCount%6 == 0 ja ei löydy pilkkuu ")
+          "Doctor:" + t.ask(kysy) + " " + v.feel(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "."
         } else {
-          "Doctor:" + t.kysymykset(kysy) + " " + v.feel(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "?"
+           println("tään on turnCount%6 == 0 ja ei löydy pilkkuu")
+          "Doctor:" + t.ask(kysy) + " " + v.feel(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "?"
         }
-      } else if (turnCount % 4 == 0) { //LISÄÄ PISTE JA KYSYMYSMERKKI
-        //  println("nyt pitäs tulla feeling")
-        if (kysy == 2 || kysy == 4) {
-          "Doctor:" + t.kysymykset(kysy) + " " + v.feel(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "."
+        
+        
+      } else if (turnCount % 4 == 0) { //LISÄÄ PISTE JA KYSYMYSMERKKI muuta 7777
+       /* println("turnCount%4 == 0")
+         if (v.commonB(KotipsykiatriGui.bufferiin(turnCount - 1))) {
+           println("tään on turnCount%4 == 0 ja löytyy pilkku ")
+          if (kysy == 2 || kysy == 4) {
+            "Doctor:" + t.kysymykset(kysy) + " " + v.feeling(v.common(KotipsykiatriGui.bufferiin(turnCount - 1))) + "."
+          } else {
+            "Doctor:" + t.kysymykset(kysy) + " " + v.feeling(v.common(KotipsykiatriGui.bufferiin(turnCount - 1))) + "?"
+          }*/
+
+        if(!(v.feeling(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer).isEmpty())) {
+         if (kysy == 5 || kysy == 7) {
+            println("tään on turnCount%4 == 0 ja löytyyEI pilkku ")
+          "Doctor:" + t.ask(37) + " " + v.feeling(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "."
 
         } else {
-          "Doctor:" + t.kysymykset(kysy) + " " + v.feel(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) +"?"
+           println("tään on turnCount%4 == 0 ja löytyy EIpilkku ")
+           println(v.common(KotipsykiatriGui.bufferiin(turnCount - 1)), "common", v.feeling(v.common(KotipsykiatriGui.bufferiin(turnCount - 1))), "kokonann")
+          "Doctor:" + t.ask(37) + " " + v.feeling(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer) + "?"
           //pitäs sit tehä muutokset jos ei toimi!!
         }
+        } else {
+           if (kysy == 5 || kysy == 7) {
+             "Doctor:" + t.ask(kysy) + " " + m.change(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "."
+           } else {
+              "Doctor:" + t.ask(kysy) + " " + m.change(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
+           }
+        }
+         
+         
       } else if (turnCount % 5 == 0) {
-        if (kysy == 2 || kysy == 4) {
-          "Doctor:" + v.name + ", " + t.kysymykset(kysy) + " " + m.muutokset(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "."
+        if (kysy == 5 || kysy == 7) {
+          "Doctor:" + v.name + ", " + t.ask(kysy) + " " + m.change(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "."
           // println("muutettu:" + m.muutokset(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)))
         } else {
-          "Doctor:" + v.name + ", " + t.kysymykset(kysy) + " " + m.muutokset(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
+          "Doctor:" + v.name + ", " + t.ask(kysy) + " " + m.change(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
         }
-        
-        
 
       } else if (v.ollaB(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
         println("olla metodis, alkuja")
         val r = scala.util.Random
         var num = r.nextInt(2)
         if (num == 1) {
-          "Doctor: " + t.kysymykset(35) + " " + v.olla(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + "?"
+          "Doctor: " + t.ask(35) + " " + v.olla(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + "?"
         } else {
-          "Doctor: " + t.kysymykset(34) + " " + v.olla(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + "?"
+          "Doctor: " + t.ask(34) + " " + v.olla(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + "?"
         }
 
       } else {
-        if (kysy == 2 || kysy == 4) {
-          "Doctor:" + t.kysymykset(kysy) + " " + m.muutokset(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "."
+        if (v.commonB(KotipsykiatriGui.bufferiin(turnCount - 1))) {
+           println("tään on lopun elsessä ja löytyy pilkku ")
+          if (kysy == 5 || kysy == 7) {
+            "Doctor:" + t.ask(kysy) + " " + m.change(m.point(v.common(KotipsykiatriGui.bufferiin(turnCount - 1)))) + "."
+          } else {
+            "Doctor:" + t.ask(kysy) + " " + m.change(m.point(v.common(KotipsykiatriGui.bufferiin(turnCount - 1)))) + "?"
+          }
+
+        
+        } else if (kysy == 5 || kysy == 7) {
+          println("tää on lopun elsessä ja ei löydy pilkkua")
+          "Doctor:" + t.ask(kysy) + " " + m.change(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "."
 
         } else {
-          "Doctor:" + t.kysymykset(kysy) + " " + m.muutokset(m.piste(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
+          println("lopun else, ei pilkkua")
+          "Doctor:" + t.ask(kysy) + " " + m.change(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)) + "?"
         }
       }
 

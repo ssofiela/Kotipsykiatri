@@ -14,12 +14,12 @@ class tiedosto {
   //val kysymykset = io.Source.fromFile("tekoaly.txt").getLines.toList
   //val reader = new FileReader("tekoaly.txt")
 
-  var kysymykset = Buffer[String]()
+  var ask = Buffer[String]()
   val fileName = "tekoaly.txt"
   try {
 
     for (line <- Source.fromFile(fileName).getLines()) {
-      kysymykset += line
+      ask += line
       
     }
   } catch {

@@ -4,6 +4,7 @@ import Gui._
 import scala.collection.mutable.Buffer
 
 class muutokset {
+  //var v = new vastaukset
 
   def point(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
@@ -79,6 +80,9 @@ class muutokset {
       } else if (kaikkiSanat == "my") {
         kokoLause += "your"
       } else if (kaikkiSanat == "My") {
+        kokoLause += "your"
+      } else if(kaikkiSanat == "your"){
+      kokoLause += "my"
         kokoLause += "your"
       } else if (kaikkiSanat == "mine") {
         kokoLause += "yours"
@@ -171,9 +175,14 @@ class muutokset {
     var joo = true
    var t = this.point(b)
    t = this.exclamation(t)
+   var ok = Buffer[String]()
+   if(t.contains(',')){
+     ok += t.mkString(" ").split(',')(0)
+     println("yess tällä hetkellä??" + ok)
+   }
    println("t:" +t)
     //var vastaus = Buffer[String]()
-    for (i <- 0 until t.size) {
+    for (i <- 0 until ok.size) {
     var s = t(i).toLowerCase()
     println("s:" +s)
       if (s == "yes" || s == "Yes"|| s == "sure" || s == "Sure" || s == "Yep" || s == "Yeah" || s == "yep" || s == "yeah" || s == "ofc" || s == "Ofc") {

@@ -107,6 +107,46 @@ class vastaukset {
     buffer.toBuffer
   }
 
+  
+  def twoPointsB(b: String): Boolean = {
+    var trueFalse = true
+    var line = Buffer[String]()
+    
+    var split = b.split('.')
+    println("split size:" + split.size)
+    if (split.size >= 2) {
+      trueFalse
+
+    } else {
+      trueFalse = false
+    }
+    println("two points:" + trueFalse)
+    trueFalse
+  }
+
+  def twoPoints(b: String): Buffer[String] = {
+    var line = Buffer[String]()
+    var split = b.split('.')
+    if (split.size == 2) {
+      if (split(0).size > split(1).size) {
+        line += split(0)
+      } else {
+        line += split(1)
+      }
+    } else if(split.size == 3){
+      if(split(0).size > split(1).size && split(0).size > split(2).size) {
+        line += split(0)
+      } else if(split(1).size > split(2).size && split(1).size > split(0).size){
+        line += split(1)
+      } else {
+        line += split(2)
+      }
+    }
+    println("common line: " + line)
+    var line2 = m.change(line)
+    var buffer = line2.split(" ")
+    buffer.toBuffer
+  }
   /*
  * this long method is taking the name off the line.
  * the first thig what this do, take of the end point if the line have point.

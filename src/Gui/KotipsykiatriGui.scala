@@ -9,9 +9,12 @@ object KotipsykiatriGui extends App {
   private val A = new alkuja
   private val V = new vastaukset
   private val T = new tiedosto
+  private val tl = new tallenna
 
   var currentCommand = ""
   var bufferiin = Buffer[String]() // nyt tääl on kaikki
+  var tee = ""
+  var too= ""
 
   this.run()
 
@@ -24,8 +27,11 @@ object KotipsykiatriGui extends App {
       //Tarkasta, että käyttäjä kirjoitti jotain
       if (currentCommand.length > 0) {
         bufferiin += newCommand //tässä koska silloin tyhjiä ei lisätä bufferiin
-
+        tee = newCommand
+        tl.oo
         val turnReport = A.playTurn(currentCommand)
+        too = turnReport
+        tl.aa
         println(turnReport)
       } else {
 

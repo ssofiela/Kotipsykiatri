@@ -5,6 +5,8 @@ import scala.swing.event._
 import javax.swing.UIManager
 import scala.io.StdIn._
 import duuni._
+import scala.collection.mutable.Buffer
+import scala.io.StdIn.readLine
 
 ////////////////// NOTE TO STUDENTS //////////////////////////
 // For the purposes of our course, it's not necessary    
@@ -31,22 +33,25 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
 
     // Access to the internal logic of the application: 
 
-   // private val game = new Kysymykset
-    private val games = new alkuja
-    private val vastaus = new vastaukset
+    // private val game = new Kysymykset
+    private val A = new alkuja
+    private val V = new vastaukset
+    private val T = new tiedosto
     var gameOn = true
 
+    var currentCommand = ""
+    var bufferiin = Buffer[String]() // nyt tääl on kaikki
     // Components: 
 
     val locationInfo = new TextArea(5, 40) { // oli 7, 80
-     // editable = false
-      //wordWrap = true
-      //lineWrap = true
+      editable = false
+      wordWrap = true
+      lineWrap = true
     }
     val turnOutput = new TextArea(5, 40) { // oli 7, 10
-     // editable = false
-      //wordWrap = true
-      //lineWrap = true
+      editable = false
+      wordWrap = true
+      lineWrap = true
     }
     val input = new TextField(40) { // oli 40
       minimumSize = preferredSize
@@ -58,15 +63,17 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
 
     this.reactions += {
       case keyEvent: KeyPressed =>
-        //if (keyEvent.source == this.input && keyEvent.key == Key.Enter && !game.loppunut()) {
-         // val command = this.input.text.trim
-          if (gameOn) {
-            println("jee oon reaktioissa")
-            this.input.text = ""
-            this.updateInfo()
-            this.run()
-          //}
+        if (keyEvent.source == this.input && keyEvent.key == Key.Enter && gameOn) {
+          this.updateInfo()
+
         }
+        val command = this.input.text.trim
+
+      //	  this.run()
+
+      // this.input.text = "help help"
+      //}
+
     }
 
     // Layout: 
@@ -95,76 +102,85 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
     // Set up the initial state of the GUI:
 
     //this.title = game.title
-    //this.updateInfo(this.game.welcomeMessage)
+    //    this.updateInfo("Doctor: good morning")
     // this.location = new Point(50, 50)
     //this.minimumSize = new Dimension(200, 200) // 200, 200
     //this.pack()
     //this.input.requestFocusInWindow()
 
-    def run() = {
-    /*  println("tuli runniin")
-      println(game.alku())
-      if (game.Ending()) {
-        game.End
-      } else {
-        game.question1()
-      }
-      if (game.Ending()) {
-        game.End
-      } else {*/
-      //  game.question2()
-        //println("Toinen kysymys kysytty hurraa :D")
-    //  }
-    /*  if (game.loppunut()) {
-        game.lopetus
-      } else {
-        game.kysymys3()
-      }
-      if (game.loppunut()) {
-        game.lopetus
-      } else {
-        game.kysymys4()
-      }
-*/
-    }
-
     def updateInfo() = {
-      println("updateInfo")
-     /* if (!this.game.loppunut()) {
-        if (game.loppunut()) {
-          game.lopetus
-        } else {
-          game.kysymys1()
-        }
-        if (game.loppunut()) {
-          game.lopetus
-        } else {
-          game.kysymys2()
-          //println("Toinen kysymys kysytty hurraa :D")
-        }
-        if (game.loppunut()) {
-          game.lopetus
-        } else {
-          game.kysymys3()
-        }
-        if (game.loppunut()) {
-          game.lopetus
-        } else {
-          game.kysymys4()
-        }*/
+      
+    	this.locationInfo.text += "Doctor: Hello, What´s your name?"
+      while (loppunut2(currentCommand)) {
+       
+        val newCommand = readLine("Message: ")
+        currentCommand = newCommand
+        //println("bufferiin:" + bufferiin)
 
-        //this.turnOutput.text = info
-     // } else {
-        println("tää loppuu nyt tän mukaan")
-     // }
-      //this.turnOutput.text = info + "\n\n" + this.game.goodbyeMessage
-      //}
-      //this.locationInfo.text = this.player.location.fullDescription
-      //this.turnCounter.text = "Turns played: " + this.game.turnCount
+        if (currentCommand.length > 0) {
+          bufferiin += newCommand
+          this.locationInfo.text += newCommand
+          println("newCommand locationissa" + newCommand)
+          //        tee += currentCommand
+          //        tl.oo
+          val turnReport = A.playTurn(currentCommand)
+          //         too += turnReport
+          //        tl.aa
+          this.locationInfo.text += turnReport
+        } else {
+
+          this.locationInfo.text += "Pls say something!"
+
+        }
+      }
+      val r = scala.util.Random
+      r.nextInt(2)
+      if (r == 1) {
+        this.locationInfo.text += "Doctor:" + T.ask(24) + V.name + " " + T.ask(25) //(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
+      } else {
+        this.locationInfo.text += "Doctor: " + T.ask(26) + V.name + " " + T.ask(25)
+      }
     }
+    /* } else {
+        this.turnOutput.text += "jou" + "\n\n" + "täähän loppu"//this.game.goodbyeMessage
+      }
+      this.locationInfo.text += "TURHAA?"
+      this.turnCounter.text += "Turns played: " + games.playTurn(currentCommand)*/
+
+    //  var tee = Buffer[String]()
+    //  var too=  Buffer[String]()
+
+    /* while (loppunut2(currentCommand)) {
+        val newCommand = readLine("Message: ")
+        currentCommand = newCommand
+        println("bufferiin:" + bufferiin)
+        //Tarkasta, että käyttäjä kirjoitti jotain
+        if (currentCommand.length > 0) {
+          bufferiin += newCommand //tässä koska silloin tyhjiä ei lisätä bufferiin
+          //        tee += currentCommand
+          //        tl.oo
+          val turnReport = A.playTurn(currentCommand)
+          //         too += turnReport
+          //        tl.aa
+          println(turnReport)
+        } else {
+
+          println("Pls say something!")
+
+        }
+      }*/
 
   }
+  def loppunut2(s: String): Boolean = { //TOIMIIIIII
+    var splitted = s.split(" ")
+    for (i <- splitted) {
+      if (i == "bye" || i == "goodbye") {
+        return false
+      }
+    }
+    true
+  }
+}
 
-}  
   
 

@@ -131,9 +131,9 @@ class alkuja {
           if (v.commonB(KotipsykiatriGui.bufferiin(turnCount - 1))) { //jos löytyy pilkku
             println("rrrrrrrr")
             if (kysy == 5 || kysy == 7) {
-             "Doctor: "+  m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.ask(kysy) + v.common(m.change(m.point(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer))).mkString(" ") + "."
+             "Doctor: "+  m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.ask(kysy) +" "+ v.common(m.change(m.point(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer))).mkString(" ") + "."
             } else {
-            "Doctor: "+  m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.ask(kysy)  + v.common(m.change(m.point(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer))).mkString(" ") + "?"
+            "Doctor: "+  m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.ask(kysy)  +" "+ v.common(m.change(m.point(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer))).mkString(" ") + "?"
             }
           } else if (v.twoPointsB(KotipsykiatriGui.bufferiin(turnCount - 1))) { //jos löytyy ylimääräinen piste
             println("tttttttt")
@@ -145,19 +145,19 @@ class alkuja {
           } else { //muuten
             println("ppppp")
             if (kysy == 5 || kysy == 7) {
-            "Doctor: "+  m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.ask(kysy)  + m.change(KotipsykiatriGui.bufferiin(turnCount - 3).split(" ").toBuffer) + "."
+            m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.ask(kysy)  + m.change(KotipsykiatriGui.bufferiin(turnCount - 3).split(" ").toBuffer) + "."
             } else {
-            "Doctor: "+  m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.ask(kysy)  + m.change(KotipsykiatriGui.bufferiin(turnCount - 2).split(" ").toBuffer) + "?"
+             m.yes(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer) + t.ask(kysy)  + m.change(KotipsykiatriGui.bufferiin(turnCount - 2).split(" ").toBuffer) + "?"
             }
           }
         } else if (s == 2) {
            if (v.commonB(KotipsykiatriGui.bufferiin(turnCount - 1))) {
           println("TÄÄÄÄÄÄÄKÖ")
-          "Doctor: " + t.ask(7) + v.name + ". " + t.ask(37) + v.common(m.change(m.point(KotipsykiatriGui.bufferiin(turnCount - 2).split(" ").toBuffer))).mkString(" ") + "?"
+          "Doctor: " + t.ask(7) + v.name + ". " + t.ask(37) + " " + v.common(m.change(m.point(KotipsykiatriGui.bufferiin(turnCount - 2).split(" ").toBuffer))).mkString(" ") + "?"
         } else if (v.twoPointsB(KotipsykiatriGui.bufferiin(turnCount - 1))) {
-           "Doctor: " + t.ask(7) + v.name + ". " + t.ask(37) + v.common(m.change(m.point(v.twoPoints(KotipsykiatriGui.bufferiin(turnCount - 2))))).mkString(" ") + "?"
+           "Doctor: " + t.ask(7) + v.name + ". " + t.ask(37) + " " + v.common(m.change(m.point(v.twoPoints(KotipsykiatriGui.bufferiin(turnCount - 2))))).mkString(" ") + "?"
         } else{
-           "Doctor: " + t.ask(7) + v.name + ". " + t.ask(37) + m.change(m.point(KotipsykiatriGui.bufferiin(turnCount - 2).split(" ").toBuffer)) + "?"
+           "Doctor: " + t.ask(7) + v.name + ". " + t.ask(37) + " " + m.change(m.point(KotipsykiatriGui.bufferiin(turnCount - 2).split(" ").toBuffer)) + "?"
         }
         
            } else {
@@ -170,7 +170,7 @@ class alkuja {
 
           } else {
              println("tää on yes else")
-            "Doctor: " + t.ask(11)  + m.change(m.point(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) + "?"
+            "Doctor: " + t.ask(11)  +" " + m.change(m.point(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) + "?"
           }
         }
 

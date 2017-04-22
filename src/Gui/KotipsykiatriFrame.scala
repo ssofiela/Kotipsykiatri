@@ -121,11 +121,9 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
           bufferiin += newCommand
           this.locationInfo.text += newCommand
           println("newCommand locationissa" + newCommand)
-          //        tee += currentCommand
-          //        tl.oo
+        
           val turnReport = A.playTurn(currentCommand)
-          //         too += turnReport
-          //        tl.aa
+          
           this.locationInfo.text += turnReport
         } else {
 
@@ -141,35 +139,7 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
         this.locationInfo.text += "Doctor: " + T.ask(26) + V.name + " " + T.ask(25)
       }
     }
-    /* } else {
-        this.turnOutput.text += "jou" + "\n\n" + "täähän loppu"//this.game.goodbyeMessage
-      }
-      this.locationInfo.text += "TURHAA?"
-      this.turnCounter.text += "Turns played: " + games.playTurn(currentCommand)*/
-
-    //  var tee = Buffer[String]()
-    //  var too=  Buffer[String]()
-
-    /* while (loppunut2(currentCommand)) {
-        val newCommand = readLine("Message: ")
-        currentCommand = newCommand
-        println("bufferiin:" + bufferiin)
-        //Tarkasta, että käyttäjä kirjoitti jotain
-        if (currentCommand.length > 0) {
-          bufferiin += newCommand //tässä koska silloin tyhjiä ei lisätä bufferiin
-          //        tee += currentCommand
-          //        tl.oo
-          val turnReport = A.playTurn(currentCommand)
-          //         too += turnReport
-          //        tl.aa
-          println(turnReport)
-        } else {
-
-          println("Pls say something!")
-
-        }
-      }*/
-
+    
   }
   def loppunut2(s: String): Boolean = { //TOIMIIIIII
     var splitted = s.split(" ")

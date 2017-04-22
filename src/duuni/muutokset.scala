@@ -59,101 +59,74 @@ class muutokset {
     line
   }
 
+  
+       /* for(i <- 0 until kaikkiSanat.size){
+          if(kaikkiSanat(i)== "you"){
+            if(i == kaikkiSanat.size-1){
+              println("tästä tulee me")
+              kokoLause += "me"
+            } else {
+              println("tässä tulee i")
+              kokoLause += "i"
+            }
+          }
+          println("ei löydy")
+        }*/
+       
+        
+    
+
   def change(b: Buffer[String]) = {
-    var kokoLause = Buffer[String]()
-    for (kaikkiSanat <- b) {
-      kaikkiSanat.toLowerCase()
-      if (kaikkiSanat == "i") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "I") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "me") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "we") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "We") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "am") {
-        kokoLause += "are"
-      } else if (kaikkiSanat == "are") {
-        kokoLause += "am"
-      } else if (kaikkiSanat == "my") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "My") {
-        kokoLause += "your"
-      } else if(kaikkiSanat == "your"){
-      kokoLause += "my"
-        kokoLause += "your"
-      } else if (kaikkiSanat == "mine") {
-        kokoLause += "yours"
-      } else if (kaikkiSanat == "was") {
-        kokoLause += "were"
-      } else if (kaikkiSanat == "a") {
-        kokoLause += "the"
-      } else if (kaikkiSanat == "here") {
-        kokoLause += "there"
-      } else if (kaikkiSanat == "you") {
-        if (kokoLause.contains("i")) {
-          kokoLause += "me"
-        } else {
-          kokoLause += "i"
-        }
-      } else {
-        kokoLause += kaikkiSanat
-      }
-    }
-
-    kokoLause.mkString(" ")
-  }
-
-  def changeReverse(b: Buffer[String]) = {
     var sanat = this.question(b)
     println("sanat:" + sanat)
-    var kokoLause = Buffer[String]()
+    var wholeLine = Buffer[String]()
     for (kaikkiSanat <- sanat) {
-      kaikkiSanat.toLowerCase()
-      if (kaikkiSanat == "you") {
-        kokoLause += "i"
-      } else if (kaikkiSanat == "You") {
-         if (kokoLause.contains("i") || kokoLause.last == "you") {
-          kokoLause += "me"
-        } else {
-          kokoLause += "i"
-        }
-      } else if (kaikkiSanat == "i") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "I") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "we") {
-        kokoLause += "you"
-      } else if (kaikkiSanat == "are") {
-        kokoLause += "am"
-      } else if (kaikkiSanat == "am") {
-        kokoLause += "are"
-      } else if (kaikkiSanat == "your") {
-        kokoLause += "my"
-      } else if (kaikkiSanat == "my") {
-        kokoLause += "your"
-      } else if (kaikkiSanat == "Yours") {
-        kokoLause += "mine"
-      } else if (kaikkiSanat == "mine") {
-        kokoLause += "yours"
-      } else if (kaikkiSanat == "were") {
-        kokoLause += "was"
-      } else if (kaikkiSanat == "were") {
-        kokoLause += "was"
-      } else if (kaikkiSanat == "a") {
-        kokoLause += "the"
-      } else if (kaikkiSanat == "here") {
-        kokoLause += "there"
-      } else if (kaikkiSanat == "there") {
-        kokoLause += "here"
+     var words = kaikkiSanat.toLowerCase()
+      if (words == "you") {
+        wholeLine += "i"
+      } else if (words == "You") {
+         if("you" == words.last){
+          wholeLine += "me"
+       } else {
+         wholeLine += "i"
+       }
+        
+      } else if (words == "i") {
+        wholeLine += "you"
+      } else if (words == "I") {
+        wholeLine += "you"
+      } else if (words == "we") {
+        wholeLine += "you"
+      } else if (words == "are") {
+        wholeLine += "am"
+      } else if (words == "am") {
+        wholeLine += "are"
+        } else if (words == "me") {
+        wholeLine += "you"
+      } else if (words == "your") {
+        wholeLine += "my"
+      } else if (words == "my") {
+        wholeLine += "your"
+      } else if (words == "Yours") {
+        wholeLine += "mine"
+      } else if (words == "mine") {
+        wholeLine += "yours"
+      } else if (words == "were") {
+        wholeLine += "was"
+      } else if (words == "were") {
+        wholeLine += "was"
+      } else if (words == "a") {
+        wholeLine += "the"
+      } else if (words == "here") {
+        wholeLine += "there"
+      } else if (words == "there") {
+        wholeLine += "here"
       } else {
-        kokoLause += kaikkiSanat
+        wholeLine += words
       }
 
     }
-    kokoLause.mkString(" ")
+    wholeLine.mkString(" ")
   }
 
   def yes(b: Buffer[String]): String = { //jos vastaa vain yes tai no!
@@ -175,17 +148,14 @@ class muutokset {
     var joo = true
    var t = this.point(b)
    t = this.exclamation(t)
-   var ok = Buffer[String]()
-   if(t.contains(',')){
-     ok += t.mkString(" ").split(',')(0)
-     println("yess tällä hetkellä??" + ok)
-   }
+ 
+   
    println("t:" +t)
     //var vastaus = Buffer[String]()
-    for (i <- 0 until ok.size) {
+    for (i <- 0 until t.size) {
     var s = t(i).toLowerCase()
     println("s:" +s)
-      if (s == "yes" || s == "Yes"|| s == "sure" || s == "Sure" || s == "Yep" || s == "Yeah" || s == "yep" || s == "yeah" || s == "ofc" || s == "Ofc") {
+      if (s == "yes" || s == "Yes" || s == "Yep" || s == "Yeah" || s == "yep" || s == "yeah" || s == "ofc" || s == "Ofc") {
         return joo
         // vastaus += "Good to know!"
       } else if (s == "no" || s == "No" || s == "nope" || s == "Nope") {
@@ -195,6 +165,7 @@ class muutokset {
         joo = false
       }
     }
+   println("yess boolean on:" + joo)
     joo
   }
 

@@ -23,13 +23,13 @@ class tallenna {
       pw.write(KotipsykiatriGui.tee.last)
       var toka = KotipsykiatriGui.tee.last + "\n"
       buffer += toka
-      println("bufferi on:" + buffer)
+   //   println("bufferi on:" + buffer)
       pw.close()
     } catch {
 
       case e: IOException =>
         val chessExc = println("Reading the chess data failed.")
-        println("mitä tiedostoon(oo):" + KotipsykiatriGui.tee)
+    //    println("mitä tiedostoon(oo):" + KotipsykiatriGui.tee)
 
     }
 

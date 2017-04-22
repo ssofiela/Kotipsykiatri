@@ -69,7 +69,7 @@ class vastaukset {
   def idkB(s: Buffer[String]): Boolean = {
     var trueFalse = true
     var t = m.point(s)
-    if (t(0) == "i" && t(1) == "don't" && t(2) == "know") {
+    if (t(0).toLowerCase() == "i" && t(1) == "don't" && t(2) == "know") {
       trueFalse
     } else {
       trueFalse = false
@@ -107,11 +107,10 @@ class vastaukset {
     buffer.toBuffer
   }
 
-  
   def twoPointsB(b: String): Boolean = {
     var trueFalse = true
     var line = Buffer[String]()
-    
+
     var split = b.split('.')
     println("split size:" + split.size)
     if (split.size >= 2) {
@@ -133,10 +132,10 @@ class vastaukset {
       } else {
         line += split(1)
       }
-    } else if(split.size == 3){
-      if(split(0).size > split(1).size && split(0).size > split(2).size) {
+    } else if (split.size == 3) {
+      if (split(0).size > split(1).size && split(0).size > split(2).size) {
         line += split(0)
-      } else if(split(1).size > split(2).size && split(1).size > split(0).size){
+      } else if (split(1).size > split(2).size && split(1).size > split(0).size) {
         line += split(1)
       } else {
         line += split(2)
@@ -184,7 +183,11 @@ class vastaukset {
         nameIs = line(2)
       } else if (line(1) == "i'm") {
         nameIs = line(2)
-      } else if (line(1) == "I'm") { //kysy iskältä kumpi '
+      } else if (line(1) == "I'm") {
+        nameIs = line(2)
+      } else if (line(0) == "It's") {
+        nameIs = line(1)
+      } else if (line(1) == "it's") {
         nameIs = line(2)
       } else if (line(1) == "i'm") {
         nameIs = line(2)
@@ -197,12 +200,16 @@ class vastaukset {
         nameIs = line(3)
       } else if (line(1) == "am") {
         nameIs = line(2)
+      } else if (line(2) == "is") {
+        nameIs = line(3)
       }
 
     } else if (line.size == 5) {
       if (line(1) == "am") {
         nameIs = line(2)
       } else if (line(2) == "am") {
+        nameIs = line(3)
+      } else if (line(2) == "is") {
         nameIs = line(3)
       } else if (line(3) == "is") {
         nameIs = line(4)
@@ -211,18 +218,28 @@ class vastaukset {
     } else if (line.size == 6) {
       if (line(1) == "am") {
         nameIs = line(2)
+      } else if (line(2) == "am") {
+        nameIs = line(3)
+      } else if (line(2) == "is") {
+        nameIs = line(3)
       } else if (line(3) == "is") {
         nameIs = line(4)
       }
     } else if (line.size == 7) {
       if (line(1) == "am") {
         nameIs = line(2)
+      } else if (line(2) == "am") {
+        nameIs = line(3)
+      } else if (line(2) == "is") {
+        nameIs = line(3)
       } else if (line(3) == "is") {
         nameIs = line(4)
       }
     } else if (line.size == 8) {
       if (line(1) == "am") {
         nameIs = line(2)
+      } else if (line(2) == "am") {
+        nameIs = line(3)
       } else if (line(3) == "is") {
         nameIs = line(4)
       }
@@ -236,11 +253,16 @@ class vastaukset {
   }
 
   def three = {
-    var buffer = KotipsykiatriGui.bufferiin(2).split(" ").toBuffer
+    var buffer = KotipsykiatriGui.bufferiin(2)
     var word = Buffer[String]() // tähän sana ilman pistettä
-
-    word = m.point(buffer)
-
+    if (this.commonB(buffer)) {
+      word = this.common(buffer)
+    } else if (this.twoPointsB(buffer)) {
+      word = this.twoPoints(buffer)
+    } else {
+      var buf = KotipsykiatriGui.bufferiin(2).split(" ").toBuffer
+      word = m.point(buf)
+    }
     if (word.size == 4) {
       if (word(3) == "thanks") {
         word = word.take(3)
@@ -295,37 +317,61 @@ class vastaukset {
 
       }
     }
-    println("totta on: " + trueFalse)
+    println("(olla)totta on: " + trueFalse)
     trueFalse
   }
 
   def olla(s: Buffer[String]): String = { //tätä voi suurentaa jos ehtii
-    var word = ""
+    var word = Buffer[String]()
     var b = m.point(s)
     b = m.exclamation(b)
     for (i <- 0 until b.size) {
       if (b(i) == "a" || b(i) == "the") {
         if (b(i + 1) == "little" || b(i + 1) == "big" || b(i + 1) == "very" || b(i + 1) == "really" || b(i + 1) == "so")
-          word = b(i + 1) + b(i + 2)
+          word += b(i + 1) + b(i + 2)
+      }
+    }
+    if (word.isEmpty) {
+      for (i <- b) {
+        word += i
       }
     }
     println("sana on:" + word)
-    word
+    word.mkString(" ")
   }
 
   def vitonen = {
-    m.change(m.point(KotipsykiatriGui.bufferiin(4).split(" ").toBuffer))
+    var line = ""
+
+    if (this.commonB(KotipsykiatriGui.bufferiin(4))) {
+      line = m.change(m.exclamation(m.point(this.common(KotipsykiatriGui.bufferiin(4)))))
+    } else if (this.twoPointsB(KotipsykiatriGui.bufferiin(4))) {
+      line = m.change(m.exclamation(m.point(this.twoPoints(KotipsykiatriGui.bufferiin(4)))))
+    } else {
+      line = m.change(m.exclamation(m.point(KotipsykiatriGui.bufferiin(4).split(" ").toBuffer)))
+    }
+    line
   }
 
   def feeling(s: Buffer[String]): String = {
-    println("s")
+
     var line = Buffer[String]()
+
     if (s.size < 3) {
       for (i <- s) {
         line += i
       }
     }
-    if (s.size >= 3) {
+    if (s.size == 3) {
+      if (s(1) == "is" || s(1) == "am")
+        line += s.last
+    }
+    if (s.size == 4) {
+      if (s(1) == "is" || s(1) == "am") {
+        line += s(3)
+      }
+    }
+    if (s.size >= 5) {
       for (i <- 0 until s.size) {
         if (s(i) == "am" || s(i) == "is") {
           line += "you are " + s(i + 1)
@@ -353,9 +399,10 @@ class vastaukset {
     if (line.size == 1) {
       piece = line(0)
     } else if (line.size == 2) {
-      if (line(0) == "very" || line(0) == "really" || line(0) == "so" ||
-        line(0) == "pretty" || line(0) == "little") {
-        piece = line(0) + " " + line(1)
+      var lineNol = line(0).toLowerCase()
+      if (lineNol == "very" || lineNol == "really" || lineNol == "so" ||
+        lineNol == "pretty" || lineNol == "little" || lineNol == "not") {
+        piece = lineNol + " " + line(1)
       } else {
         piece = line.mkString(" ")
       }
@@ -368,11 +415,11 @@ class vastaukset {
         piece = line.mkString(" ")
       }
     } else if (line.size == 4) {
-      if (line(1) == "am" && (line(2) == "very" || line(2) == "really" || line(2) == "so") ||
+      if (line(1) == "am" && (line(2) == "very" || line(2) == "really" || line(2) == "so" || line(2) == "not") ||
         line(2) == "pretty" || line(2) == "little") {
         piece = line(2) + " " + line(3)
       } else if (line(1) == "feel" && (line(2) == "very" || line(2) == "really" ||
-        line(2) == "so" || line(0) == "pretty" || line(0) == "little")) {
+        line(2) == "so" || line(2) == "pretty" || line(2) == "little" || line(2) == "not")) {
         piece = line(2) + " " + line(3)
       } else if (line(1) == "am" && line(2) == "feeling") {
         piece = line(2) + " " + line(3)
@@ -387,10 +434,10 @@ class vastaukset {
       }
     } else if (line.size == 5) {
       if (line(1) == "am" && (line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
-        line(2) == "really" | line(2) == "so")) {
+        line(2) == "really" | line(2) == "so" || line(2) == "not")) {
         piece = line(2) + " " + line(3)
       } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" ||
-        line(3) == "really" || line(3) == "so" || line(3) == "pretty" || line(3) == "little")) {
+        line(3) == "really" || line(3) == "so" || line(3) == "pretty" || line(3) == "little" || line(3) == "not")) {
         piece = line(2) + " " + line(3) + " " + line(4)
       } else if (line(1) == "am" && line(2) == "feeling") {
         piece = line(2) + " " + line(3)
@@ -404,10 +451,11 @@ class vastaukset {
         piece = line.mkString(" ")
       }
     } else if (line.size == 6) {
-      if (line(1) == "am" && line(2) == "very") {
+      if (line(1) == "am" && line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
+        line(2) == "really" | line(2) == "so" || line(2) == "not") {
         piece = line(2) + " " + line(3)
       } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" || line(3) == "really" ||
-        line(3) == "so")) {
+        line(3) == "so" || line(3) == "little" || line(3) == "not")) {
         piece = line(2) + " " + line(3) + " " + line(4)
       } else if (line(1) == "am" && line(2) == "feeling") {
         piece = line(2) + " " + line(3)
@@ -417,10 +465,11 @@ class vastaukset {
         piece = line.mkString(" ")
       }
     } else if (line.size == 7) {
-      if (line(1) == "am" && line(2) == "very") {
+      if (line(1) == "am" && line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
+        line(2) == "really" | line(2) == "so" || line(2) == "not") {
         piece = line(2) + " " + line(3)
       } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" || line(3) == "really" ||
-        line(3) == "so")) {
+        line(3) == "so" || line(3) == "little" || line(3) == "not")) {
         piece = line(2) + " " + line(3) + " " + line(4)
       } else if (line(1) == "am" && line(2) == "feeling") {
         piece = line(2) + " " + line(3)
@@ -432,6 +481,7 @@ class vastaukset {
     } else {
       piece = line.mkString(" ")
     }
+    this.feelBuffer += piece
     piece
   }
 

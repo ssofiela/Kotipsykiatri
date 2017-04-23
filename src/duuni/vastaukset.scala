@@ -641,7 +641,8 @@ class vastaukset {
     var trueFalse = false
     for (i <- 0 until b.size) {
       var lower = b(i).toLowerCase()
-      if (lower == "fuck") {
+      if (lower == "fuck" || lower =="fucking" || lower =="shit" || lower == "asshole" ||
+          lower =="bitch" || lower == "hell" || lower == "crab") {
         trueFalse = true
       }
     }

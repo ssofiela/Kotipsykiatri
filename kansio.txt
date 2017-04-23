@@ -1,2 +1,14 @@
-Doctor: Hello, What´s your name?
-d
+Sun Apr 23 18:27:14 EEST 2017Doctor: Hello, What´s your name?
+h
+Doctor: Nice to meet you h! How are you feeling today?
+g
+Doctor: I understand that. What makes that you are g?
+h
+Doctor: What do you feel about that h?
+h
+Doctor: I see,h! Tell me more that you are g.
+h
+Doctor: Would you like to discuss more about that h, h. 
+h
+Doctor: Are you sure that h?
+kansio.txt

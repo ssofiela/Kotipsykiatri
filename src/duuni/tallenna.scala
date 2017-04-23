@@ -7,44 +7,43 @@ import java.io._
 import duuni._
 import Gui._
 import scala.collection.mutable.Buffer
+import java.util.Calendar
+import java.util.Date
+import java.text.SimpleDateFormat 
+import java.text.SimpleDateFormat 
 
-class tallenna {
-  var buffer = Buffer[String]()
-  //var a = new alkuja
+
+
+object tallenna {
+  
+  var date: Date = new Date()
+	
+
+		
+
+
   val fileName = "kansio.txt"
   val pw = new PrintWriter(fileName)
+  pw.write(date.toString() + "\n")
   pw.write("Doctor: Hello, What´s your name?" + "\n")
 
-  var eka = ("Doctor: Hello, What´s your name?" + "\n")
-  buffer += eka
+ 
   def oo = {
+println("turnCount"+alkuja.turnCount)
+println("toon koko:" + KotipsykiatriGui.too.size)
+    for (i <- 0 until alkuja.turnCount) {
+      println("tallenna kansiossa")
+      pw.write(KotipsykiatriGui.bufferiin(i) +"\n")
+      if(i == alkuja.turnCount-1){
+        println("vikaaa")
+      }else{
+      pw.write(KotipsykiatriGui.too(i) +"\n")
+      }
+    }
+    pw.close()
 
-    try {
-      pw.write(KotipsykiatriGui.tee.last)
-      var toka = KotipsykiatriGui.tee.last + "\n"
-      buffer += toka
-   //   println("bufferi on:" + buffer)
-      pw.close()
-    } catch {
-
-      case e: IOException =>
-        val chessExc = println("Reading the chess data failed.")
     //    println("mitä tiedostoon(oo):" + KotipsykiatriGui.tee)
 
-    }
-
   }
-  def aa = {
 
-    try {
-
-      pw.write(KotipsykiatriGui.too.last)
-      var kolmas = KotipsykiatriGui.too.last + "\n"
-      buffer += kolmas
-      // println("bufferi on:" + buffer)
-      pw.close()
-      //  println("mitä tiedostoon2 (aa):" + KotipsykiatriGui.too)
-
-    }
-  }
 }

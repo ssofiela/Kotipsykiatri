@@ -2,14 +2,13 @@ package duuni
 import scala.collection.mutable.Buffer
 import Gui._
 
-class alkuja {
+object alkuja {
 
   val m = new muutokset
   val t = new tiedosto
   val v = new vastaukset
-  //var tl = new tallenna
   //private val kysymys = new Kysymykset
-  private var turnCount = 0
+  var turnCount = 0
   var b = 6
   var numberOfAsk = 8
   var yesOrNo = Buffer[Int]()
@@ -161,13 +160,24 @@ class alkuja {
       if (b > turnCount - 1) {
         b = turnCount - 1
       }
-
+      
+      if(KotipsykiatriGui.bufferiin(turnCount - 1) == "kansio.txt"){
+        tallenna.oo
+        "kansioon arkistoitu"
       // println("b" + b)
+//      } else if(KotipsykiatriGui.loppunut(KotipsykiatriGui.bufferiin(turnCount - 1))){
+//        val r = scala.util.Random
+//     var random =r.nextInt(2)
+//    if (random == 1) {
+//     "Doctor:" + t.ask(24) + v.name + " " + t.ask(25) //(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
+//    } else {
+//    "Doctor: " + t.ask(26) + v.name + " " + t.ask(25)
+//    }
 
       /*
        * kun vastauksena yes tai no, niin silloin vastaus valitaan randomilla parista, että mikä vastaus tulee.
        */
-      if (m.yess(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
+      } else if (m.yess(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
         /* if (b < 12) {
           b = turnCount - 1
         } else {
@@ -178,8 +188,9 @@ class alkuja {
         }*/
         yesOrNo += turnCount - 1
         println("yesOrNo" + yesOrNo)
+        
         var s = r.nextInt(8)
-        if (s == 1 || s == 3 || s == 5 || s== 6 || s == 7) {
+     if (s == 1 || s == 3 || s == 5 || s == 6 || s == 7) {
           if (v.commonB(KotipsykiatriGui.bufferiin(turnCount - 1))) { //jos löytyy pilkku TOIMIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
             //            println("rrrrrrrr")
             if (numberOfAsk == 5 || numberOfAsk == 7) {
@@ -639,6 +650,7 @@ class alkuja {
     } else {
       "Doctor: I didn't understand you" // lisää komentoja
     }
+    
   }
 
   def player = "oma"

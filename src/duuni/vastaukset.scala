@@ -42,6 +42,11 @@ class vastaukset {
     answer
   }
 
+  /*
+   * tämä metodi on WhatIsMyName metodille boolean.
+   * kun kysymys esimerkiksi: "What is your name?"
+   * esiintyy inputissa, silloin metodi palauttaa true.
+   */
   def IsItName(all: Buffer[String]): Boolean = {
     var trueFalse = true
     var string = all.mkString(" ")
@@ -55,6 +60,11 @@ class vastaukset {
     trueFalse
   }
 
+  /*
+   * WhatIsMyName -metodi vastaa jos inputissa esiintyy vaikka:
+   * What is your name? Ja tällöin antaa siihen vastauksena:
+   *  I am just a doctor for you.
+   */
   def WhatIsYourName(all: Buffer[String]): String = {
     var myName = ""
     var string = all.mkString(" ")
@@ -66,6 +76,10 @@ class vastaukset {
     myName
   }
 
+  /*
+   * idkB on boolean. Jos inputtina esiintyy i don't know, 
+   * silloin metodi palauttaa true.
+   */
   def idkB(s: Buffer[String]): Boolean = {
     var trueFalse = true
     var t = m.point(s)
@@ -78,6 +92,12 @@ class vastaukset {
     trueFalse
   }
 
+  /*
+   * commonB on common -metodille Boolean metodi.
+   * katsoo jos splitataan pilkulla,
+   * niin jos lauseessa on pilkku niin silloin kooksi tulee kaksi.
+   * ja silloi Boolean antaa vastaukseksi true.
+   */
   def commonB(b: String): Boolean = {
     var trueFalse = true
     var line = Buffer[String]()
@@ -90,7 +110,10 @@ class vastaukset {
     }
     trueFalse
   }
-
+  /*
+ * jos on pilkku mukana lauseessa, 
+ * common metodi katsoo pidemmän lauseen ja käyttää sitä 
+ */
   def common(b: String): Buffer[String] = {
     var line = Buffer[String]()
     var split = b.split(", ")
@@ -106,7 +129,52 @@ class vastaukset {
     var buffer = line2.split(" ")
     buffer.toBuffer
   }
+  
+  def ConjunctionB(b: Buffer[String]):Boolean = {
+    var trueFalse = false
+    for(i <- b){
+      if(i == "that" || i == "which" || i == "what"){
+        trueFalse = true
+      }
+    }
+    trueFalse
+  }
+  
+  def Conjunction(b: Buffer[String]):String = {
+     var line = ""
+     var split1 = b.mkString("").split("that")
+      var split2 = b.mkString("").split("which")
+       var split3 = b.mkString("").split("what")
+     if(split1.size == 2){
+       if(split1(0).size >  split1(1).size){
+        line += split1(0)
+       } else {
+        line += split1(1)
+       }
+     } else if(split2.size == 2){
+       if(split2(0).size >  split2(1).size){
+        line += split2(0)
+       } else {
+        line += split2(1)
+       }
+     } else{
+       if(split3(0).size >  split3(1).size){
+        line += split3(0)
+       } else {
+        line += split3(1)
+       }
+     }
+    // println(" tää on conjuktio:"+ line.split(" ").toBuffer )
+      var line2 = line.mkString("")
+     println("twoPoints tä tää konjuktio: " + line2)
+   line2
+  }
+  
 
+  /*
+   * tää on boolen metodi twoPoints metodille.
+   * siinä splitataan '.' ja jos silloin koko on suurempi kuin 2, siinä on turha piste.
+   */
   def twoPointsB(b: String): Boolean = {
     var trueFalse = true
     var line = Buffer[String]()
@@ -123,6 +191,10 @@ class vastaukset {
     trueFalse
   }
 
+  /*
+   * twoPoints metodi tsekkaa jos on monta lausetta inputissa. 
+   * ja käyttää niistä sitä lausetta, jossa on eniten sanoja.
+   */
   def twoPoints(b: String): Buffer[String] = {
     var line = Buffer[String]()
     var split = b.split('.')
@@ -142,9 +214,9 @@ class vastaukset {
       }
     }
     println("common line: " + line)
-    var line2 = m.change(line)
-    var buffer = line2.split(" ")
-    buffer.toBuffer
+    var line2 = (line(0).split(" ").toBuffer)
+     println("twoPoints tä tää line2: " + line2)
+   line2
   }
   /*
  * this long method is taking the name off the line.
@@ -158,7 +230,7 @@ class vastaukset {
     var nameIs = "anonyme"
     val buf1 = this.bufferiFirst
     var line = Buffer[String]()
-    line = m.point(buf1)
+    line = m.exclamation(m.point(buf1))
 
     if (line.size == 1) {
       if (KotipsykiatriGui.bufferiin(0) == "Hello" || KotipsykiatriGui.bufferiin(0) == "Hi" ||
@@ -248,10 +320,14 @@ class vastaukset {
       nameIs = "anonyme"
     }
     nameBuffer += nameIs
-    //lisätään nameBufferiin, että sitä voidaan sieltä käyttää myöhemmissä vaiheissa
+
     nameIs
   }
 
+  /*
+   * tää on perus metodin alun kolmannelle tohtorin kysymykselle.
+   * otetaan huomioon uusimman inputin pisin lause, mutta poistetaan siitä mahdolliset thanks ja thank you kohdat.
+   */
   def three = {
     var buffer = KotipsykiatriGui.bufferiin(2)
     var word = Buffer[String]() // tähän sana ilman pistettä
@@ -284,7 +360,7 @@ class vastaukset {
     lastOne
   }
 
-  def doingB(b: Buffer[String]): Boolean = { //tää ei oo kauheen hyvä
+  /*def doingB(b: Buffer[String]): Boolean = { //tää ei oo kauheen hyvä
     var trueFalse = true
 
     for (i <- 0 until b.size) {
@@ -307,9 +383,12 @@ class vastaukset {
       }
     }
     line.mkString(" ")
-  }
+  }*/
 
-  def ollaB(b: Buffer[String]): Boolean = {
+  /*
+   * tää on be- metodille booleaan.
+   */
+  def beB(b: Buffer[String]): Boolean = {
     var trueFalse = false
     for (i <- 0 until b.size) {
       if (b(i) == "a" || b(i) == "the") {
@@ -321,26 +400,73 @@ class vastaukset {
     trueFalse
   }
 
-  def olla(s: Buffer[String]): String = { //tätä voi suurentaa jos ehtii
+  /*
+   * be- metodi katkaisee lauseen a tai the kohdalta ja käyttää niitten jälkeistä sanaa
+   * pienellä ehdoilla, jos joku yleinen adjektiivi a tai the perässä, se tulee mukaan myös.
+   * Jos inputissa ei esinny a tai the sanaa, käytetään koko inputtia.
+   */
+  def be(s: Buffer[String]): String = { //tätä voi suurentaa jos ehtii
     var word = Buffer[String]()
     var b = m.point(s)
     b = m.exclamation(b)
-    for (i <- 0 until b.size) {
-      if (b(i) == "a" || b(i) == "the") {
-        if (b(i + 1) == "little" || b(i + 1) == "big" || b(i + 1) == "very" || b(i + 1) == "really" || b(i + 1) == "so")
-          word += b(i + 1) + b(i + 2)
+    if (b.size == 1) {
+      word += b(0)
+    } else if (b.size == 2) {
+      word += b(0) + " " + b(1)
+    } else if (b.size == 3) {
+      if (b(0) == "a" || b(0) == "the" && b(1) == "little" || b(1) == "big" || b(1) == "beatifull" || b(1) == "old" || b(1) == "different") {
+        word += b(1) + " " + b(2)
+      } else if (b(1) == "a" || b(1) == "the") {
+        word += b(2)
+      } else{
+         word += b(2)
       }
-    }
-    if (word.isEmpty) {
-      for (i <- b) {
-        word += i
+      
+    } else if (b.size == 4) {
+      if (b(0) == "a" || b(0) == "the" && b(1) == "little" || b(1) == "big" || b(1) == "beatifull" || b(1) == "old" || b(1) == "different") {
+        word += b(1) + " " + b(2)
+      } else if (b(1) == "a" || b(1) == "the" && b(2) == "little" || b(2) == "big" || b(2) == "beatifull" || b(2) == "old" || b(2) == "different") {
+        word += b(2) + " " + b(3)
+      } else if (b(2) == "a" || b(2) == "the") {
+        word += b(3)
+      }else {
+         word += b(3)
       }
+      
+    } else if (b.size == 5) {
+      if (b(2) == "a" || b(2) == "the" && b(3) == "little" || b(3) == "big" || b(3) == "beatifull" || b(3) == "old" || b(3) == "different") {
+        word += b(3) + " " + b(4)
+      } else if (b(2) == "a" || b(2) == "the") {
+        word += b(3)
+      } else {
+        word += b(4)
+      }
+    } else {
+      var number = 0
+      for (i <- 0 until b.size) {
+        if (b(i) == "a" || b(i) == "the") {
+          number = i
+        }
+        if (b(number + 1) == "little" || b(number + 1) == "big" || b(number + 1) == "beatifull" || b(number + 1) == "old" || b(number + 1) == "different") {
+          word += b(number + 1) + " " + b(number + 2)
+        } else {
+          word += b(number + 1)
+        }
+
+      }
+
     }
-    println("sana on:" + word)
-    word.mkString(" ")
+
+    println("(be)sana on:" + word)
+    word(0).mkString("")
   }
 
-  def vitonen = {
+  /*
+   * Five-metodi on perus metodi alussa joka vastaa edellisen inputtiin.
+   * Jos edellisessä inputissa on monta lausetta, niistä valitaan pisin.
+   * Pisimmän valinta on common ja twoPoints metodeissa.
+   */
+  def Five = {
     var line = ""
 
     if (this.commonB(KotipsykiatriGui.bufferiin(4))) {
@@ -353,7 +479,10 @@ class vastaukset {
     line
   }
 
-  def feeling(s: Buffer[String]): String = {
+  /*
+   * tää metodi poimii jonkun sanan mitä käyttää tulevassa lauseessa
+   */
+  def feeling(s: Buffer[String]): String = { //heitä tähän jos seuraavana a tai the niin ei sitä!
 
     var line = Buffer[String]()
 
@@ -364,11 +493,11 @@ class vastaukset {
     }
     if (s.size == 3) {
       if (s(1) == "is" || s(1) == "am")
-        line += s.last
+        line += "you are " + s.last
     }
     if (s.size == 4) {
       if (s(1) == "is" || s(1) == "am") {
-        line += s(3)
+        line += "you are " + s(3)
       }
     }
     if (s.size >= 5) {
@@ -379,6 +508,7 @@ class vastaukset {
 
       }
     }
+    println("line feeling metodiin" + line)
     line.mkString(" ")
 
   }
@@ -393,7 +523,7 @@ class vastaukset {
 
     var line = Buffer[String]()
 
-    line = m.point(b)
+    line = m.exclamation(m.point(b))
 
     var piece = ""
     if (line.size == 1) {
@@ -404,15 +534,22 @@ class vastaukset {
         lineNol == "pretty" || lineNol == "little" || lineNol == "not") {
         piece = lineNol + " " + line(1)
       } else {
-        piece = line.mkString(" ")
+        for (i <- line.mkString(" ")) {
+          piece += i
+        }
       }
+
     } else if (line.size == 3) {
       if (line(1) == "am") {
         piece = line(2)
       } else if (line(1) == "feel") {
+        println("tänne")
         piece = line(2)
       } else {
-        piece = line.mkString(" ")
+        println("ei tänne")
+        for (i <- line.mkString(" ")) {
+          piece += i
+        }
       }
     } else if (line.size == 4) {
       if (line(1) == "am" && (line(2) == "very" || line(2) == "really" || line(2) == "so" || line(2) == "not") ||
@@ -423,6 +560,8 @@ class vastaukset {
         piece = line(2) + " " + line(3)
       } else if (line(1) == "am" && line(2) == "feeling") {
         piece = line(2) + " " + line(3)
+      } else if (line(1) == "am" && line(2) == "a" || line(2) == "the") {
+        piece = line(3)
       } else if (line(1) == "am") {
         piece = line(2)
       } else if (line(2) == "am") {
@@ -430,7 +569,9 @@ class vastaukset {
       } else if (line(1) == "feel") {
         piece = line(2)
       } else {
-        piece = line.mkString(" ")
+        for (i <- line.mkString(" ")) {
+          piece += i
+        }
       }
     } else if (line.size == 5) {
       if (line(1) == "am" && (line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
@@ -448,7 +589,9 @@ class vastaukset {
       } else if (line(2) == "am" && line(3) == "feeling") {
         piece = line(3) + " " + line(4)
       } else {
-        piece = line.mkString(" ")
+        for (i <- line.mkString(" ")) {
+          piece += i
+        }
       }
     } else if (line.size == 6) {
       if (line(1) == "am" && line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
@@ -462,7 +605,9 @@ class vastaukset {
       } else if (line(1) == "am") {
         piece = line(2)
       } else {
-        piece = line.mkString(" ")
+        for (i <- line.mkString(" ")) {
+          piece += i
+        }
       }
     } else if (line.size == 7) {
       if (line(1) == "am" && line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
@@ -476,53 +621,46 @@ class vastaukset {
       } else if (line(1) == "am") {
         piece = line(2)
       } else {
-        piece = line.mkString(" ")
+        for (i <- line.mkString(" ")) {
+          piece += i
+        }
       }
     } else {
-      piece = line.mkString(" ")
+      for (i <- line.mkString(" ")) {
+        piece += i
+      }
     }
     this.feelBuffer += piece
     piece
   }
 
-  /*  if (buf2(buf2.length - 1).contains("?")) {
-      palauta = t.kysymykset(18) //+ t.kysymykset(2)
-    }
-    feelBuffer += palauta
-    //println(palauta + "on palauta")
-    palauta
-  }*/
-
-  /* def josKysymys: Boolean = { // mieti milloin kysymysmerkki
-    var kysymys = kaikki
-    for(i <- 0 until kysymys.size){
-      if(kysymys(i) == "?"){
-        true
-      } else {
-        false
+  /*
+   * jos kiroilee
+   */
+  def swear(b: Buffer[String]): Boolean = {
+    var trueFalse = false
+    for (i <- 0 until b.size) {
+      var lower = b(i).toLowerCase()
+      if (lower == "fuck") {
+        trueFalse = true
       }
     }
-  }*/
-
-  /* def huutaa(): Boolean = { // pitäs tehä kaikille noille buffereille ??? miten tää oli
-    var jou = this.bufferiFirst
-    //var jou2 = this.bufferiKolmas
-    println("huutaminen")
-    var jou4 = Buffer[String]()
-    for (jou3 <- 0 until bufferiFirst.size) {
-      jou4 += bufferiFirst(jou3).toUpperCase()
-    }
-    if (jou == jou4) {
-      true
-    } else {
-      false
-
-    }
+    println("kiroili on:" + trueFalse)
+    trueFalse
   }
 
-  def huutoon() = {
-    println("Doctor: Do you feel awfull when you use upper cases?")
+  /*
+   * jos pyytää anteeksi
+   */
+  def sorry(b: Buffer[String]): Boolean = {
+    var trueFalse = false
+    for (i <- 0 until b.size) {
+      var lower = b(i).toLowerCase()
+      if (lower == "sorry") {
+        trueFalse = true
+      }
+    }
+    trueFalse
   }
-}*/
 
 }

@@ -82,9 +82,7 @@ class muutokset {
     var wholeLine = Buffer[String]()
     for (kaikkiSanat <- sanat) {
      var words = kaikkiSanat.toLowerCase()
-      if (words == "you") {
-        wholeLine += "i"
-      } else if (words == "You") {
+      if (words == "you") {    //tää ei vaihtanu
          if("you" == words.last){
           wholeLine += "me"
        } else {
@@ -107,6 +105,8 @@ class muutokset {
         wholeLine += "my"
       } else if (words == "my") {
         wholeLine += "your"
+        } else if (words == "My") {
+        wholeLine += "Your"
       } else if (words == "Yours") {
         wholeLine += "mine"
       } else if (words == "mine") {
@@ -207,22 +207,10 @@ class muutokset {
     var vastaus = Buffer[String]()
     var oja = this.exclamation(b)
 
-    vastaus += "Do you have reason that you use exclamation mark?"
+    vastaus += "Why do you yell at me?"//"Do you have reason that you use exclamation mark?"
 
     vastaus.mkString(" ")
   }
 
-  //var vastaus = Buffer[String]()
-  /*for (i <- b) {
-      i.toLowerCase()
-      if (i == "?") {
-       joo = true
-       
-      } else {
-        joo =false
-      }
-    }
-   joo
-  }*/
 
 }

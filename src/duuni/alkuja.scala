@@ -165,14 +165,7 @@ object alkuja {
         tallenna.oo
         "kansioon arkistoitu"
       // println("b" + b)
-//      } else if(KotipsykiatriGui.loppunut(KotipsykiatriGui.bufferiin(turnCount - 1))){
-//        val r = scala.util.Random
-//     var random =r.nextInt(2)
-//    if (random == 1) {
-//     "Doctor:" + t.ask(24) + v.name + " " + t.ask(25) //(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
-//    } else {
-//    "Doctor: " + t.ask(26) + v.name + " " + t.ask(25)
-//    }
+//     
 
       /*
        * kun vastauksena yes tai no, niin silloin vastaus valitaan randomilla parista, että mikä vastaus tulee.
@@ -204,6 +197,14 @@ object alkuja {
               "Doctor: " + m.yes(m.exclamation(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) + t.ask(numberOfAsk) + m.change(m.exclamation(m.point(v.twoPoints(KotipsykiatriGui.bufferiin(turnCount - 1))))) + "."
             } else {
               "Doctor:" + m.yes(m.exclamation(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) + t.ask(numberOfAsk) + m.change(m.exclamation(m.point(v.twoPoints(KotipsykiatriGui.bufferiin(turnCount - 1))))) + "?"
+            }
+          } else if(v.ConjunctionB(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)){
+             if (numberOfAsk == 5 || numberOfAsk == 7) {
+               println("yes, 000000000000")
+              "Doctor: " + m.yes(m.exclamation(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) + t.ask(numberOfAsk) + (m.change(m.exclamation(v.Conjunction(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer))))) + "."
+            } else {
+              println("yes2, 0000000000")
+              "Doctor:" + m.yes(m.exclamation(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) + t.ask(numberOfAsk) + (m.change(m.exclamation(v.Conjunction(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer))))) + "?"
             }
           } else if (m.yess(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)) {
             println("ppppp, ei tänne jos ei yes tai no")
@@ -418,6 +419,14 @@ object alkuja {
             println("turnCount%6, kaks pistettä")
             "Doctor: " + t.ask(39) + " " + m.change(v.feel(m.exclamation(v.twoPoints(KotipsykiatriGui.bufferiin(b)))).split(" ").toBuffer) + "." + t.ask(40)
           }
+        } else if(v.ConjunctionB(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)){
+          if (numberOfAsk == 5 || numberOfAsk == 7) {
+            println("turnCount%6, kaks pistettä, 5,7 0000000000")
+            "Doctor: " + t.ask(numberOfAsk) + " " + ". You think a lot of about " +(m.change(v.feel(v.Conjunction(m.exclamation(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)))).split(" ").toBuffer)) + "."
+          } else {
+            println("turnCount%6, kaks pistettä 00000000")
+            "Doctor: " + t.ask(39) + " " + (m.change(v.feel(v.Conjunction(m.exclamation(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)))).split(" ").toBuffer)) + "." + t.ask(40)
+          }
 
         } else if (numberOfAsk == 5 || numberOfAsk == 7) {
           println("tään on turnCount%6 == 0 ja ei löydy pilkkuu ")
@@ -487,10 +496,10 @@ object alkuja {
           } else if(v.ConjunctionB(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)){
             if (numberOfAsk == 5 || numberOfAsk == 7) {
               println("cccccccc000000")
-              "Doctor: " + t.ask(numberOfAsk) + " " + v.Conjunction(m.change(m.exclamation(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer))).split("").toBuffer) + "."
+              "Doctor: " + t.ask(numberOfAsk) + " " + (m.change(v.Conjunction(m.exclamation(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer))))) + "."
           } else {
               println("ddddddd000000")
-              "Doctor: " + t.ask(numberOfAsk) + " " + v.Conjunction(m.change(m.exclamation(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer))).split("").toBuffer) + "?"
+              "Doctor: " + t.ask(numberOfAsk) + " " + (m.change(v.Conjunction(m.exclamation(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer))))) + "?"
             }
             
             } else {
@@ -632,10 +641,10 @@ object alkuja {
         } else if(v.ConjunctionB(KotipsykiatriGui.bufferiin(turnCount - 1).split(" ").toBuffer)){
            if (numberOfAsk == 5 || numberOfAsk == 7) {
             println("kaks pistettä, 5,7, 0000000000")
-            "Doctor: " + t.ask(numberOfAsk) + " " +v.Conjunction(m.change(m.exclamation(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer))).split("").toBuffer) + "."
+            "Doctor: " + t.ask(numberOfAsk) + " " +m.change(m.exclamation(v.Conjunction(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)))) + "."
           } else {
-            println("000000000, kaks pistettä" + m.exclamation(m.point(v.twoPoints(KotipsykiatriGui.bufferiin(b))))) 
-            "Doctor: " + t.ask(numberOfAsk) + " " + v.Conjunction(m.change(m.exclamation(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer))).split("").toBuffer) + "?"
+            println("000000000, kaks pistettä")
+            "Doctor: " + t.ask(numberOfAsk) + " " +  m.change(m.exclamation(v.Conjunction(m.point(KotipsykiatriGui.bufferiin(b).split(" ").toBuffer)))) + "?"
           }
         } else if (numberOfAsk == 5 || numberOfAsk == 7) {
           println("tää on lopun elsessä ja ei löydy pilkkua")

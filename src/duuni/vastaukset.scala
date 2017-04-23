@@ -140,32 +140,32 @@ class vastaukset {
     trueFalse
   }
   
-  def Conjunction(b: Buffer[String]):String = {
+  def Conjunction(b: Buffer[String]):Buffer[String] = {
      var line = ""
-     var split1 = b.mkString("").split("that")
-      var split2 = b.mkString("").split("which")
-       var split3 = b.mkString("").split("what")
+     var split1 = b.mkString(" ").split("that")
+      var split2 = b.mkString(" ").split("which")
+       var split3 = b.mkString(" ").split("what")
      if(split1.size == 2){
-       if(split1(0).size >  split1(1).size){
-        line += split1(0)
+       if(split1(0).size >=  split1(1).size){
+        line = split1(0)
        } else {
-        line += split1(1)
+        line = split1(1)
        }
      } else if(split2.size == 2){
-       if(split2(0).size >  split2(1).size){
-        line += split2(0)
+       if(split2(0).size >=  split2(1).size){
+        line = split2(0)
        } else {
-        line += split2(1)
+        line = split2(1)
        }
-     } else{
-       if(split3(0).size >  split3(1).size){
-        line += split3(0)
+     } else if(split3.size == 2){
+       if(split3(0).size >=  split3(1).size){
+        line = split3(0)
        } else {
-        line += split3(1)
+        line = split3(1)
        }
      }
     // println(" tää on conjuktio:"+ line.split(" ").toBuffer )
-      var line2 = line.mkString("")
+      var line2 = line.split(" ").toBuffer
      println("twoPoints tä tää konjuktio: " + line2)
    line2
   }
@@ -445,6 +445,7 @@ class vastaukset {
       var number = 0
       for (i <- 0 until b.size) {
         if (b(i) == "a" || b(i) == "the") {
+          println("i:" +i)
           number = i
         }
         if (b(number + 1) == "little" || b(number + 1) == "big" || b(number + 1) == "beatifull" || b(number + 1) == "old" || b(number + 1) == "different") {
@@ -457,8 +458,8 @@ class vastaukset {
 
     }
 
-    println("(be)sana on:" + word)
-    word(0).mkString("")
+    println("(be)sana on:" + word)    //tos oli word(0)
+    word.last.mkString("")
   }
 
   /*

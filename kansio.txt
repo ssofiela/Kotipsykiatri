@@ -1,14 +1,43 @@
-Sun Apr 23 18:27:14 EEST 2017Doctor: Hello, What´s your name?
-h
-Doctor: Nice to meet you h! How are you feeling today?
-g
-Doctor: I understand that. What makes that you are g?
-h
-Doctor: What do you feel about that h?
-h
-Doctor: I see,h! Tell me more that you are g.
-h
-Doctor: Would you like to discuss more about that h, h. 
-h
-Doctor: Are you sure that h?
+Sun Apr 23 20:48:20 EEST 2017
+Doctor: Hello, What´s your name?
+f
+Doctor: Nice to meet you f! How are you feeling today?
+d
+Doctor: I understand that. What makes that you are d?
+f
+Doctor: What do you feel about that f?
+d
+Doctor: I see,f! Tell me more that you are d.
+f
+Doctor: Would you like to discuss more about that f, f. 
+d
+Doctor: Are you sure that f?
+It gives me a little hope.
+Doctor:What do you think about that d?
+It makes me a little hope.
+Doctor: Tell me more about the little hope?
+It is like my future.
+Doctor: I understand that d.
+Am I alone?
+Doctor:I don't know but what do you think that are you alone?
+I am not alone.
+Doctor: Okey, what are you thinking that  it is like your future?
+It gives me motivation.
+Doctor: I understand that . You think a lot of about it makes you the little hope. How is feels like?
+It feels like very good. It is my life.
+Doctor: You are not only one with  d?
+I am here.
+Doctor:What do you think about that d?
+It is not nesessary.
+Doctor: f,  I know what are you feeling, what do you think about that f?
+I don't know.
+Doctor: f,  I understand that you don't know. Would you like to discuss more about that d?
+I am home.
+Doctor: Okey, what are you thinking that  f?
+I am cooking.
+Doctor:If you think that you would be f. How is feels like?
+yes.
+Doctor: Good to know! What do you feel about that you are cooking?
+It feels awesome.
+Doctor: f,  I know what are you feeling, what do you think about that d?
 kansio.txt

@@ -1,0 +1,39 @@
+Mon Apr 24 12:20:48 EEST 2017
+Doctor: Hello, What´s your name?
+s
+Doctor: Nice to meet you s! How are you feeling today?
+d
+Doctor: I understand that. What makes that you are d?
+s
+Doctor: What do you feel about that s?
+I feel good
+Doctor: I see,s! Tell me more that you are d.
+I feel good.
+Doctor: Would you like to discuss more about that you feel good, s. 
+I feel good all the time.
+Doctor: Are you sure that you feel good?
+I feel bad atm.
+Doctor: I know what are you feeling, what do you think about that you feel good all the time?
+I feel sad in the morning.
+Doctor: I understand that . You think a lot of about good. What do you think about that?
+I feel good in the morning.
+Doctor: Tell me more about the morning?
+I feel good atm.
+Doctor: s,  What do you feel about that you feel good all the time?
+I feel good atm n.
+Doctor: I understand that you feel good all the time.
+I understand too.
+Doctor:If you think that you would be good. What do you think about that?
+It would be very nice.
+Doctor: I understand that you feel good.
+yes.
+Doctor: Good to know! I know what are you feeling, what do you think about that you feel good?
+I feel so good.
+Doctor: s,  What do you feel about that you feel good all the time?
+I feel sad atm.
+Doctor:If you think that you would be good. What do you think about that?
+It would be very nice.
+Doctor: What do will do that  you feel sad in the morning?
+I go to the badroom and cry.
+Doctor: What do you think about the word badroom?
+kansio.txt

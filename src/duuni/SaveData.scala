@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 
 
 
-object tallenna {
+object SaveData {
   
   var date: Date = new Date()
 	
@@ -28,21 +28,21 @@ object tallenna {
   pw.write("Doctor: Hello, What´s your name?" + "\n")
 
  
-  def oo = {
-println("turnCount"+alkuja.turnCount)
-println("toon koko:" + KotipsykiatriGui.too.size)
-    for (i <- 0 until alkuja.turnCount) {
+  def saving = {
+println("turnCount"+ Turn.turnCount)
+println("toon koko:" +KotipsykiatriText.too.size)
+    for (i <- 0 until Turn.turnCount) {
       println("tallenna kansiossa")
-      pw.write(KotipsykiatriGui.bufferiin(i) +"\n")
-      if(i == alkuja.turnCount-1){
+      pw.write(KotipsykiatriText.commands(i) +"\n")
+      if(i == Turn.turnCount-1){
         println("vikaaa")
       }else{
-      pw.write(KotipsykiatriGui.too(i) +"\n")
+      pw.write(KotipsykiatriText.too(i) +"\n")
       }
     }
     pw.close()
 
-    //    println("mitä tiedostoon(oo):" + KotipsykiatriGui.tee)
+    //    println("mitä tiedostoon(oo):" +KotipsykiatriText.tee)
 
   }
 

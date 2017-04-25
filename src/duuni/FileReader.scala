@@ -8,7 +8,7 @@ import java.io.FileReader
 import duuni._
 
 import scala.collection.mutable.Buffer
-class tiedosto {
+class FileReader {
 	//var v = new vastaukset
 	//var m = new muutokset
   //val kysymykset = io.Source.fromFile("tekoaly.txt").getLines.toList

@@ -38,7 +38,7 @@ Doctor: I am just a doctor for you
 What do you think about that
 You should tell me more about
 If you think that you would be
-How is feels like?
+What would you think about that?
 
 
 
@@ -46,5 +46,10 @@ How is feels like?
 Doctor: What is on your mind
 
 Could you tell me your feel better
+
+tarinoita:
+When I was kid 
+also
+If I think my future, 
 
 

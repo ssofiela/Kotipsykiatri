@@ -34,8 +34,8 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
     // Access to the internal logic of the application: 
 
     // private val game = new Kysymykset
-    private val V = new vastaukset
-    private val T = new tiedosto
+    private val answers = new Answers
+    private val fileReader = new FileReader
     var gameOn = true
 
     var currentCommand = ""
@@ -121,7 +121,7 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
           this.locationInfo.text += newCommand
           println("newCommand locationissa" + newCommand)
         
-          val turnReport = alkuja.playTurn(currentCommand)
+          val turnReport = Turn.playTurn(currentCommand)
           
           this.locationInfo.text += turnReport
         } else {
@@ -133,9 +133,9 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
       val r = scala.util.Random
       var random =r.nextInt(2)
       if (random == 1) {
-        this.locationInfo.text += "Doctor:" + T.ask(24) + V.name + " " + T.ask(25) //(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
+        this.locationInfo.text += "Doctor:" + fileReader.ask(24) + answers.name + " " + fileReader.ask(25) //(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
       } else {
-        this.locationInfo.text += "Doctor: " + T.ask(26) + V.name + " " + T.ask(25)
+        this.locationInfo.text += "Doctor: " + fileReader.ask(26) + answers.name + " " + fileReader.ask(25)
       }
     }
     

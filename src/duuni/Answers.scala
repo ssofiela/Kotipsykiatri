@@ -9,18 +9,18 @@ import java.io.IOException
 import java.io.Reader
 import Gui._
 
-class vastaukset {
+class Answers {
   //  println("uusi vastaukset")
   var all = Buffer[String]() //tänne kerätään kaikki inputit
   var nameBuffer = Buffer[String]()
   var feelBuffer = Buffer[String]()
   // var t = new tiedosto
-  var m = new muutokset
-  var t = new tiedosto
+  var changes = new Changes
+  var fileReader = new FileReader
 
   def bufferiFirst: Buffer[String] = { //
     // bufferKaikki
-    val part = KotipsykiatriGui.bufferiin(0).split(" ")
+    val part = KotipsykiatriText.commands(0).split(" ")
     var answer = Buffer[String]()
     for (i <- 0 until part.size) {
       answer += part(i)
@@ -30,9 +30,9 @@ class vastaukset {
     //part
   }
 
-  def bufferiSecond: Buffer[String] = { // sit kun kaikki bufferiin saadaan kaikki inputit 0 paikalle ykköset!!!
+  def bufferiSecond: Buffer[String] = { // sit kun kaikki commands saadaan kaikki inputit 0 paikalle ykköset!!!
 
-    val input = KotipsykiatriGui.bufferiin(1).split(" ")
+    val input = KotipsykiatriText.commands(1).split(" ")
     //kaikki += inputti(0)
     var answer = Buffer[String]()
     for (i <- 0 until input.size) {
@@ -71,7 +71,7 @@ class vastaukset {
     println("all:" + all)
     if (string.contains("What is your name?") || string.contains("What´s your name?") || string.contains("what is your name?") || string.contains("Who are you?") || string.contains("who are you?")) {
 
-      myName = t.ask(36) + ":)"
+      myName = fileReader.ask(36) + ":)"
     }
     myName
   }
@@ -82,7 +82,7 @@ class vastaukset {
    */
   def idkB(s: Buffer[String]): Boolean = {
     var trueFalse = true
-    var t = m.point(s)
+    var t = changes.point(s)
     if (t(0).toLowerCase() == "i" && t(1) == "don't" && t(2) == "know") {
       trueFalse
     } else {
@@ -125,51 +125,50 @@ class vastaukset {
       }
     }
     println("common line: " + line)
-    var line2 = m.change(line)
+    var line2 = changes.change(line)
     var buffer = line2.split(" ")
     buffer.toBuffer
   }
-  
-  def ConjunctionB(b: Buffer[String]):Boolean = {
+
+  def ConjunctionB(b: Buffer[String]): Boolean = {
     var trueFalse = false
-    for(i <- b){
-      if(i == "that" || i == "which" || i == "what"){
+    for (i <- b) {
+      if (i == "that" || i == "which" || i == "what") {
         trueFalse = true
       }
     }
     trueFalse
   }
-  
-  def Conjunction(b: Buffer[String]):Buffer[String] = {
-     var line = ""
-     var split1 = b.mkString(" ").split("that")
-      var split2 = b.mkString(" ").split("which")
-       var split3 = b.mkString(" ").split("what")
-     if(split1.size == 2){
-       if(split1(0).size >=  split1(1).size){
+
+  def Conjunction(b: Buffer[String]): Buffer[String] = {
+    var line = ""
+    var split1 = b.mkString(" ").split("that")
+    var split2 = b.mkString(" ").split("which")
+    var split3 = b.mkString(" ").split("what")
+    if (split1.size == 2) {
+      if (split1(0).size >= split1(1).size) {
         line = split1(0)
-       } else {
+      } else {
         line = split1(1)
-       }
-     } else if(split2.size == 2){
-       if(split2(0).size >=  split2(1).size){
+      }
+    } else if (split2.size == 2) {
+      if (split2(0).size >= split2(1).size) {
         line = split2(0)
-       } else {
+      } else {
         line = split2(1)
-       }
-     } else if(split3.size == 2){
-       if(split3(0).size >=  split3(1).size){
+      }
+    } else if (split3.size == 2) {
+      if (split3(0).size >= split3(1).size) {
         line = split3(0)
-       } else {
+      } else {
         line = split3(1)
-       }
-     }
+      }
+    }
     // println(" tää on conjuktio:"+ line.split(" ").toBuffer )
-      var line2 = line.split(" ").toBuffer
-     println("twoPoints tä tää konjuktio: " + line2)
-   line2
+    var line2 = line.split(" ").toBuffer
+    println("twoPoints tä tää konjuktio: " + line2)
+    line2
   }
-  
 
   /*
    * tää on boolen metodi twoPoints metodille.
@@ -215,8 +214,8 @@ class vastaukset {
     }
     println("common line: " + line)
     var line2 = (line(0).split(" ").toBuffer)
-     println("twoPoints tä tää line2: " + line2)
-   line2
+    println("twoPoints tä tää line2: " + line2)
+    line2
   }
   /*
  * this long method is taking the name off the line.
@@ -230,14 +229,14 @@ class vastaukset {
     var nameIs = "anonyme"
     val buf1 = this.bufferiFirst
     var line = Buffer[String]()
-    line = m.exclamation(m.point(buf1))
+    line = changes.exclamation(changes.point(buf1))
 
     if (line.size == 1) {
-      if (KotipsykiatriGui.bufferiin(0) == "Hello" || KotipsykiatriGui.bufferiin(0) == "Hi" ||
-        KotipsykiatriGui.bufferiin(0) == "Hey" || KotipsykiatriGui.bufferiin(0) == "hello") {
+      if (KotipsykiatriText.commands(0) == "Hello" || KotipsykiatriText.commands(0) == "Hi" ||
+        KotipsykiatriText.commands(0) == "Hey" || KotipsykiatriText.commands(0) == "hello") {
         nameIs = "anonyme"
       } else {
-        nameIs = KotipsykiatriGui.bufferiin(0)
+        nameIs = KotipsykiatriText.commands(0)
       }
     } else if (line.size == 2) {
       if (line(0) == "it´s") {
@@ -329,15 +328,15 @@ class vastaukset {
    * otetaan huomioon uusimman inputin pisin lause, mutta poistetaan siitä mahdolliset thanks ja thank you kohdat.
    */
   def three = {
-    var buffer = KotipsykiatriGui.bufferiin(2)
+    var buffer = KotipsykiatriText.commands(2)
     var word = Buffer[String]() // tähän sana ilman pistettä
     if (this.commonB(buffer)) {
       word = this.common(buffer)
     } else if (this.twoPointsB(buffer)) {
       word = this.twoPoints(buffer)
     } else {
-      var buf = KotipsykiatriGui.bufferiin(2).split(" ").toBuffer
-      word = m.point(buf)
+      var buf = KotipsykiatriText.commands(2).split(" ").toBuffer
+      word = changes.point(buf)
     }
     if (word.size == 4) {
       if (word(3) == "thanks") {
@@ -355,7 +354,7 @@ class vastaukset {
         word = word.take(4)
       }
     }
-    var lastOne = m.change(word)
+    var lastOne = changes.change(word)
     //println(jee)
     lastOne
   }
@@ -407,8 +406,8 @@ class vastaukset {
    */
   def be(s: Buffer[String]): String = { //tätä voi suurentaa jos ehtii
     var word = Buffer[String]()
-    var b = m.point(s)
-    b = m.exclamation(b)
+    var b = changes.point(s)
+    b = changes.exclamation(b)
     if (b.size == 1) {
       word += b(0)
     } else if (b.size == 2) {
@@ -418,10 +417,10 @@ class vastaukset {
         word += b(1) + " " + b(2)
       } else if (b(1) == "a" || b(1) == "the") {
         word += b(2)
-      } else{
-         word += b(2)
+      } else {
+        word += b(2)
       }
-      
+
     } else if (b.size == 4) {
       if (b(0) == "a" || b(0) == "the" && b(1) == "little" || b(1) == "big" || b(1) == "beatifull" || b(1) == "old" || b(1) == "different") {
         word += b(1) + " " + b(2)
@@ -429,10 +428,10 @@ class vastaukset {
         word += b(2) + " " + b(3)
       } else if (b(2) == "a" || b(2) == "the") {
         word += b(3)
-      }else {
-         word += b(3)
+      } else {
+        word += b(3)
       }
-      
+
     } else if (b.size == 5) {
       if (b(2) == "a" || b(2) == "the" && b(3) == "little" || b(3) == "big" || b(3) == "beatifull" || b(3) == "old" || b(3) == "different") {
         word += b(3) + " " + b(4)
@@ -445,7 +444,7 @@ class vastaukset {
       var number = 0
       for (i <- 0 until b.size) {
         if (b(i) == "a" || b(i) == "the") {
-          println("i:" +i)
+          println("i:" + i)
           number = i
         }
         if (b(number + 1) == "little" || b(number + 1) == "big" || b(number + 1) == "beatifull" || b(number + 1) == "old" || b(number + 1) == "different") {
@@ -458,7 +457,7 @@ class vastaukset {
 
     }
 
-    println("(be)sana on:" + word)    //tos oli word(0)
+    println("(be)sana on:" + word) //tos oli word(0)
     word.last.mkString("")
   }
 
@@ -470,12 +469,12 @@ class vastaukset {
   def Five = {
     var line = ""
 
-    if (this.commonB(KotipsykiatriGui.bufferiin(4))) {
-      line = m.change(m.exclamation(m.point(this.common(KotipsykiatriGui.bufferiin(4)))))
-    } else if (this.twoPointsB(KotipsykiatriGui.bufferiin(4))) {
-      line = m.change(m.exclamation(m.point(this.twoPoints(KotipsykiatriGui.bufferiin(4)))))
+    if (this.commonB(KotipsykiatriText.commands(4))) {
+      line = changes.change(changes.exclamation(changes.point(this.common(KotipsykiatriText.commands(4)))))
+    } else if (this.twoPointsB(KotipsykiatriText.commands(4))) {
+      line = changes.change(changes.exclamation(changes.point(this.twoPoints(KotipsykiatriText.commands(4)))))
     } else {
-      line = m.change(m.exclamation(m.point(KotipsykiatriGui.bufferiin(4).split(" ").toBuffer)))
+      line = changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(4).split(" ").toBuffer)))
     }
     line
   }
@@ -486,28 +485,26 @@ class vastaukset {
   def feeling(s: Buffer[String]): String = { //heitä tähän jos seuraavana a tai the niin ei sitä!
 
     var line = Buffer[String]()
+    var someWords = Buffer[String]("a", "the")
 
     if (s.size < 3) {
       for (i <- s) {
         line += i
       }
     }
-    if (s.size == 3) {
-      if (s(1) == "is" || s(1) == "am")
-        line += "you are " + s.last
-    }
-    if (s.size == 4) {
-      if (s(1) == "is" || s(1) == "am") {
-        line += "you are " + s(3)
-      }
-    }
-    if (s.size >= 5) {
-      for (i <- 0 until s.size) {
-        if (s(i) == "am" || s(i) == "is") {
-          line += "you are " + s(i + 1)
-        }
 
+    for (i <- 0 until s.size) {
+      if (s(i) == "is" || s(i) == "am") {
+
+        for (u <- 0 until someWords.size) {
+          if (s(i + 1) == someWords(u)) {
+            return "you are " + s(i + 1) + " " + s(i + 2)
+          } else {
+            return "you are " + s(i + 1)
+          }
+        }
       }
+
     }
     println("line feeling metodiin" + line)
     line.mkString(" ")
@@ -524,115 +521,78 @@ class vastaukset {
 
     var line = Buffer[String]()
 
-    line = m.exclamation(m.point(b))
+    line = changes.exclamation(changes.point(b))
 
     var piece = ""
     if (line.size == 1) {
       piece = line(0)
-    } else if (line.size == 2) {
-      var lineNol = line(0).toLowerCase()
-      if (lineNol == "very" || lineNol == "really" || lineNol == "so" ||
-        lineNol == "pretty" || lineNol == "little" || lineNol == "not") {
-        piece = lineNol + " " + line(1)
-      } else {
-        for (i <- line.mkString(" ")) {
-          piece += i
-        }
-      }
 
-    } else if (line.size == 3) {
-      if (line(1) == "am") {
-        piece = line(2)
-      } else if (line(1) == "feel") {
-        println("tänne")
-        piece = line(2)
-      } else {
-        println("ei tänne")
-        for (i <- line.mkString(" ")) {
-          piece += i
-        }
-      }
-    } else if (line.size == 4) {
-      if (line(1) == "am" && (line(2) == "very" || line(2) == "really" || line(2) == "so" || line(2) == "not") ||
-        line(2) == "pretty" || line(2) == "little") {
-        piece = line(2) + " " + line(3)
-      } else if (line(1) == "feel" && (line(2) == "very" || line(2) == "really" ||
-        line(2) == "so" || line(2) == "pretty" || line(2) == "little" || line(2) == "not")) {
-        piece = line(2) + " " + line(3)
-      } else if (line(1) == "am" && line(2) == "feeling") {
-        piece = line(2) + " " + line(3)
-      } else if (line(1) == "am" && line(2) == "a" || line(2) == "the") {
-        piece = line(3)
-      } else if (line(1) == "am") {
-        piece = line(2)
-      } else if (line(2) == "am") {
-        piece = line(3)
-      } else if (line(1) == "feel") {
-        piece = line(2)
-      } else {
-        for (i <- line.mkString(" ")) {
-          piece += i
-        }
-      }
-    } else if (line.size == 5) {
-      if (line(1) == "am" && (line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
-        line(2) == "really" | line(2) == "so" || line(2) == "not")) {
-        piece = line(2) + " " + line(3)
-      } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" ||
-        line(3) == "really" || line(3) == "so" || line(3) == "pretty" || line(3) == "little" || line(3) == "not")) {
-        piece = line(2) + " " + line(3) + " " + line(4)
-      } else if (line(1) == "am" && line(2) == "feeling") {
-        piece = line(2) + " " + line(3)
-      } else if (line(1) == "am") {
-        piece = line(2)
-      } else if (line(2) == "am") {
-        piece = line(3)
-      } else if (line(2) == "am" && line(3) == "feeling") {
-        piece = line(3) + " " + line(4)
-      } else {
-        for (i <- line.mkString(" ")) {
-          piece += i
-        }
-      }
-    } else if (line.size == 6) {
-      if (line(1) == "am" && line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
-        line(2) == "really" | line(2) == "so" || line(2) == "not") {
-        piece = line(2) + " " + line(3)
-      } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" || line(3) == "really" ||
-        line(3) == "so" || line(3) == "little" || line(3) == "not")) {
-        piece = line(2) + " " + line(3) + " " + line(4)
-      } else if (line(1) == "am" && line(2) == "feeling") {
-        piece = line(2) + " " + line(3)
-      } else if (line(1) == "am") {
-        piece = line(2)
-      } else {
-        for (i <- line.mkString(" ")) {
-          piece += i
-        }
-      }
-    } else if (line.size == 7) {
-      if (line(1) == "am" && line(2) == "very" || line(2) == "pretty" || line(2) == "little" ||
-        line(2) == "really" | line(2) == "so" || line(2) == "not") {
-        piece = line(2) + " " + line(3)
-      } else if (line(1) == "am" && line(2) == "feeling" && (line(3) == "very" || line(3) == "really" ||
-        line(3) == "so" || line(3) == "little" || line(3) == "not")) {
-        piece = line(2) + " " + line(3) + " " + line(4)
-      } else if (line(1) == "am" && line(2) == "feeling") {
-        piece = line(2) + " " + line(3)
-      } else if (line(1) == "am") {
-        piece = line(2)
-      } else {
-        for (i <- line.mkString(" ")) {
-          piece += i
-        }
-      }
+  
     } else {
-      for (i <- line.mkString(" ")) {
-        piece += i
+      var verb = Buffer[String]("am", "is", "feel", "feels")
+      var littleWords = Buffer[String]("feeling", "very", "really", "so", "pretty", "little", "not")
+      //var end = ""
+
+      for (i <- 0 until line.size) {
+        if (line(i) == "am" || line(i) == "is" || line(i) == "feel" || line(i) == "feels") {
+
+          if (line(i + 1) == "feeling" || line(i + 1) == "so" || line(i + 1) == "very" || line(i + 1) == "really" || line(i + 1) == "pretty" || line(i + 1) == "little" || line(i + 1) == "not") {
+            if (line(i + 2) == "feeling" || line(i + 2) == "so" || line(i + 2) == "very" || line(i + 2) == "really" || line(i + 2) == "pretty" || line(i + 2) == "little" || line(i + 2) == "not") {
+
+              piece = line(i + 1) + " " + line(i + 2) + " " + line(i + 3)
+            } else {
+              println("jou")
+               piece = line(i + 1) + " " + line(i + 2) 
+            }
+          } else {
+            return line(i + 1)
+          }
+        } else {
+          piece == "insensitive"
+        }
+
       }
     }
-    this.feelBuffer += piece
+    feelBuffer += piece
     piece
+  }
+ 
+  
+
+  def feel2(b: Buffer[String]): String = { //toimi ainakin kerran!
+    var finalString: String = ""
+    var line = Buffer[String]()
+    var words = Buffer[String]("very", "really", "so", "little", "not", "like")
+    line = changes.exclamation(changes.point(b))
+    var number: Int = 0
+    for (i <- 0 until line.size) {
+      if (line(i) == "feel" || line(i) == "feels") {
+
+        for (u <- 0 until words.size) {
+          if (line(i + 1) == words(u)) {
+            return line(i + 1) + " " + line(i + 2)
+            println("finalString22" + finalString, number)
+          } else {
+            println("line i +1" + line(i + 1))
+            return line(i + 1)
+
+          }
+        }
+      }
+    }
+    //      } else {
+    //        var middleBuffer = Buffer[String]()
+    //
+    //        for (i <- line) {
+    //          middleBuffer += i
+    //
+    //        }
+    //        finalString = middleBuffer.mkString(" ")
+    //      }
+    //   }
+    println("finalString" + finalString)
+    this.feelBuffer += finalString
+    finalString
   }
 
   /*
@@ -642,8 +602,8 @@ class vastaukset {
     var trueFalse = false
     for (i <- 0 until b.size) {
       var lower = b(i).toLowerCase()
-      if (lower == "fuck" || lower =="fucking" || lower =="shit" || lower == "asshole" ||
-          lower =="bitch" || lower == "hell" || lower == "crab") {
+      if (lower == "fuck" || lower == "fucking" || lower == "shit" || lower == "asshole" ||
+        lower == "bitch" || lower == "hell" || lower == "crab") {
         trueFalse = true
       }
     }

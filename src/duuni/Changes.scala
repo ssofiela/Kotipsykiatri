@@ -10,14 +10,12 @@ class Changes {
  */
   def point(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
-
     if (b(b.length - 1).contains(".")) {
       val length2 = b(b.length - 1).length
       for (u <- 0 until b.size - 1) {
         line += b(u)
       }
       line += b(b.size - 1).substring(0, length2 - 1)
-
     } else {
       for (i <- 0 until b.size) {
         line += b(i)
@@ -30,14 +28,12 @@ class Changes {
  */
   def question(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
-
     if (b(b.length - 1).contains("?")) {
       val length2 = b(b.length - 1).length
       for (u <- 0 until b.size - 1) {
         line += b(u)
       }
       line += b(b.size - 1).substring(0, length2 - 1)
-      //println(line)
     } else {
       for (i <- 0 until b.size) {
         line += b(i)
@@ -51,14 +47,12 @@ class Changes {
    */
   def exclamation(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
-
     if (b(b.length - 1).contains("!")) {
       val length2 = b(b.length - 1).length
       for (u <- 0 until b.size - 1) {
         line += b(u)
       }
       line += b(b.size - 1).substring(0, length2 - 1)
-      //println(line)
     } else {
       for (i <- 0 until b.size) {
         line += b(i)
@@ -67,19 +61,7 @@ class Changes {
     line
   }
 
-  /* for(i <- 0 until kaikkiSanat.size){
-          if(kaikkiSanat(i)== "you"){
-            if(i == kaikkiSanat.size-1){
-              println("tästä tulee me")
-              kokoLause += "me"
-            } else {
-              println("tässä tulee i")
-              kokoLause += "i"
-            }
-          }
-          println("ei löydy")
-        }*/
-
+  
   /*
  * tällä metodilla muutetaan tekijät oikeiksi esimerkiksi "I am" -> "You are".
  */
@@ -91,12 +73,11 @@ class Changes {
       var words = kaikkiSanat.toLowerCase()
       if (words == "you") { //tää ei vaihtanu
         println("d" + words + sanat.last)
-        if (words == sanat.last) {  //jos vikana "you" -> "me" else "I"
+        if (words == sanat.last) { //jos vikana "you" -> "me" else "I"
           wholeLine += "me"
         } else {
           wholeLine += "I"
         }
-
       } else if (words == "i") {
         wholeLine += "you"
       } else if (words == "I") {
@@ -104,10 +85,10 @@ class Changes {
       } else if (words == "we") {
         wholeLine += "you"
       } else if (words == "are") {
-        if(wholeLine.contains("you")){  //jos käyttäjä sanoo "we are" -> "you are"
+        if (wholeLine.contains("you")) { //jos käyttäjä sanoo "we are" -> "you are"
           wholeLine += "are"
         } else {
-        wholeLine += "am"
+          wholeLine += "am"
         }
       } else if (words == "am") {
         wholeLine += "are"
@@ -119,7 +100,7 @@ class Changes {
         wholeLine += "your"
       } else if (words == "My") {
         wholeLine += "Your"
-      } else if (words == "Yours") {
+      } else if (words == "yours") {
         wholeLine += "mine"
       } else if (words == "mine") {
         wholeLine += "yours"
@@ -131,12 +112,9 @@ class Changes {
         wholeLine += "the"
       } else if (words == "here") {
         wholeLine += "there"
-      } else if (words == "there") {
-        wholeLine += "here"
       } else {
         wholeLine += words
       }
-
     }
     wholeLine.mkString(" ")
   }
@@ -160,6 +138,66 @@ class Changes {
     vastaus.mkString(" ")
   }
 
+  def imp(b: Buffer[String]): String = {
+    var buf = this.question(b)
+    println("sanat:" + buf)
+    var wholeLine = Buffer[String]()
+    for (allTheWords <- buf) {
+      var words = allTheWords.toLowerCase()
+      if (words == "are") { 
+        wholeLine += "were"
+      } else if (words == "am") {
+        wholeLine += "was"
+      } else if (words == "see") {
+        wholeLine += "saw"
+      } else if (words == "go") {
+        wholeLine += "went"
+      } else if (words == "do") {
+        wholeLine += "did"
+      } else if (words == "sleep") {
+        wholeLine += "slept"
+      } else if (words == "is") {
+        wholeLine += "was"
+      } else if (words == "feel") {
+        wholeLine += "felt"
+      } else {
+        wholeLine += words
+      }
+    }
+    println("mks: " + wholeLine.mkString(" "))
+    wholeLine.mkString(" ")
+  }
+
+  def pre(b: Buffer[String]): String = {
+    var buf = this.question(b)
+    println("sanat:" + buf)
+    var wholeLine = Buffer[String]()
+    for (allTheWords <- buf) {
+      var words = allTheWords.toLowerCase()
+      if (words == "were") { //tää ei vaihtanu
+        wholeLine += "are"
+      } else if (words == "was") {
+        wholeLine += "am"
+      } else if (words == "saw") {
+        wholeLine += "see"
+      } else if (words == "went") {
+        wholeLine += "go"
+      } else if (words == "did") {
+        wholeLine += "do"
+      } else if (words == "slept") {
+        wholeLine += "sleep"
+      } else if (words == "was") {
+        wholeLine += "is"
+      } else if (words == "felt") {
+        wholeLine += "feel"
+      } else {
+        wholeLine += words
+      }
+    }
+    println("mks: " + wholeLine.mkString(" "))
+    wholeLine.mkString(" ")
+  }
+
   /*
    * yes -metodin boolean. Ottaa pois pisteen/huutomerkin jos sellainen on.
    * Pienentää lowerCase() metodilla ja jos löytyy jokin noista sanoista return true ja muuten false
@@ -168,7 +206,6 @@ class Changes {
     var joo = true
     var t = this.point(b)
     t = this.exclamation(t)
-
     for (i <- 0 until t.size) {
       var s = t(i).toLowerCase()
       println("s:" + s)
@@ -180,32 +217,15 @@ class Changes {
         joo = false
       }
     }
-    println("yess boolean on:" + joo)
     joo
   }
 
-  /*
-   * jos löytyy kysymys.
-   */
-  /*def ?(b: Buffer[String]): String = {
-    var vastaus = Buffer[String]()
-    for (i <- b) {
-      i.toLowerCase()
-      if (i == "?") { 
-        vastaus += "Doctor: I am just asking the questions here!"
-
-      }
-    }
-    vastaus.mkString(" ")
-  }
-*/
   /*
    * tällä metodilla katsotaan, onko käyttäjän laittama inputti kysymys.
    * jos viimeisenä on kysymysmerkki, silloin se on kysymys.
    */
   def ??(b: Buffer[String]): Boolean = {
     var joo = true
-
     if (b(b.length - 1).contains("?")) {
       joo = true
     } else {
@@ -220,7 +240,6 @@ class Changes {
    */
   def !!(b: Buffer[String]): Boolean = {
     var joo = true
-
     if (b(b.length - 1).contains("!")) {
       joo = true
     } else {
@@ -235,9 +254,7 @@ class Changes {
   def !(b: Buffer[String]): String = {
     var vastaus = Buffer[String]()
     var without = this.exclamation(b)
-
     vastaus += "Why do you yell at me?"
-
     vastaus.mkString(" ")
   }
 

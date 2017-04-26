@@ -1,0 +1,15 @@
+Tue Apr 25 16:12:56 EEST 2017
+Doctor: Hello, What´s your name?
+d
+Doctor: Nice to meet you d! How are you feeling today?
+s
+Doctor: I understand that. What makes that you are s?
+d
+Doctor: What do you feel about that d?
+s
+Doctor: I see,d! Tell me more that you are s.
+d
+Doctor: Would you like to discuss more about that d, d. 
+s
+Doctor: Are you sure that d?
+File.txt

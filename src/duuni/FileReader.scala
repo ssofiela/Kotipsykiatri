@@ -9,24 +9,19 @@ import duuni._
 
 import scala.collection.mutable.Buffer
 class FileReader {
-	//var v = new vastaukset
-	//var m = new muutokset
-  //val kysymykset = io.Source.fromFile("tekoaly.txt").getLines.toList
-  //val reader = new FileReader("tekoaly.txt")
 
   var ask = Buffer[String]()
-  val fileName = "tekoaly.txt"
+  private val fileName = "tekoaly.txt"
   try {
 
     for (line <- Source.fromFile(fileName).getLines()) {
       ask += line
-      
+
     }
   } catch {
     case ex: Exception => println("FileNotFound")
 
   }
-
 
 }
   

@@ -5,16 +5,14 @@ import scala.collection.mutable.Buffer
 
 object KotipsykiatriText extends App {
 
- // private val K = new Kysymykset
-//  private val A = new alkuja
+  // private val K = new Kysymykset
+  //  private val A = new alkuja
   private val answers = new Answers
   private val fileReader = new FileReader
- 
-
-  var currentCommand = ""
+  private var currentCommand = ""
   var commands = Buffer[String]() // nyt tääl on kaikki
   //var tee = Buffer[String]()
-  var too=  Buffer[String]()
+  var saving = Buffer[String]()
 
   this.run()
 
@@ -26,26 +24,25 @@ object KotipsykiatriText extends App {
       println("bufferiin:" + commands)
       //Tarkasta, että käyttäjä kirjoitti jotain
       if (currentCommand.length > 0 && this.end(currentCommand)) {
-        
+
         commands += newCommand //tässä koska silloin tyhjiä ei lisätä bufferiin
-       
- 
+
         val turnReport = Turn.playTurn(currentCommand)
-        too += turnReport
-        
+        saving += turnReport
+
         println(turnReport)
-      } else if(this.end(currentCommand)){
+      } else if (this.end(currentCommand)) {
 
         println("Pls say something!")
 
       }
     }
     val r = scala.util.Random
-     var random =r.nextInt(2)
+    var random = r.nextInt(2)
     if (random == 1) {
       println("Doctor:" + fileReader.ask(24) + answers.name + " " + fileReader.ask(25)) //(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
     } else {
-    println("Doctor: " + fileReader.ask(26) + answers.name + " " + fileReader.ask(25))
+      println("Doctor: " + fileReader.ask(26) + answers.name + " " + fileReader.ask(25))
     }
   }
 

@@ -15,59 +15,57 @@ object Turn {
    * tärkeä tässä luokassa, siinä on numero, johon tohtorin puhe keskittyy sillä kerralla eli
    * mikä on esim KotipsykiatriText.commands(b).
    */
-  var b = 6
-  var numberOfAsk = 8
+  private var b = 6
+  private var numberOfAsk = 8
   /*
    * jos esiintyy "yes" tai "no", puheessa, random hyppää b niiden yli.
    */
-  var yesOrNo = Buffer[Int]()
-  var IsName = 0
+  private var yesOrNo = Buffer[Int]()
+  private var IsName = 0
   /*
    * jos esiintyy "I don't know" niin sitä ei käytetä enää tohtorin puheissa
    */
-  var ifIdk = Buffer[Int]()
-  var asks = Buffer[Int]()
+  private var ifIdk = Buffer[Int]()
+  private var asks = Buffer[Int]()
+  private var fileSaved = 0
 
   def playTurn(command: String): String = {
-    //tl.aa
+    /*
+ * turnCount kertoo monesko "kysymys" on menossa
+ */
     this.turnCount += 1
+
+    /*
+     * kun turnCount on 1, silloin playTurn metodi kutsuu name metodia
+     * ja liittää sen tekstiin, jos ei haluta tallentaa jo tässä välissä.
+     */
     if (turnCount == 1) {
-      "Doctor:" + fileReader.ask(2) + answers.name + "! " + fileReader.ask(31) + "?"
-
+      if (KotipsykiatriText.commands(turnCount - 1) == "File.txt") {
+        SaveData.saving
+        fileSaved = turnCount
+        "Save is complete"
+      } else {
+        "Doctor:" + fileReader.ask(2) + answers.name + "! " + fileReader.ask(31) + "?"
+      }
+      /*
+       * jos on piste niin ottaa ensimmäisen lauseen,
+       * muuten käyttää feel metodii, jolla selvitetään käyttäjän tunnetila.
+       */
     } else if (turnCount == 2) {
-      /* var line = ""
-      if (v.commonB(KotipsykiatriText.commands(turnCount - 1))) {
-         var split = KotipsykiatriText.commands(turnCount - 1).split(",")
-        for (i <- split(0).split(" ")) {
-          if (i == "am" || i == "is") {
-           line = "Doctor:" + t.ask(5) + "." + t.ask(32) + v.feel(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer.take(i.size)) + "?"
+      if (KotipsykiatriText.commands(turnCount - 1) == "File.txt") {
+        fileSaved = turnCount
+        SaveData.saving
+        "Save is complete"
 
-          } else {
-           line = "Doctor:" + t.ask(5) + "." + t.ask(32) + v.feel(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer.drop(i.size)) + "?"
-          }
-        }
-        line
-      } else if (v.twoPointsB(KotipsykiatriText.commands(turnCount - 1))) {
-        var split = KotipsykiatriText.commands(turnCount - 1).split(".")
-        for (i <- split(0).split(" ")) {
-          if (i == "am" || i == "is") {
-            println("jooei")
-           line = "Doctor:" + t.ask(5) + "." + t.ask(32) + v.feel(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer.take(i.size)) + "?"
-
-          } else {
-            println("joohmm")
-           line = "Doctor:" + t.ask(5) + "." + t.ask(32) + v.feel(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer.drop(i.size)) + "?"
-          }
-        }
-        line
-      } else {*/
-
-      if (answers.twoPointsB(KotipsykiatriText.commands(turnCount - 1))) {
-        var c = changes.point(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer).mkString(" ")
+        /*
+         * jos löytyy kaks pistettä, poistetaan lopun piste.
+         * splitataan pisteen pohdalta ja valitaan ensimmäinen lause.
+         */
+      } else if (answers.twoPointsB(KotipsykiatriText.commands(turnCount - 1))) {
+        var endPointOff = changes.point(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer).mkString(" ")
         var line = Buffer[String]()
-        var split = c.split('.')
+        var split = endPointOff.split('.')
         if (split.size == 2) {
-          println("split(0:)" + split(0))
           line += split(0)
         }
         var finalBuffer = line(0).split(" ").toBuffer
@@ -76,38 +74,31 @@ object Turn {
       } else {
         "Doctor:" + fileReader.ask(5) + "." + fileReader.ask(32) + answers.feel(changes.point(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + "?"
       }
+
     } else if (turnCount == 3) {
-      "Doctor:" + fileReader.ask(8) + " " + answers.three + "?"
+      if (KotipsykiatriText.commands(turnCount - 1) == "File.txt") {
+        SaveData.saving
+        "Save is complete"
+      } else {
+        var five = answers.Five
 
-    } else if (turnCount == 4) {
-      "Doctor:" + fileReader.ask(7) + answers.name + "!" + " " + fileReader.ask(33) + " you are " + answers.feelBuffer(0) + "."
+        var palauta = "Doctor:" + fileReader.ask(9) + " " + five + ", " + answers.name + ". "
+        println(answers.feel(KotipsykiatriText.commands(1).split(" ").toBuffer) + "<-")
+        for (i <- 0 until answers.feel(KotipsykiatriText.commands(1).split(" ").toBuffer).split(" ").size) {
+          var buf = answers.feel(KotipsykiatriText.commands(1).split(" ").toBuffer).split(" ")
 
-    } else if (turnCount == 5) { //meniköhän oikein?  tähän jos piste ja jos pilkku
-      var five = answers.Five
+          if (buf(i) == "fine" || buf(i) == "good" || buf(i) == "well" || buf(i) == "great" || buf(i) == "awesome" || buf(i) == "grateful" ||
+            buf(i) == "happy" || buf(i) == "proud") {
+            palauta = ("Doctor:" + fileReader.ask(19) + " " + answers.feel(KotipsykiatriText.commands(1).split(" ").toBuffer) + ".")
 
-      var palauta = "Doctor:" + fileReader.ask(9) + " " + five + ", " + answers.name + ". "
-      println(answers.feel(KotipsykiatriText.commands(1).split(" ").toBuffer) + "<-")
-      for (i <- 0 until answers.feel(KotipsykiatriText.commands(1).split(" ").toBuffer).split(" ").size) {
-        //println("tädää")
-        var buf = answers.feel(KotipsykiatriText.commands(1).split(" ").toBuffer).split(" ")
-
-        if (buf(i) == "fine" || buf(i) == "good" || buf(i) == "well" || buf(i) == "great" || buf(i) == "awesome" || buf(i) == "grateful" ||
-          buf(i) == "happy" || buf(i) == "proud") {
-
-          // println("jeeee")
-          palauta = ("Doctor:" + fileReader.ask(19) + " " + answers.feel(KotipsykiatriText.commands(1).split(" ").toBuffer) + ".")
-
-        } else if (buf(i) == "bad" || buf(i) == "okey" || buf(i) == "angry" || buf(i) == "shy" || buf(i) == "mad" || buf(i) == "disapponted" && buf(i - 1) != "not") {
-          palauta = "Dpctor: " + (fileReader.ask(20) + answers.feel(KotipsykiatriText.commands(1).split(" ").toBuffer) + " " + fileReader.ask(21) + ".")
-
+          } else if (buf(i) == "bad" || buf(i) == "okey" || buf(i) == "angry" || buf(i) == "shy" || buf(i) == "mad" || buf(i) == "disapponted" && buf(i - 1) != "not") {
+            palauta = "Dpctor: " + (fileReader.ask(20) + answers.feel(KotipsykiatriText.commands(1).split(" ").toBuffer) + " " + fileReader.ask(21) + ".")
+          }
         }
+        palauta
       }
-      palauta
 
-    } else if (turnCount == 6) {
-      "Doctor:" + fileReader.ask(11) + " " + answers.Five + "?"
-
-    } else if (turnCount > 6) { // mieti tarkasti Vaik randomilla edellisen input tai nykynen
+    } else if (turnCount >= 4) { // mieti tarkasti Vaik randomilla edellisen input tai nykynen
 
       /*katsoo että kysymysten alut ovat tekstissä indekseissä välillä 2-12
  * jos 12 niin silloin hyppää kakkoseen ja muuten randomilla valitaan alku
@@ -117,7 +108,7 @@ object Turn {
       } else {
         var r = scala.util.Random
         var random = r.nextInt(11)
-        numberOfAsk = random + 5 //täs oli 2
+        numberOfAsk = random + 5
       }
 
       /*
@@ -125,11 +116,11 @@ object Turn {
        */
       val r = scala.util.Random
       var num = r.nextInt(13)
-      if (num == 1 || num == 5 || num == 6 || num == 4) {
+      if (num == 1 || num == 5 || num == 6 || num == 4 || num == 8) {
         b += 1
       } else if (num == 2 || num == 9) {
         b += 2
-      } else if (num == 3 || num == 7 || num == 8) {
+      } else if (num == 3 || num == 7) {
         b -= 1
       } else {
         b = b
@@ -154,6 +145,10 @@ object Turn {
         }
       }
 
+      if (fileSaved == b) {
+        b = b + 1
+      }
+
       for (i <- 0 until asks.size) {
         while (b == asks(i)) {
           b = (i + 1)
@@ -165,54 +160,47 @@ object Turn {
         b = IsName + 1
       }
 
+      /*
+       * tää katsoo, että b eli randomilla valittu käyttäjän kommentti ei ole yli kaikkien määrää
+       */
       if (b > turnCount - 1) {
         b = turnCount - 1
       }
 
+      /*
+       * jos kirjoitetaan "File.txt" tallennetaan data File.txt kansioon.
+       */
       if (KotipsykiatriText.commands(turnCount - 1) == "File.txt") {
         SaveData.saving
-        "kansioon arkistoitu"
-        // println("b" + b)
-        //     
+        fileSaved = turnCount
+        "Save is complete"
 
         /*
        * kun vastauksena yes tai no, niin silloin vastaus valitaan randomilla parista, että mikä vastaus tulee.
        */
       } else if (changes.yess(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) {
-        /* if (b < 12) {
-          b = turnCount - 1
-        } else {
-          val r = scala.util.Random
-          var num = r.nextInt(10)
-          b = num + 5
-         
-        }*/
-        yesOrNo += turnCount - 1
-        println("yesOrNo" + yesOrNo)
-
-        var s = r.nextInt(8)
+        yesOrNo += turnCount - 1 // tää lisää turnCount -1 yesOrNo bufferiin jotta sitä vastausta ei käytettäis enää.
+        var s = r.nextInt(8) //valitaan randomilla kolmesta eri vaihtoehdosta
         if (s == 1 || s == 3 || s == 5 || s == 6 || s == 7) {
-          if (answers.commonB(KotipsykiatriText.commands(turnCount - 1))) { //jos löytyy pilkku TOIMIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-            //            println("rrrrrrrr")
-            if (numberOfAsk == 5 || numberOfAsk == 7) {
+          if (answers.commonB(KotipsykiatriText.commands(turnCount - 1))) { //jos lauseessa esiintyy ylimääräinen piste, lause pilkotaan.
+            if (numberOfAsk == 5 || numberOfAsk == 7) { //jos 5 tai 7 kysymys, silloin "." muuten "?"
               "Doctor: " + changes.yes(changes.exclamation(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "."
             } else {
               "Doctor: " + changes.yes(changes.exclamation(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "?"
             }
-          } else if (answers.twoPointsB(KotipsykiatriText.commands(turnCount - 1))) { //jos löytyy ylimääräinen piste TOIMIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-            //            println("tttttttt")
+          } else if (answers.twoPointsB(KotipsykiatriText.commands(turnCount - 1))) { //jos löytyy
             if (numberOfAsk == 5 || numberOfAsk == 7) {
-              "Doctor: " + changes.yes(changes.exclamation(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + fileReader.ask(numberOfAsk) + changes.change(changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) + "."
+              changes.yes(changes.exclamation(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + fileReader.ask(numberOfAsk) + changes.change(changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) + "."
             } else {
-              "Doctor:" + changes.yes(changes.exclamation(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + fileReader.ask(numberOfAsk) + changes.change(changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) + "?"
+              changes.yes(changes.exclamation(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + fileReader.ask(numberOfAsk) + changes.change(changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) + "?"
             }
           } else if (answers.ConjunctionB(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) {
             if (numberOfAsk == 5 || numberOfAsk == 7) {
               println("yes, 000000000000")
-              "Doctor: " + changes.yes(changes.exclamation(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + fileReader.ask(numberOfAsk) + (changes.change(changes.exclamation(answers.Conjunction(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))))) + "."
+              changes.yes(changes.exclamation(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + fileReader.ask(numberOfAsk) + (changes.change(changes.exclamation(answers.Conjunction(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))))) + "."
             } else {
               println("yes2, 0000000000")
-              "Doctor:" + changes.yes(changes.exclamation(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + fileReader.ask(numberOfAsk) + (changes.change(changes.exclamation(answers.Conjunction(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))))) + "?"
+              changes.yes(changes.exclamation(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) + fileReader.ask(numberOfAsk) + (changes.change(changes.exclamation(answers.Conjunction(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))))) + "?"
             }
           } else if (changes.yess(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) {
             println("ppppp, ei tänne jos ei yes tai no")
@@ -320,7 +308,7 @@ object Turn {
          * katsoo kiroileeko
          */
       } else if (answers.swear(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) {
-        "Doctor:" + " Shame your langueage!"
+        "Doctor: " + " Shame your langueage!"
 
       } else if (answers.sorry(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) {
         "Doctor: " + "Everything is fine!"
@@ -353,7 +341,7 @@ object Turn {
         asks += turnCount - 1
         println("asks bufferi:" + asks)
         if (answers.commonB(KotipsykiatriText.commands(turnCount - 1))) {
-          "Doctor:" + "I don't know but " + "what do you think that " + changes.change(changes.point(answers.common(KotipsykiatriText.commands(turnCount - 1)))) + "?"
+          "Doctor: " + "I don't know but " + "what do you think that " + changes.change(changes.point(answers.common(KotipsykiatriText.commands(turnCount - 1)))) + "?"
         } else if (answers.twoPointsB(KotipsykiatriText.commands(turnCount - 1))) {
           var line = Buffer[String]()
           var c = KotipsykiatriText.commands(turnCount - 1)
@@ -365,9 +353,9 @@ object Turn {
               line += split(1)
             }
           }
-          "Doctor:" + "I don't know but " + "what do you think that " + changes.change(changes.point(line)) + "?"
+          "Doctor: " + "I don't know but " + "what do you think that " + changes.change(changes.point(line)) + "?"
         } else {
-          "Doctor:" + "I don't know but " + "what do you think that " + changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer))) + "?"
+          "Doctor: " + "I don't know but " + "what do you think that " + changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer))) + "?"
         }
 
         /*
@@ -388,10 +376,10 @@ object Turn {
         if (answers.commonB(KotipsykiatriText.commands(turnCount - 1))) {
           if (numberOfAsk == 5 || numberOfAsk == 7) {
             println("11111")
-            "Doctor:" + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(turnCount - 1))))) + "."
+            "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(turnCount - 1))))) + "."
           } else {
             println("222222")
-            "Doctor:" + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(turnCount - 1))))) + "?"
+            "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(turnCount - 1))))) + "?"
           }
         }
         ifIdk += turnCount - 1
@@ -407,12 +395,12 @@ object Turn {
          * Jota ennen katotaan mihinkä lauseeseen sitä käytetään jos on monta lausetta
          */
       } else if (turnCount % 4 == 0 && !changes.change(answers.feel2(changes.exclamation(KotipsykiatriText.commands(b).split(" ").toBuffer)).split(" ").toBuffer).isEmpty()) {
-
+        println("kui tää on tyhjä??????????: " + !changes.change(answers.feel2(changes.exclamation(KotipsykiatriText.commands(b).split(" ").toBuffer)).split(" ").toBuffer).isEmpty())
         println("tään on turnCount%6 == 0 ")
         if (answers.commonB(KotipsykiatriText.commands(b))) {
           println("tään on turnCount%6 == 0 ja löytyy pilkku ")
           if (numberOfAsk == 5 || numberOfAsk == 7) {
-            "Doctor: " + fileReader.ask(numberOfAsk) + " " + ". You think a lot of about " + changes.change(answers.feel2(changes.exclamation(answers.common(KotipsykiatriText.commands(b)))).split(" ").toBuffer) + "."
+            "Doctor: " + fileReader.ask(numberOfAsk) + " " + answers.name + ". You think a lot of about " + changes.change(answers.feel2(changes.exclamation(answers.common(KotipsykiatriText.commands(b)))).split(" ").toBuffer) + "."
           } else {
             "Doctor: " + fileReader.ask(39) + " " + changes.change(answers.feel2(changes.exclamation(answers.common(KotipsykiatriText.commands(b)))).split(" ").toBuffer) + "." + fileReader.ask(40)
           }
@@ -420,7 +408,7 @@ object Turn {
         } else if (answers.twoPointsB(KotipsykiatriText.commands(b))) {
           if (numberOfAsk == 5 || numberOfAsk == 7) {
             println("turnCount%6, kaks pistettä, 5,7")
-            "Doctor: " + fileReader.ask(numberOfAsk) + " " + ". You think a lot of about " + changes.change(answers.feel2(changes.exclamation(answers.twoPoints(KotipsykiatriText.commands(b)))).split(" ").toBuffer) + "."
+            "Doctor: " + fileReader.ask(numberOfAsk) + " " + answers.name + ". You think a lot of about " + changes.change(answers.feel2(changes.exclamation(answers.twoPoints(KotipsykiatriText.commands(b)))).split(" ").toBuffer) + "."
           } else {
             println("turnCount%6, kaks pistettä")
             "Doctor: " + fileReader.ask(39) + " " + changes.change(answers.feel2(changes.exclamation(answers.twoPoints(KotipsykiatriText.commands(b)))).split(" ").toBuffer) + "." + fileReader.ask(40)
@@ -428,7 +416,7 @@ object Turn {
         } else if (answers.ConjunctionB(KotipsykiatriText.commands(b).split(" ").toBuffer)) {
           if (numberOfAsk == 5 || numberOfAsk == 7) {
             println("turnCount%6, kaks pistettä, 5,7 0000000000")
-            "Doctor: " + fileReader.ask(numberOfAsk) + " " + ". You think a lot of about " + (changes.change(answers.feel2(answers.Conjunction(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer)))).split(" ").toBuffer)) + "."
+            "Doctor: " + fileReader.ask(numberOfAsk) + " " + answers.name + ". You think a lot of about " + (changes.change(answers.feel2(answers.Conjunction(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer)))).split(" ").toBuffer)) + "."
           } else {
             println("turnCount%6, kaks pistettä 00000000")
             "Doctor: " + fileReader.ask(39) + " " + (changes.change(answers.feel2(answers.Conjunction(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer)))).split(" ").toBuffer)) + "." + fileReader.ask(40)
@@ -436,7 +424,7 @@ object Turn {
 
         } else if (numberOfAsk == 5 || numberOfAsk == 7) {
           println("tään on turnCount%6 == 0 ja ei löydy pilkkuu ")
-          "Doctor: " + fileReader.ask(numberOfAsk) + ". You think a lot of about " + changes.change(answers.feel2(changes.exclamation(KotipsykiatriText.commands(b).split(" ").toBuffer)).split(" ").toBuffer) + ". " + fileReader.ask(40)
+          "Doctor: " + fileReader.ask(numberOfAsk) + answers.name + ". You think a lot of about " + changes.change(answers.feel2(changes.exclamation(KotipsykiatriText.commands(b).split(" ").toBuffer)).split(" ").toBuffer) + ". " + fileReader.ask(40)
         } else {
           println("tään on turnCount%6 == 0 ja ei löydy pilkkuu")
           "Doctor: " + fileReader.ask(39) + " " + changes.change(answers.feel2(changes.exclamation(KotipsykiatriText.commands(b).split(" ").toBuffer)).split(" ").toBuffer) + ". " + fileReader.ask(40)
@@ -456,9 +444,9 @@ object Turn {
           if (answers.commonB(KotipsykiatriText.commands(b))) {
             println("turnCoun%4 ja löyty pilkku") //TOIMIIIIIIIIIIIIIIIIIIIIIII
             if (numberOfAsk == 5 || numberOfAsk == 7) {
-              "Doctor:" + fileReader.ask(38) + " " + answers.feeling(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "."
+              "Doctor: " + fileReader.ask(38) + " " + answers.feeling(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "."
             } else {
-              "Doctor:" + fileReader.ask(38) + " " + answers.feeling(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "?"
+              "Doctor: " + fileReader.ask(38) + " " + answers.feeling(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "?"
             }
           } else if (answers.twoPointsB(KotipsykiatriText.commands(b))) {
             if (numberOfAsk == 5 || numberOfAsk == 7) {
@@ -471,11 +459,11 @@ object Turn {
           } else {
             if (numberOfAsk == 5 || numberOfAsk == 7) {
               println("tään on turnCount%4 == 0 ja löytyyEI pilkku ")
-              "Doctor:" + fileReader.ask(37) + " " + answers.feeling(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "."
+              "Doctor: " + fileReader.ask(37) + " " + answers.feeling(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "."
 
             } else {
 
-              "Doctor:" + fileReader.ask(37) + " " + answers.feeling(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "?"
+              "Doctor: " + fileReader.ask(37) + " " + answers.feeling(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "?"
 
             }
           }
@@ -486,10 +474,10 @@ object Turn {
             println("turnCount%4 löyty pikku mutta ei ole am tai is")
             if (numberOfAsk == 5 || numberOfAsk == 7) {
               println("aaaaaaa")
-              "Doctor:" + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "."
+              "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "."
             } else {
               println("bbbbb")
-              "Doctor:" + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "?"
+              "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "?"
             }
           } else if (answers.twoPointsB(KotipsykiatriText.commands(b))) {
             if (numberOfAsk == 5 || numberOfAsk == 7) {
@@ -511,10 +499,10 @@ object Turn {
           } else {
             if (numberOfAsk == 5 || numberOfAsk == 7) {
               println("eeeeeeee")
-              "Doctor:" + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "."
+              "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "."
             } else {
               println("fffffff")
-              "Doctor:" + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "?"
+              "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "?"
             }
           }
         }
@@ -553,11 +541,11 @@ object Turn {
         } else if (answers.ConjunctionB(KotipsykiatriText.commands(b).split(" ").toBuffer)) {
           if (numberOfAsk == 5 || numberOfAsk == 7) {
             println("ggggggg0000000")
-            "Doctor: " + answers.name + ", " + fileReader.ask(numberOfAsk) + " " + answers.Conjunction(changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))).split("").toBuffer) + "."
+            "Doctor: " + answers.name + ", " + fileReader.ask(numberOfAsk) + " " + changes.change(answers.Conjunction(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer)))) + "."
             //  println("muutettu:" + m.change(m.point(KotipsykiatriText.commands(b).split(" ").toBuffer)))
           } else {
             println("hhhhhhh00000000")
-            "Doctor: " + answers.name + ", " + fileReader.ask(numberOfAsk) + " " + answers.Conjunction(changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))).split("").toBuffer) + "?"
+            "Doctor: " + answers.name + ", " + fileReader.ask(numberOfAsk) + " " + changes.change(answers.Conjunction(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer)))) + "?"
           }
 
         } else {
@@ -589,15 +577,15 @@ object Turn {
             println("iiiiiiii3")
             "Doctor: " + fileReader.ask(35) + " " + answers.be(answers.common(KotipsykiatriText.commands(turnCount - 1))) + "?"
           } else {
-            println("jjjjjjjjj3")
+            //            println("jjjjjjjjj3")
             "Doctor: " + fileReader.ask(34) + " " + answers.be(answers.common(KotipsykiatriText.commands(turnCount - 1))) + "?"
           }
         } else if (answers.twoPointsB(KotipsykiatriText.commands(turnCount - 1))) {
           if (num == 1) {
-            println("iiiiiiiii2")
+            //            println("iiiiiiiii2")
             "Doctor: " + fileReader.ask(35) + " " + answers.be(answers.twoPoints(KotipsykiatriText.commands(turnCount - 1))) + "?"
           } else {
-            println("jjjjjjjjj2")
+            //            println("jjjjjjjjj2")
             "Doctor: " + fileReader.ask(34) + " " + answers.be(answers.twoPoints(KotipsykiatriText.commands(turnCount - 1))) + "?"
           }
         } else if (answers.ConjunctionB(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)) {
@@ -610,10 +598,10 @@ object Turn {
           }
         } else {
           if (num == 1) {
-            println("iiiiiii")
+            //            println("iiiiiii")
             "Doctor: " + fileReader.ask(35) + " " + answers.be(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer) + "?"
           } else {
-            println("jjjjj")
+            //            println("jjjjj")
             "Doctor: " + fileReader.ask(34) + " " + answers.be(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer) + "?"
           }
         }
@@ -626,32 +614,43 @@ object Turn {
             println("tään on lopun elsessä ja löytyy pilkku ")
 
             println("kkkkk")
-            "Doctor:" + fileReader.ask(50) + (changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))).mkString(" ").toLowerCase() + " " + fileReader.ask(51) + ". What do you think about it?"
+            "Doctor: " + fileReader.ask(50) + changes.imp(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + " " + fileReader.ask(51) + ". What do you think about it?"
 
           } else if (answers.twoPointsB(KotipsykiatriText.commands(b))) {
 
             println("kaks pistettä, 5,712")
-            "Doctor: " + fileReader.ask(50) + (changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))).mkString(" ").toLowerCase() + " " + fileReader.ask(51) + ". What do you think about it?"
+            "Doctor: " + fileReader.ask(50) + changes.imp(changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) + " " + fileReader.ask(51) + ". What do you think about it?"
+
+          } else if (answers.ConjunctionB(KotipsykiatriText.commands(b).split(" ").toBuffer)) {
+            println("tään on lopun elsessä ja löytyy pilkku3 ")
+
+            "Doctor: " + fileReader.ask(50) + changes.imp(changes.exclamation(changes.point(answers.Conjunction(KotipsykiatriText.commands(b).split(" ").toBuffer)))) + " " + fileReader.ask(51) + ". What do you think about it?"
 
           } else {
             println("lopun else, ei pilkkua")
-            "Doctor:" + fileReader.ask(50) + (changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))).mkString(" ").toLowerCase() + " " + fileReader.ask(51) + ". What do you think about it?"
+            "Doctor: " + fileReader.ask(50) + changes.imp(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + " " + fileReader.ask(51) + ". What do you think about it?"
           }
+
         } else {
-          if (answers.commonB(KotipsykiatriText.commands(b))) {
+
+          if (answers.ConjunctionB(KotipsykiatriText.commands(b).split(" ").toBuffer)) {
             println("tään on lopun elsessä ja löytyy pilkku3 ")
 
-            println("kkkkk3")
-            "Doctor:" + fileReader.ask(52) + (changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))).mkString(" ").toLowerCase() + ". What do you think about it?"
+            "Doctor: " + fileReader.ask(52) + changes.pre(changes.exclamation(changes.point(answers.Conjunction(KotipsykiatriText.commands(b).split(" ").toBuffer)))) + ". What do you think about it?"
 
           } else if (answers.twoPointsB(KotipsykiatriText.commands(b))) {
 
-            println("kaks pistettä, 5,73")
-            "Doctor: " + fileReader.ask(52) + (changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))).mkString(" ").toLowerCase() + " " + ". What do you think about it?"
+            println("kaks pistettä, 5,712")
+            "Doctor: " + fileReader.ask(52) + changes.pre(changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) + ". What do you think about it?"
+          } else if (answers.commonB(KotipsykiatriText.commands(b))) {
+            //println("tään on lopun elsessä ja löytyy pilkku ")
+
+            println("kkkkk")
+            "Doctor: " + fileReader.ask(52) + changes.pre(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + ". What do you think about it?"
 
           } else {
             println("lopun else, ei pilkkua")
-            "Doctor:" + fileReader.ask(52) + (changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))).mkString(" ").toLowerCase() + ". What do you think about it?"
+            "Doctor: " + fileReader.ask(52) + changes.pre(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + ". What do you think about it?"
           }
         }
 
@@ -660,46 +659,47 @@ object Turn {
         if (answers.commonB(KotipsykiatriText.commands(b))) {
           println("tään on lopun elsessä ja löytyy pilkku ")
           if (numberOfAsk == 5 || numberOfAsk == 7) {
-            println("kkkkk")
-            "Doctor:" + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "."
+            //println("kkkkk")
+            "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "."
           } else {
-            println("llllllll") //    TOIMIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-            "Doctor:" + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "?"
+            //println("llllllll") //    TOIMIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+            "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.common(KotipsykiatriText.commands(b))))) + "?"
           }
 
         } else if (answers.twoPointsB(KotipsykiatriText.commands(b))) {
           if (numberOfAsk == 5 || numberOfAsk == 7) {
-            println("kaks pistettä, 5,7")
+            //println("kaks pistettä, 5,7")
             "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) + "."
           } else {
-            println("kaks pistettä" + changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) //TOIMIIIIIIIIIIIIIIIIIIIIIIIIIII  otin tästä pois välilyönnin
+            //println("kaks pistettä" + changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) //TOIMIIIIIIIIIIIIIIIIIIIIIIIIIII  otin tästä pois välilyönnin
             "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) + "?"
           }
-          /*} else if(v.ConjunctionB(KotipsykiatriText.commands(turnCount - 1).split(" ").toBuffer)){
-           if (numberOfAsk == 5 || numberOfAsk == 7) {
-            println("kaks pistettä, 5,7, 0000000000")
-            "Doctor: " + t.ask(numberOfAsk) + " " +m.change(v.Conjunction(m.exclamation(m.point(KotipsykiatriText.commands(b).split(" ").toBuffer)))) + "."
+        } else if (answers.ConjunctionB(KotipsykiatriText.commands(b).split(" ").toBuffer)) {
+          if (numberOfAsk == 5 || numberOfAsk == 7) {
+            //println("kaks pistettä, 5,7")
+            "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.Conjunction(KotipsykiatriText.commands(b).split(" ").toBuffer)))) + "."
           } else {
-            println("000000000, kaks pistettä")
-            "Doctor: " + t.ask(numberOfAsk) + " " +  m.change(v.Conjunction(m.exclamation(m.point(KotipsykiatriText.commands(b).split(" ").toBuffer)))) + "?"
-          }*/
+            // println("kaks pistettä" + changes.exclamation(changes.point(answers.twoPoints(KotipsykiatriText.commands(b))))) //TOIMIIIIIIIIIIIIIIIIIIIIIIIIIII  otin tästä pois välilyönnin
+            "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(answers.Conjunction(KotipsykiatriText.commands(b).split(" ").toBuffer)))) + "?"
+          }
+
         } else if (numberOfAsk == 5 || numberOfAsk == 7) {
-          println("tää on lopun elsessä ja ei löydy pilkkua")
-          "Doctor:" + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "."
+          //println("tää on lopun elsessä ja ei löydy pilkkua")
+          "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "."
 
         } else {
-          println("lopun else, ei pilkkua")
-          "Doctor:" + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "?"
+          //println("lopun else, ei pilkkua")
+          "Doctor: " + fileReader.ask(numberOfAsk) + " " + changes.change(changes.exclamation(changes.point(KotipsykiatriText.commands(b).split(" ").toBuffer))) + "?"
         }
       }
 
     } else {
-      "Doctor: I didn't understand you" 
+      "Doctor: I didn't understand you"
     }
 
   }
 
- // def player = "oma"
+  // def player = "oma"
 
 }
 

@@ -28,18 +28,18 @@ import scala.io.StdIn.readLine
 object KotipsykiatriFrame extends SimpleSwingApplication {
 
   UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName)
-
+  var commands = Buffer[String]() // nyt tääl on kaikki
+ var saving=  Buffer[String]()
+ var currentCommand = ""
+ private val answers = new Answers
+ private val fileReader = new FileReader
+ var gameOn = true
   def top = new MainFrame {
 
     // Access to the internal logic of the application: 
 
     // private val game = new Kysymykset
-    private val answers = new Answers
-    private val fileReader = new FileReader
-    var gameOn = true
 
-    var currentCommand = ""
-    var bufferiin = Buffer[String]() // nyt tääl on kaikki
     // Components: 
 
     val locationInfo = new TextArea(5, 40) { // oli 7, 80
@@ -63,7 +63,15 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
     this.reactions += {
       case keyEvent: KeyPressed =>
         if (keyEvent.source == this.input && keyEvent.key == Key.Enter && gameOn) {
-          this.updateInfo()
+          println("uojee")
+        	this.locationInfo.text += "Doctor: Hello, What´s your name?"
+        	this.turnCounter.text += "hehe"
+        	this.turnOutput.text += "keke"
+        	println("hrhr")
+        	while (loppunut2(currentCommand)) {
+        	Turn.playTurn(currentCommand)
+        	}
+          this.locationInfo.text += "loppu"
 
         }
         val command = this.input.text.trim
@@ -109,35 +117,40 @@ object KotipsykiatriFrame extends SimpleSwingApplication {
 
     def updateInfo() = {
       
-    	this.locationInfo.text += "Doctor: Hello, What´s your name?"
-      while (loppunut2(currentCommand)) {
+     // println("Doctor: Hello, What´s your name?")
+    while (loppunut2(currentCommand)) {
+      println("a")
+      val newCommand = readLine("Message: ")
+      println("b")
+      currentCommand = newCommand
+   println("v")
+      if (currentCommand.length > 0 && loppunut2(currentCommand)) {
+        println("c")
+        commands += newCommand //tässä koska silloin tyhjiä ei lisätä bufferiin
        
-        val newCommand = readLine("Message: ")
-        currentCommand = newCommand
-        //println("bufferiin:" + bufferiin)
-
-        if (currentCommand.length > 0) {
-          bufferiin += newCommand
-          this.locationInfo.text += newCommand
-          println("newCommand locationissa" + newCommand)
+ 
+        val turnReport = Turn.playTurn(currentCommand)
+        saving += turnReport
         
-          val turnReport = Turn.playTurn(currentCommand)
-          
-          this.locationInfo.text += turnReport
-        } else {
+        this.locationInfo.text += turnReport
+      } else if(loppunut2(currentCommand)){
 
-          this.locationInfo.text += "Pls say something!"
+        this.locationInfo.text += "Pls say something!"
 
-        }
-      }
-      val r = scala.util.Random
-      var random =r.nextInt(2)
-      if (random == 1) {
-        this.locationInfo.text += "Doctor:" + fileReader.ask(24) + answers.name + " " + fileReader.ask(25) //(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
-      } else {
-        this.locationInfo.text += "Doctor: " + fileReader.ask(26) + answers.name + " " + fileReader.ask(25)
       }
     }
+    val r = scala.util.Random
+     var random =r.nextInt(2)
+    if (random == 1) {
+     
+        this.locationInfo.text += "Doctor:" + fileReader.ask(24) + answers.name + " " + fileReader.ask(25) //(games.lopetus1) // voi laittaa randomilla valisemaan mikä lopetus
+    } else {
+    this.locationInfo.text +="Doctor: " + fileReader.ask(26) + answers.name + " " + fileReader.ask(25)
+    }
+  }
+
+      
+    
     
   }
   def loppunut2(s: String): Boolean = { 

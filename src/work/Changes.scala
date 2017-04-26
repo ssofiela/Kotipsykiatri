@@ -1,4 +1,4 @@
-package duuni
+package work
 
 import Gui._
 import scala.collection.mutable.Buffer
@@ -7,6 +7,7 @@ class Changes {
 
   /*
  * katsoo löytyykö viimeisenä piste. jos löytyy se otetaa pois.
+ * muuten ei tehdä mitään muutosta
  */
   def point(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
@@ -25,6 +26,7 @@ class Changes {
   }
   /*
  * jos käyttäjä on kysynyt kysymyksen, tällä otetaan lopun kysymysmerkki pois.
+ * jos ei löydy, ei tehdä mitään muutosta.
  */
   def question(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
@@ -44,6 +46,7 @@ class Changes {
 
   /*
    * jos käyttäjä on käyttänyt huutomerkkiä, tällä otetaan se pois.
+   * jos ei löydy, ei tehdä mitään muutosta.
    */
   def exclamation(b: Buffer[String]): Buffer[String] = {
     var line = Buffer[String]()
@@ -64,15 +67,14 @@ class Changes {
   
   /*
  * tällä metodilla muutetaan tekijät oikeiksi esimerkiksi "I am" -> "You are".
+ * palauttaa Stringin, jossan ovat yhetä paljon sanoja kuin alunperinkin.
  */
   def change(b: Buffer[String]): String = {
     var sanat = this.question(b)
-    println("sanat:" + sanat)
     var wholeLine = Buffer[String]()
     for (kaikkiSanat <- sanat) {
       var words = kaikkiSanat.toLowerCase()
       if (words == "you") { //tää ei vaihtanu
-        println("d" + words + sanat.last)
         if (words == sanat.last) { //jos vikana "you" -> "me" else "I"
           wholeLine += "me"
         } else {
@@ -138,9 +140,12 @@ class Changes {
     vastaus.mkString(" ")
   }
 
+  /*
+   * imp tarkoittaa imperfektiksi muuttamista, jos 
+   * verbi on preesenssissä
+   */
   def imp(b: Buffer[String]): String = {
     var buf = this.question(b)
-    println("sanat:" + buf)
     var wholeLine = Buffer[String]()
     for (allTheWords <- buf) {
       var words = allTheWords.toLowerCase()
@@ -152,6 +157,8 @@ class Changes {
         wholeLine += "saw"
       } else if (words == "go") {
         wholeLine += "went"
+        } else if (words == "have") {
+        wholeLine += "had"
       } else if (words == "do") {
         wholeLine += "did"
       } else if (words == "sleep") {
@@ -164,17 +171,18 @@ class Changes {
         wholeLine += words
       }
     }
-    println("mks: " + wholeLine.mkString(" "))
     wholeLine.mkString(" ")
   }
 
+  /*
+   * verbin muuttaminen preesenssiin, jos ovat imperfektissä.
+   */
   def pre(b: Buffer[String]): String = {
     var buf = this.question(b)
-    println("sanat:" + buf)
     var wholeLine = Buffer[String]()
     for (allTheWords <- buf) {
       var words = allTheWords.toLowerCase()
-      if (words == "were") { //tää ei vaihtanu
+      if (words == "were") { 
         wholeLine += "are"
       } else if (words == "was") {
         wholeLine += "am"
@@ -186,6 +194,8 @@ class Changes {
         wholeLine += "do"
       } else if (words == "slept") {
         wholeLine += "sleep"
+        } else if (words == "had") {
+        wholeLine += "have"
       } else if (words == "was") {
         wholeLine += "is"
       } else if (words == "felt") {
@@ -194,7 +204,6 @@ class Changes {
         wholeLine += words
       }
     }
-    println("mks: " + wholeLine.mkString(" "))
     wholeLine.mkString(" ")
   }
 
@@ -208,7 +217,6 @@ class Changes {
     t = this.exclamation(t)
     for (i <- 0 until t.size) {
       var s = t(i).toLowerCase()
-      println("s:" + s)
       if (s == "yes" || s == "Yes" || s == "Yep" || s == "Yeah" || s == "yep" || s == "yeah" || s == "ofc" || s == "Ofc") {
         return joo
       } else if (s == "no" || s == "No" || s == "nope" || s == "Nope") {

@@ -1,4 +1,4 @@
-package duuni
+package work
 
 //import java.io.BufferedReader
 import java.io.Reader
@@ -18,24 +18,15 @@ class Answers {
    private var changes = new Changes
    private var fileReader = new FileReader
 
+   /*
+    * tää bufferi ottaa commands bufferista ekan indekstin 
+    * ja splitaten sen uudeksi bufferiksi, jota käytetään nimi metodissa
+    */
   def bufferiFirst: Buffer[String] = { 
-  
     val part = KotipsykiatriText.commands(0).split(" ")
     var answer = Buffer[String]()
     for (i <- 0 until part.size) {
       answer += part(i)
-    }
-  
-    answer
-    
-  }
-
-  def bufferiSecond: Buffer[String] = { // sit kun kaikki commands saadaan kaikki inputit 0 paikalle ykköset!!!
-
-    val input = KotipsykiatriText.commands(1).split(" ")
-    var answer = Buffer[String]()
-    for (i <- 0 until input.size) {
-      answer += input(i)
     }
     answer
   }
@@ -108,6 +99,7 @@ class Answers {
  */
   def common(b: String): Buffer[String] = {
     var line = Buffer[String]()
+    var buffer= Buffer[String]()
     var split = b.split(", ")
     if (split.size == 2) {
       if (split(0).size > split(1).size) {
@@ -115,12 +107,23 @@ class Answers {
       } else {
         line += split(1)
       }
-    }
-    var line2 = changes.change(line)
-    var buffer = line2.split(" ")
-    buffer.toBuffer
+   
+      var line2 = changes.change(line)
+       buffer = line2.split(" ").toBuffer
+      
+    } else {
+      for(i <-b.split(" ")){
+        buffer += i
+      }
+        
+      }
+    
+    buffer
   }
-
+/*
+ * katsoo, jos lauseessa esiintyy jonkin seuraavista yleisistä konjuktioista,
+ * metodi palauttaa true.
+ */
   def ConjunctionB(b: Buffer[String]): Boolean = {
     var trueFalse = false
     for (i <- b) {
@@ -130,7 +133,10 @@ class Answers {
     }
     trueFalse
   }
-
+/*
+ * Konjuktio- metodi splittaa jonkun konjuktion kohdalta ja katsoo suuremman puolen,
+ * jos splitatun koko on 2. Paluttaen bufferina suuremman puolen.
+ */
   def Conjunction(b: Buffer[String]): Buffer[String] = {
     var line = ""
     var split1 = b.mkString(" ").split("that")
@@ -139,44 +145,55 @@ class Answers {
     var split4 = b.mkString(" ").split("but")
     var split5 = b.mkString(" ").split("and")
     var split6 = b.mkString(" ").split("because")
+    var line2 = Buffer[String]()
     if (split1.size == 2) {
       if (split1(0).size >= split1(1).size) {
         line = split1(0)
       } else {
         line = split1(1)
       }
+      line2 = line.split(" ").toBuffer
     } else if (split2.size == 2) {
       if (split2(0).size >= split2(1).size) {
         line = split2(0)
       } else {
         line = split2(1)
       }
+      line2 = line.split(" ").toBuffer
     } else if (split3.size == 2) {
       if (split3(0).size >= split3(1).size) {
         line = split3(0)
       } else {
         line = split3(1)
       }
+      line2 = line.split(" ").toBuffer
     } else if (split3.size == 2) {
       if (split4(0).size >= split4(1).size) {
         line = split4(0)
       } else {
         line = split4(1)
       }
+      line2 = line.split(" ").toBuffer
     } else if (split5.size == 2) {
       if (split5(0).size >= split5(1).size) {
         line = split5(0)
       } else {
         line = split5(1)
       }
+      line2 = line.split(" ").toBuffer
     } else if (split6.size == 2) {
       if (split6(0).size >= split6(1).size) {
         line = split6(0)
       } else {
         line = split6(1)
       }
+      line2 = line.split(" ").toBuffer
+    } else {
+      for(i <- b){
+        line2 += i
+      }
     }
-    var line2 = line.split(" ").toBuffer
+    
     line2
   }
 
@@ -189,7 +206,6 @@ class Answers {
     var line = Buffer[String]()
 
     var split = b.split('.')
-    println("split size:" + split.size)
     if (split.size >= 2) {
       trueFalse
     } else {
@@ -204,6 +220,7 @@ class Answers {
    */
   def twoPoints(b: String): Buffer[String] = {
     var line = Buffer[String]()
+     var line2 = Buffer[String]()
     var split = b.split('.')
     if (split.size == 2) {
       if (split(0).size > split(1).size) {
@@ -211,6 +228,7 @@ class Answers {
       } else {
         line += split(1)
       }
+      line2 = (line(0).split(" ").toBuffer)
     } else if (split.size == 3) {
       if (split(0).size > split(1).size && split(0).size > split(2).size) {
         line += split(0)
@@ -219,8 +237,12 @@ class Answers {
       } else {
         line += split(2)
       }
+      line2 = (line(0).split(" ").toBuffer)
+    } else {
+      for(i <- b.split(" ")){
+        line2 += i
+      }
     }
-    var line2 = (line(0).split(" ").toBuffer)
     line2
   }
   /*
@@ -231,7 +253,7 @@ class Answers {
  * the name method take just the first name if there is more names.
  */
   def name = {
-    //println("montako kertaa name metodiin")
+    //kaaksloo("montako kertaa name metodiin")
     var nameIs = "anonyme"
     val buf1 = this.bufferiFirst
     var line = Buffer[String]()
@@ -320,11 +342,9 @@ class Answers {
       } else if (line(3) == "is") {
         nameIs = line(4)
       }
-
     } else {
       nameIs = "anonyme"
     }
-   // nameBuffer += nameIs
     nameIs
   }
 
@@ -373,7 +393,6 @@ class Answers {
         trueFalse = true
       }
     }
-    println("(olla)totta on: " + trueFalse)
     trueFalse
   }
 
@@ -422,7 +441,6 @@ class Answers {
       var number = 0
       for (i <- 0 until b.size) {
         if (b(i) == "a" || b(i) == "the") {
-          println("i:" + i)
           number = i
         }
         if (b(number + 1) == "little" || b(number + 1) == "big" || b(number + 1) == "beatifull" || b(number + 1) == "old" || b(number + 1) == "different") {
@@ -432,7 +450,6 @@ class Answers {
         }
       }
     }
-    println("(be)sana on:" + word) //tos oli word(0)
     word.last.mkString("")
   }
 
@@ -456,25 +473,26 @@ class Answers {
   }
 
   /*
-   * tää metodi poimii jonkun sanan mitä käyttää tulevassa lauseessa
+   * tää metodi poimii jonkun sanan mitä käyttää tulevassa lauseessa, joka on "am" tai "is" verbien jälkeen.
+   * jos ei löydy, niin ei palauta mitään.
    */
-  def feeling(s: Buffer[String]): String = { //heitä tähän jos seuraavana a tai the niin ei sitä!
+  def feeling(s: Buffer[String]): String = { 
     var line = Buffer[String]()
     var someWords = Buffer[String]("a", "the")
     if (s.size < 3) {
       for (i <- s) {
         line += i
       }
-      line = changes.change(line).split(" ").toBuffer
+      line = changes.change(line).split(" ").toBuffer  //tehdään henkilöiden muutokset yms change metodilla
     } else {
-      for (i <- 0 until s.size) {
+      for (i <- 0 until s.size) {  //käydään läpi kaikki sanat ja katsotaan onko "am" tai "is"
         if (s(i) == "is" || s(i) == "am") {
-          if (s.size - 1 == i) {
+          if (s.size - 1 == i) {  //varmistetaan että inputti on tarpeeksi pitkä
             line += "you are"
           } else if (s.size - 1 == (i + 1)) {
             line += "you are " + s(i + 1)
           } else {
-            for (u <- 0 until someWords.size) {
+            for (u <- 0 until someWords.size) {  //tutkitaan onko someWords seuraavana sanana
               if (s(i + 1) == someWords(u)) {
                 return "you are " + s(i + 1) + " " + s(i + 2)
               } else {
@@ -491,9 +509,8 @@ class Answers {
 
   /*
    * this take the feel from the line.
-   * check size of the line just in case.
    * and return "feeling"-verb, and the whole feeling 
-   * what is reason that this is so long!
+   * for -loop check if some words is the next to "am", "is", "feel" or "feels".
    */
   def feel(b: Buffer[String]): String = {
     var line = Buffer[String]()
@@ -504,7 +521,7 @@ class Answers {
     } else if(line.size == 2){
       piece = line(0) + " " + line(1)
     } else {
-      for (i <- 0 until line.size) {
+      for (i <- 0 until line.size) {  //katsotaan että ekana löydetään joku verbi, sitten jos seuraavina löytysi jokin muu pieni sana
         if (line(i) == "am" || line(i) == "is" || line(i) == "feel" || line(i) == "feels") {
           if (line(i + 1) == "feeling" || line(i + 1) == "so" || line(i + 1) == "very" || line(i + 1) == "really" || 
               line(i + 1) == "pretty" || line(i + 1) == "little" || line(i + 1) == "not") {
@@ -522,10 +539,12 @@ class Answers {
         }
       }
     }
-    feelBuffer += piece
+    feelBuffer += piece  //feelBuffer on helppo käyttää tunnetta uudestaan ja uudestaan
     piece
   }
-
+/*
+ * samanlainen kuin feel metodi mutta tässä käydään läpi vain feel ja feels verbejä
+ */
   def feel2(b: Buffer[String]): String = { //toimi ainakin kerran!
     var finalString: String = ""
     var line = Buffer[String]()
@@ -549,16 +568,17 @@ class Answers {
         }
       }
     }
-    this.feelBuffer += finalString
     finalString
   }
 
   /*
-   * jos kiroilee
+   * jos kiroilee Boolean.
+   * Käydään läpi joitakin kirosanoja löytyykö virkkeestä.
    */
   def swear(b: Buffer[String]): Boolean = {
     var trueFalse = false
-    for (i <- 0 until b.size) {
+    var pointOff = changes.point(b)
+    for (i <- 0 until pointOff.size) {
       var lower = b(i).toLowerCase()
       if (lower == "fuck" || lower == "fucking" || lower == "shit" || lower == "asshole" ||
         lower == "bitch" || lower == "hell" || lower == "crap") {
@@ -569,7 +589,7 @@ class Answers {
   }
 
   /*
-   * jos pyytää anteeksi
+   * jos pyytää anteeksi Boolean.
    */
   def sorry(b: Buffer[String]): Boolean = {
     var trueFalse = false

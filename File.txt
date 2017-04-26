@@ -1,27 +1,63 @@
-Wed Apr 26 13:11:18 EEST 2017  
+Wed Apr 26 13:11:18 EEST 2017    
+Doctor: Hello, What´s your name?    
+f    
+Doctor: Nice to meet you f! How are you feeling today?    
+d    
+Doctor: I understand that. What makes that you are d?    
+f    
+Doctor: What do you feel about that f?    
+File.txtWed Apr 26 13:12:29 EEST 2017   
+Doctor: Hello, What´s your name?   
+d   
+Doctor: Nice to meet you d! How are you feeling today?   
+s   
+Doctor: I understand that. What makes that you are s?   
+d   
+Doctor: What do you feel about that d?   
+File.txtWed Apr 26 13:13:16 EEST 2017  
 Doctor: Hello, What´s your name?  
-f  
-Doctor: Nice to meet you f! How are you feeling today?  
 d  
-Doctor: I understand that. What makes that you are d?  
-f  
-Doctor: What do you feel about that f?  
-File.txtWed Apr 26 13:12:29 EEST 2017 
+Doctor: Nice to meet you d! How are you feeling today?  
+s  
+Doctor: I understand that. What makes that you are s?  
+d  
+Doctor: What do you feel about that d?  
+s  
+Doctor: I see,d! Tell me more that you are s.  
+File.txtWed Apr 26 19:17:06 EEST 2017 
 Doctor: Hello, What´s your name? 
-d 
-Doctor: Nice to meet you d! How are you feeling today? 
-s 
-Doctor: I understand that. What makes that you are s? 
-d 
-Doctor: What do you feel about that d? 
-File.txtWed Apr 26 13:13:16 EEST 2017
+Hi, my name is Pekka. 
+Doctor: Nice to meet you Pekka! How are you feeling today? 
+I am feeling very sad today. 
+Doctor: I understand that. What makes that you are feeling very sad? 
+My bike is broken. 
+Doctor: Would you like to discuss more about that your bike is broken, Pekka.  
+Yes. It would be very nice. 
+Doctor: If I think my future,  it would be very nice. What do you think about it? 
+I am happy for you. 
+Doctor: Pekka,  I understand that you are happy for me. 
+Yes I am. 
+Doctor:  Are you sure that yes you am.? 
+Yes. 
+Doctor:  Are you sure that yes.? 
+Yes. 
+Doctor: Doctor: Good to know! I know what are you feeling, what do you think about that you are feeling very sad today? 
+File.txtWed Apr 26 19:30:44 EEST 2017
 Doctor: Hello, What´s your name?
-d
-Doctor: Nice to meet you d! How are you feeling today?
-s
-Doctor: I understand that. What makes that you are s?
-d
-Doctor: What do you feel about that d?
-s
-Doctor: I see,d! Tell me more that you are s.
+I am Sofia.
+Doctor: Nice to meet you Sofia! How are you feeling today?
+I am good at the moment.
+Doctor: I understand that. What makes that you are good?
+Vappu is coming.
+Doctor:I am happy to hear that you are good.
+I have party every day.
+Doctor: If I think my future, i have party every day. What do you think about it?
+Your life will be very nice.
+Doctor: Sofia,  I understand that my life will be very nice.
+My life will be very nice too.
+Doctor:  Would you like to discuss more about that my life will be very nice?
+No. 
+Doctor: Doctor: I get it wrong then!  Would you like to discuss more about that no?
+I like to discuss my life more.
+Doctor: When I was kid my life will be very nice too also. What do you think about it?
 File.txt

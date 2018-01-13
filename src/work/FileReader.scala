@@ -5,7 +5,7 @@ import java.io.IOException
 import java.io.Reader
 import java.io.FileReader
 import scala.collection.mutable.Buffer
-import duuni._
+import work._
 
 class FileReader {
   /*

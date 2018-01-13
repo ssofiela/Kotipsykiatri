@@ -4,7 +4,7 @@ import java.io.IOException
 import java.io.Reader
 import java.io.FileReader
 import java.io._
-import duuni._
+import work._
 import Gui._
 import scala.collection.mutable.Buffer
 import java.util.Calendar

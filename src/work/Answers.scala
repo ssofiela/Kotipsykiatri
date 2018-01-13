@@ -10,19 +10,19 @@ import java.io.Reader
 import Gui._
 
 class Answers {
-  
- // var all = Buffer[String]() //tänne kerätään kaikki inputit
- // var nameBuffer = Buffer[String]()
-  var feelBuffer = Buffer[String]()
- 
-   private var changes = new Changes
-   private var fileReader = new FileReader
 
-   /*
+  // var all = Buffer[String]() //tänne kerätään kaikki inputit
+  // var nameBuffer = Buffer[String]()
+  var feelBuffer = Buffer[String]()
+
+  private var changes = new Changes
+  private var fileReader = new FileReader
+
+  /*
     * tää bufferi ottaa commands bufferista ekan indekstin 
     * ja splitaten sen uudeksi bufferiksi, jota käytetään nimi metodissa
     */
-  def bufferiFirst: Buffer[String] = { 
+  def bufferiFirst: Buffer[String] = {
     val part = KotipsykiatriText.commands(0).split(" ")
     var answer = Buffer[String]()
     for (i <- 0 until part.size) {
@@ -99,7 +99,7 @@ class Answers {
  */
   def common(b: String): Buffer[String] = {
     var line = Buffer[String]()
-    var buffer= Buffer[String]()
+    var buffer = Buffer[String]()
     var split = b.split(", ")
     if (split.size == 2) {
       if (split(0).size > split(1).size) {
@@ -107,20 +107,20 @@ class Answers {
       } else {
         line += split(1)
       }
-   
+
       var line2 = changes.change(line)
-       buffer = line2.split(" ").toBuffer
-      
+      buffer = line2.split(" ").toBuffer
+
     } else {
-      for(i <-b.split(" ")){
+      for (i <- b.split(" ")) {
         buffer += i
       }
-        
-      }
-    
+
+    }
+
     buffer
   }
-/*
+  /*
  * katsoo, jos lauseessa esiintyy jonkin seuraavista yleisistä konjuktioista,
  * metodi palauttaa true.
  */
@@ -133,7 +133,7 @@ class Answers {
     }
     trueFalse
   }
-/*
+  /*
  * Konjuktio- metodi splittaa jonkun konjuktion kohdalta ja katsoo suuremman puolen,
  * jos splitatun koko on 2. Paluttaen bufferina suuremman puolen.
  */
@@ -189,11 +189,11 @@ class Answers {
       }
       line2 = line.split(" ").toBuffer
     } else {
-      for(i <- b){
+      for (i <- b) {
         line2 += i
       }
     }
-    
+
     line2
   }
 
@@ -220,7 +220,7 @@ class Answers {
    */
   def twoPoints(b: String): Buffer[String] = {
     var line = Buffer[String]()
-     var line2 = Buffer[String]()
+    var line2 = Buffer[String]()
     var split = b.split('.')
     if (split.size == 2) {
       if (split(0).size > split(1).size) {
@@ -239,7 +239,7 @@ class Answers {
       }
       line2 = (line(0).split(" ").toBuffer)
     } else {
-      for(i <- b.split(" ")){
+      for (i <- b.split(" ")) {
         line2 += i
       }
     }
@@ -266,85 +266,15 @@ class Answers {
       } else {
         nameIs = KotipsykiatriText.commands(0)
       }
-    } else if (line.size == 2) {
-      if (line(0) == "it´s") {
-        nameIs = line(1)
-      } else if (line(0) == "It´s") {
-        nameIs = line(1)
-      }
-
-    } else if (line.size == 3) {
-      if (line(1) == "it´s") {
-        nameIs = line(2)
-      } else if (line(1) == "is") {
-        nameIs = line(2)
-      } else if (line(1) == "am") {
-        nameIs = line(2)
-      } else if (line(1) == "i'm") {
-        nameIs = line(2)
-      } else if (line(1) == "I'm") {
-        nameIs = line(2)
-      } else if (line(0) == "It's") {
-        nameIs = line(1)
-      } else if (line(1) == "it's") {
-        nameIs = line(2)
-      } else if (line(1) == "i'm") {
-        nameIs = line(2)
-      }
-
-    } else if (line.size == 4) {
-      if (line(2) == "is") {
-        nameIs = line(3)
-      } else if (line(2) == "am") {
-        nameIs = line(3)
-      } else if (line(1) == "am") {
-        nameIs = line(2)
-      } else if (line(2) == "is") {
-        nameIs = line(3)
-      }
-
-    } else if (line.size == 5) {
-      if (line(1) == "am") {
-        nameIs = line(2)
-      } else if (line(2) == "am") {
-        nameIs = line(3)
-      } else if (line(2) == "is") {
-        nameIs = line(3)
-      } else if (line(3) == "is") {
-        nameIs = line(4)
-      }
-
-    } else if (line.size == 6) {
-      if (line(1) == "am") {
-        nameIs = line(2)
-      } else if (line(2) == "am") {
-        nameIs = line(3)
-      } else if (line(2) == "is") {
-        nameIs = line(3)
-      } else if (line(3) == "is") {
-        nameIs = line(4)
-      }
-    } else if (line.size == 7) {
-      if (line(1) == "am") {
-        nameIs = line(2)
-      } else if (line(2) == "am") {
-        nameIs = line(3)
-      } else if (line(2) == "is") {
-        nameIs = line(3)
-      } else if (line(3) == "is") {
-        nameIs = line(4)
-      }
-    } else if (line.size == 8) {
-      if (line(1) == "am") {
-        nameIs = line(2)
-      } else if (line(2) == "am") {
-        nameIs = line(3)
-      } else if (line(3) == "is") {
-        nameIs = line(4)
-      }
-    } else {
-      nameIs = "anonyme"
     }
+    var wordIndex = 0
+    for (word <- line.to) {
+      if (word == "it's" || word == "It's" || word == "its" || word == "Its" || word == "is" || word == "i'm" || word == "I'm" || word == "am") {
+        nameIs = line(wordIndex + 1)
+      }
+      wordIndex += 1
+    }
+    if (nameIs == "") nameIs = "anonyme"
     nameIs
   }
 
@@ -382,7 +312,7 @@ class Answers {
     var lastOne = changes.change(word)
     lastOne
   }
-  
+
   /*
    * tää on be- metodille booleaan.
    */
@@ -460,7 +390,7 @@ class Answers {
    */
   def Five = {
     var line = ""
-    if (this.commonB(KotipsykiatriText.commands(2))) {// oli 4
+    if (this.commonB(KotipsykiatriText.commands(2))) { // oli 4
       line = changes.change(changes.exclamation(changes.point(this.common(KotipsykiatriText.commands(2)))))
     } else if (this.twoPointsB(KotipsykiatriText.commands(2))) {
       line = changes.change(changes.exclamation(changes.point(this.twoPoints(KotipsykiatriText.commands(2)))))
@@ -476,23 +406,23 @@ class Answers {
    * tää metodi poimii jonkun sanan mitä käyttää tulevassa lauseessa, joka on "am" tai "is" verbien jälkeen.
    * jos ei löydy, niin ei palauta mitään.
    */
-  def feeling(s: Buffer[String]): String = { 
+  def feeling(s: Buffer[String]): String = {
     var line = Buffer[String]()
     var someWords = Buffer[String]("a", "the")
     if (s.size < 3) {
       for (i <- s) {
         line += i
       }
-      line = changes.change(line).split(" ").toBuffer  //tehdään henkilöiden muutokset yms change metodilla
+      line = changes.change(line).split(" ").toBuffer //tehdään henkilöiden muutokset yms change metodilla
     } else {
-      for (i <- 0 until s.size) {  //käydään läpi kaikki sanat ja katsotaan onko "am" tai "is"
+      for (i <- 0 until s.size) { //käydään läpi kaikki sanat ja katsotaan onko "am" tai "is"
         if (s(i) == "is" || s(i) == "am") {
-          if (s.size - 1 == i) {  //varmistetaan että inputti on tarpeeksi pitkä
+          if (s.size - 1 == i) { //varmistetaan että inputti on tarpeeksi pitkä
             line += "you are"
           } else if (s.size - 1 == (i + 1)) {
             line += "you are " + s(i + 1)
           } else {
-            for (u <- 0 until someWords.size) {  //tutkitaan onko someWords seuraavana sanana
+            for (u <- 0 until someWords.size) { //tutkitaan onko someWords seuraavana sanana
               if (s(i + 1) == someWords(u)) {
                 return "you are " + s(i + 1) + " " + s(i + 2)
               } else {
@@ -518,15 +448,15 @@ class Answers {
     var piece = ""
     if (line.size == 1) {
       piece = line(0)
-    } else if(line.size == 2){
+    } else if (line.size == 2) {
       piece = line(0) + " " + line(1)
     } else {
-      for (i <- 0 until line.size) {  //katsotaan että ekana löydetään joku verbi, sitten jos seuraavina löytysi jokin muu pieni sana
+      for (i <- 0 until line.size) { //katsotaan että ekana löydetään joku verbi, sitten jos seuraavina löytysi jokin muu pieni sana
         if (line(i) == "am" || line(i) == "is" || line(i) == "feel" || line(i) == "feels") {
-          if (line(i + 1) == "feeling" || line(i + 1) == "so" || line(i + 1) == "very" || line(i + 1) == "really" || 
-              line(i + 1) == "pretty" || line(i + 1) == "little" || line(i + 1) == "not") {
-            if (line(i + 2) == "feeling" || line(i + 2) == "so" || line(i + 2) == "very" || line(i + 2) == "really" || 
-                line(i + 2) == "pretty" || line(i + 2) == "little" || line(i + 2) == "not") {
+          if (line(i + 1) == "feeling" || line(i + 1) == "so" || line(i + 1) == "very" || line(i + 1) == "really" ||
+            line(i + 1) == "pretty" || line(i + 1) == "little" || line(i + 1) == "not") {
+            if (line(i + 2) == "feeling" || line(i + 2) == "so" || line(i + 2) == "very" || line(i + 2) == "really" ||
+              line(i + 2) == "pretty" || line(i + 2) == "little" || line(i + 2) == "not") {
               piece = line(i + 1) + " " + line(i + 2) + " " + line(i + 3)
             } else {
               piece = line(i + 1) + " " + line(i + 2)
@@ -539,10 +469,10 @@ class Answers {
         }
       }
     }
-    feelBuffer += piece  //feelBuffer on helppo käyttää tunnetta uudestaan ja uudestaan
+    feelBuffer += piece //feelBuffer on helppo käyttää tunnetta uudestaan ja uudestaan
     piece
   }
-/*
+  /*
  * samanlainen kuin feel metodi mutta tässä käydään läpi vain feel ja feels verbejä
  */
   def feel2(b: Buffer[String]): String = { //toimi ainakin kerran!
